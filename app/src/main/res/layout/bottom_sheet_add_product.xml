@@ -43,7 +43,7 @@
             android:layout_marginTop="40dp"
             android:layout_marginHorizontal="@dimen/screen_margin"
             android:background="@drawable/bg_text_filed_outline"
-            android:hint="Cari Produk"
+            android:hint="@string/cari_produk"
             android:inputType="text"
             android:paddingHorizontal="12dp"
             app:layout_constraintTop_toBottomOf="@+id/product_image"
@@ -98,7 +98,7 @@
         <com.google.android.material.button.MaterialButton
             app:layout_constraintTop_toBottomOf="@+id/btnMinus"
             android:layout_width="match_parent"
-            android:text="Simpan"
+            android:text="@string/simpan"
             android:textColor="@color/white"
             android:backgroundTint="@color/orange50"
             android:layout_margin="@dimen/screen_margin"

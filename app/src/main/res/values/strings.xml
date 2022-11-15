@@ -6,7 +6,20 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-
+    <string name="masukkan_email_kamu_di_sini">Masukkan email kamu di sini</string>
+    <string name="masukkan_password_kamu_di_sini">Masukkan password kamu di sini</string>
+    <string name="masuk">Masuk</string>
+    <string name="blank_msg_kiosclass">Tambah Cek Stok</string>
+    <string name="cari_kios">Cari Kios</string>
+    <string name="kios">Kios</string>
+    <string name="tambah_produk">Tambah Produk</string>
+    <string name="ajukan_validasi">Ajukan Validasi</string>
+    <string name="produk">PRODUK</string>
+    <string name="status">STATUS</string>
+    <string name="home_screen_name">Cek Stok Hari Ini</string>
+    <string name="tambah_cek_stok_kios">Tambah Cek Stok Kios</string>
+    <string name="cari_produk">Cari Produk</string>
+    <string name="simpan">Simpan</string>
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
@@ -43,4 +56,5 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+
 </resources>

@@ -26,7 +26,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:title="Cek Stok Hari Ini" />
+                app:title="@string/home_screen_name" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -81,7 +81,7 @@
                     android:layout_marginBottom="@dimen/screen_margin"
                     android:insetTop="0dp"
                     android:insetBottom="0dp"
-                    android:text="Tambah Cek Stok Kios"
+                    android:text="@string/tambah_cek_stok_kios"
                     app:shapeAppearanceOverlay="?attr/shapeAppearanceCornerExtraSmall" />
 
             </FrameLayout>

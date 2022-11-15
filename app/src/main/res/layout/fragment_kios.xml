@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:navigationIcon="@drawable/ic_arrow"
-                app:title="Tambah Cek Stok" />
+                app:title="@string/blank_msg_kiosclass" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -65,7 +65,7 @@
                     android:layout_weight="1"
                     android:drawablePadding="10dp"
                     android:fontFamily="@font/inter_regular"
-                    android:text="Cari Kios"
+                    android:text="@string/cari_kios"
                     android:textAppearance="?attr/textAppearanceBodyMedium"
                     app:drawableStartCompat="@drawable/ic_home" />
 
@@ -74,7 +74,7 @@
                     android:layout_height="wrap_content"
                     android:drawablePadding="10dp"
                     android:fontFamily="@font/inter_bold"
-                    android:text="Kios"
+                    android:text="@string/kios"
                     android:textAllCaps="true"
                     android:textAppearance="?attr/textAppearanceTitleMedium"
                     app:drawableEndCompat="@drawable/ic_arrow_down" />
@@ -99,7 +99,7 @@
                 android:layout_width="200dp"
                 app:icon="@drawable/round_add_circle_outline_24"
                 app:shapeAppearanceOverlay="?attr/shapeAppearanceCornerExtraLarge"
-                android:text="Tambah Produk"
+                android:text="@string/tambah_produk"
                 android:layout_marginBottom="@dimen/screen_margin"
                 android:backgroundTint="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
@@ -125,7 +125,7 @@
                     android:layout_marginBottom="@dimen/screen_margin"
                     android:insetTop="0dp"
                     android:insetBottom="0dp"
-                    android:text="Ajukan Validasi"
+                    android:text="@string/ajukan_validasi"
                     app:shapeAppearanceOverlay="?attr/shapeAppearanceCornerExtraSmall" />
 
             </FrameLayout>
