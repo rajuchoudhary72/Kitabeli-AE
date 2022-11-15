@@ -1,0 +1,25 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Base.Theme.KitabeliAE" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <item name="colorPrimary">@color/orange60</item>
+        <item name="colorSecondary">@color/white</item>
+
+     //   <item name="editTextStyle">@style/Style.KitabeliAE.EditText</item>
+    </style>
+
+    <style name="Theme.KitabeliAE" parent="Base.Theme.KitabeliAE" />
+
+
+    <style name="Style.KitabeliAE.EditText" parent="">
+        <item name="android:textAppearance">@style/TextAppearanceOverlay.KitabeliAE.EditText</item>
+        <item name="background">@drawable/bg_text_filed</item>
+        <item name="android:gravity">center_vertical</item>
+
+    </style>
+
+    <style name="TextAppearanceOverlay.KitabeliAE.EditText" parent="">
+        <item name="android:textSize">16sp</item>
+        <item name="fontFamily">@font/inter_regular</item>
+    </style>
+</resources>
