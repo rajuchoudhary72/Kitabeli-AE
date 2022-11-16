@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.kitabeli.ae.R
-import com.kitabeli.ae.databinding.FragmentHomeBinding
 import com.kitabeli.ae.databinding.FragmentKiosBinding
 import com.kitabeli.ae.ui.addproduct.AddProductBottomSheet
 import com.rubensousa.decorator.LinearMarginDecoration
@@ -43,15 +42,24 @@ class KiosFragment : Fragment() {
         binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
 
         binding.recyclerViewKios.adapter = productAdapter
-        binding.recyclerViewKios.addItemDecoration(LinearMarginDecoration.create(margin = resources.getDimensionPixelOffset(
-            R.dimen.screen_margin)))
+        binding.recyclerViewKios.addItemDecoration(
+            LinearMarginDecoration.create(
+                margin = resources.getDimensionPixelOffset(
+                    R.dimen.screen_margin
+                )
+            )
+        )
 
         val list: List<Int> = (0..1).map { it }
 
         productAdapter.submitList(list)
 
         binding.floatingActionButton.setOnClickListener {
-            AddProductBottomSheet().show(childFragmentManager,"")
+            AddProductBottomSheet().show(childFragmentManager, "")
+        }
+
+        binding.btn.setOnClickListener {
+            findNavController().navigate(R.id.addCheckStockFragment)
         }
     }
 

@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="loginViewModel"
+            type="com.kitabeli.ae.ui.login.LoginViewModel" />
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#f5f5f5">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:fitsSystemWindows="true">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:navigationIcon="@drawable/ic_arrow"
+                app:title="@string/tambah_cek_stok" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/scrollView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="10dp"
+                android:fillViewport="true"
+                app:layout_constraintBottom_toTopOf="@id/bottom_view"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline_left"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_begin="@dimen/screen_margin" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline_right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_end="@dimen/screen_margin" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:background="@color/white"
+                        app:layout_constraintBottom_toBottomOf="@+id/message"
+                        app:layout_constraintTop_toTopOf="@+id/title" />
+
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/inter_semi_bold"
+                        android:paddingTop="@dimen/screen_margin"
+                        android:text="Title Lorem Ipsum"
+                        android:textAppearance="?attr/textAppearanceTitleLarge"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <TextView
+                        android:id="@+id/message"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/screen_margin"
+                        android:fontFamily="@font/inter_regular"
+                        android:paddingBottom="@dimen/screen_margin"
+                        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque dictum magna metus, sed luctus ex dictum non."
+                        android:textAlignment="center"
+                        android:textAppearance="?attr/textAppearanceBodyMedium"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:background="@color/white"
+                        app:layout_constraintBottom_toBottomOf="@+id/recycler_view"
+                        app:layout_constraintTop_toTopOf="@+id/layout_stock_item_header" />
+
+
+                    <include
+                        android:id="@+id/layout_stock_item_header"
+                        layout="@layout/layout_stock_item_header"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/screen_margin"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintTop_toBottomOf="@+id/message" />
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/screen_margin"
+                        android:layout_marginVertical="3dp"
+                        android:background="@color/white"
+                        android:nestedScrollingEnabled="true"
+                        android:orientation="vertical"
+                        android:paddingBottom="@dimen/screen_margin"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintTop_toBottomOf="@+id/layout_stock_item_header"
+                        tools:itemCount="5"
+                        tools:listitem="@layout/item_stock_product" />
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:background="@color/white"
+                        app:layout_constraintBottom_toBottomOf="@+id/mitra"
+                        app:layout_constraintTop_toTopOf="@+id/nominal_perlu_ditarik" />
+
+
+                    <TextView
+                        android:id="@+id/nominal_perlu_ditarik"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/screen_margin"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/inter_semi_bold"
+                        android:paddingVertical="@dimen/screen_margin"
+                        android:text="@string/nominal_perlu_ditarik"
+                        android:textAppearance="?attr/textAppearanceTitleMedium"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/recycler_view" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:src="@drawable/ic_info"
+                        app:layout_constraintBottom_toBottomOf="@+id/nominal_perlu_ditarik"
+                        app:layout_constraintStart_toEndOf="@+id/nominal_perlu_ditarik"
+                        app:layout_constraintTop_toTopOf="@+id/nominal_perlu_ditarik"
+                        tools:ignore="ContentDescription" />
+
+
+                    <TextView
+                        android:id="@+id/price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="@dimen/screen_margin"
+                        android:background="@drawable/bg_price"
+                        android:fontFamily="@font/inter_semi_bold"
+                        android:gravity="center"
+                        android:text="Rp 2.000.000"
+                        android:textAppearance="?attr/textAppearanceTitleMedium"
+                        app:layout_constraintBaseline_toBaselineOf="@+id/nominal_perlu_ditarik"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+
+                    <com.google.android.material.checkbox.MaterialCheckBox
+                        android:id="@+id/checkbox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/screen_margin"
+                        android:checked="true"
+                        android:fontFamily="@font/inter_regular"
+                        android:paddingStart="10dp"
+                        android:text="@string/dengan_ini_saya_menyatakan_sudah_menarik_dan_menerima_uang_sejumlah_di_atas_dari_kios_ini"
+                        android:textAppearance="?attr/textAppearanceBodyMedium"
+                        app:layout_constraintTop_toBottomOf="@+id/nominal_perlu_ditarik" />
+
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/sign_mitra"
+                        android:layout_width="0dp"
+                        android:layout_height="120dp"
+                        android:layout_marginTop="@dimen/screen_margin"
+                        android:layout_marginEnd="10dp"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="8dp"
+                        app:layout_constraintEnd_toStartOf="@+id/sign_ae"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="spread"
+                        app:layout_constraintStart_toStartOf="@id/guideline_left"
+                        app:layout_constraintTop_toBottomOf="@+id/checkbox"
+                        app:strokeColor="@color/grey"
+                        app:strokeWidth="1dp">
+
+                        <ImageView
+                            android:id="@+id/mirta_sign"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            tools:ignore="ContentDescription" />
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/sign_ae"
+                        android:layout_width="0dp"
+                        android:layout_height="120dp"
+                        android:layout_marginStart="10dp"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="8dp"
+                        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/sign_mitra"
+                        app:layout_constraintTop_toTopOf="@+id/sign_mitra"
+                        app:strokeColor="@color/grey"
+                        app:strokeWidth="1dp">
+
+                        <ImageView
+                            android:id="@+id/ae_sign"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            tools:ignore="ContentDescription" />
+
+
+                    </com.google.android.material.card.MaterialCardView>
+
+
+                    <TextView
+                        android:id="@+id/mitra"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/inter_regular"
+                        android:paddingVertical="@dimen/screen_margin"
+                        android:text="@string/mitra"
+                        android:textAppearance="?attr/textAppearanceBodyMedium"
+                        app:layout_constraintEnd_toEndOf="@+id/sign_mitra"
+                        app:layout_constraintStart_toStartOf="@+id/sign_mitra"
+                        app:layout_constraintTop_toBottomOf="@+id/sign_mitra" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter_regular"
+                        android:paddingVertical="@dimen/screen_margin"
+                        android:text="@string/ae_kitabeli"
+                        android:textAppearance="?attr/textAppearanceBodyMedium"
+                        app:layout_constraintEnd_toEndOf="@+id/sign_ae"
+                        app:layout_constraintStart_toStartOf="@+id/sign_ae"
+                        app:layout_constraintTop_toBottomOf="@+id/sign_ae" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.core.widget.NestedScrollView>
+
+
+            <FrameLayout
+                android:id="@+id/bottom_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/screen_margin"
+                    android:layout_marginBottom="@dimen/screen_margin"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/tambah_cek_stok_kios"
+                    app:shapeAppearanceOverlay="?attr/shapeAppearanceCornerExtraSmall" />
+
+            </FrameLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+</layout>

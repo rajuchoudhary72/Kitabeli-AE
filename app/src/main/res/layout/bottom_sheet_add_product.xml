@@ -7,103 +7,124 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:paddingBottom="40dp"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/ic_close"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/screen_margin"
-            android:padding="8dp"
-            android:background="?selectableItemBackgroundBorderless"
-            android:src="@drawable/round_close_24"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription" />
-
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/product_image"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_marginTop="48dp"
-            android:src="@drawable/placeholder_add_photo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-        <EditText
-            android:id="@+id/text_product_name"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginHorizontal="@dimen/screen_margin"
-            android:background="@drawable/bg_text_filed_outline"
-            android:hint="Cari Produk"
-            android:inputType="text"
-            android:paddingHorizontal="12dp"
-            app:layout_constraintTop_toBottomOf="@+id/product_image"
-            android:importantForAutofill="no" />
-
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnPlus"
-            style="?attr/materialIconButtonOutlinedStyle"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/screen_margin"
-            android:backgroundTint="@color/white"
-            app:elevation="6dp"
-            app:icon="@drawable/baseline_add_24"
-            app:iconTint="@color/black"
-            app:layout_constraintStart_toStartOf="@+id/text_product_name"
-            app:layout_constraintTop_toBottomOf="@+id/text_product_name"
-            app:shapeAppearanceOverlay="?attr/shapeAppearanceCornerExtraSmall" />
+            android:paddingBottom="40dp">
 
-        <EditText
-            android:id="@+id/text_product_quantity"
-            android:layout_width="0dp"
-            android:layout_height="45dp"
-            android:layout_margin="@dimen/screen_margin"
-            android:background="@drawable/bg_text_filed_outline"
-            android:hint="0"
-            android:inputType="number"
-            android:gravity="center"
-            android:paddingHorizontal="12dp"
-            app:layout_constraintBottom_toBottomOf="@+id/btnPlus"
-            app:layout_constraintEnd_toStartOf="@+id/btnMinus"
-            app:layout_constraintStart_toEndOf="@+id/btnPlus"
-            app:layout_constraintTop_toTopOf="@+id/btnPlus"
-            android:importantForAutofill="no" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnMinus"
-            style="?attr/materialIconButtonOutlinedStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/screen_margin"
-            android:backgroundTint="@color/white"
-            app:elevation="6dp"
-            app:icon="@drawable/baseline_horizontal_rule_24"
-            app:iconTint="@color/black"
-            app:layout_constraintEnd_toEndOf="@+id/text_product_name"
-            app:layout_constraintTop_toBottomOf="@+id/text_product_name"
-            app:shapeAppearanceOverlay="?attr/shapeAppearanceCornerExtraSmall" />
+            <ImageView
+                android:id="@+id/ic_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/screen_margin"
+                android:background="?selectableItemBackgroundBorderless"
+                android:padding="8dp"
+                android:src="@drawable/round_close_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
 
 
-        <com.google.android.material.button.MaterialButton
-            app:layout_constraintTop_toBottomOf="@+id/btnMinus"
-            android:layout_width="match_parent"
-            android:text="Simpan"
-            android:textColor="@color/white"
-            android:backgroundTint="@color/orange50"
-            android:layout_margin="@dimen/screen_margin"
-            app:shapeAppearanceOverlay="?attr/shapeAppearanceCornerSmall"
-            android:layout_height="wrap_content"/>
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/product_image"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginTop="48dp"
+                android:src="@drawable/placeholder_add_photo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_product_name"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/screen_margin"
+                android:layout_marginTop="40dp"
+                android:paddingStart="0dp"
+                android:paddingEnd="0dp"
+                app:layout_constraintTop_toBottomOf="@+id/product_image">
+
+                <AutoCompleteTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/cari_produk" />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnPlus"
+                style="?attr/materialIconButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                app:elevation="6dp"
+                app:icon="@drawable/baseline_add_24"
+                app:iconTint="@color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/text_product_quantity"
+                app:layout_constraintStart_toStartOf="@+id/text_product_name"
+                app:layout_constraintTop_toTopOf="@+id/text_product_quantity"
+                app:shapeAppearanceOverlay="?attr/shapeAppearanceCornerExtraLarge" />
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_product_quantity"
+                style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/screen_margin"
+                android:paddingStart="0dp"
+                android:paddingEnd="0dp"
+                app:layout_constraintEnd_toStartOf="@+id/btnMinus"
+                app:layout_constraintStart_toEndOf="@+id/btnPlus"
+                app:layout_constraintTop_toBottomOf="@+id/text_product_name">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="0" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnMinus"
+                style="?attr/materialIconButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                app:elevation="6dp"
+                app:icon="@drawable/baseline_horizontal_rule_24"
+                app:iconTint="@color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/text_product_quantity"
+                app:layout_constraintEnd_toEndOf="@+id/text_product_name"
+                app:layout_constraintTop_toTopOf="@+id/text_product_quantity"
+                app:shapeAppearanceOverlay="?attr/shapeAppearanceCornerExtraLarge" />
+
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/screen_margin"
+                android:backgroundTint="@color/orange50"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:text="@string/simpan"
+                android:textColor="@color/white"
+                app:layout_constraintTop_toBottomOf="@+id/text_product_quantity"
+                app:shapeAppearanceOverlay="?attr/shapeAppearanceCornerExtraSmall" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </RelativeLayout>
+
 </layout>

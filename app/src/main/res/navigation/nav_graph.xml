@@ -23,4 +23,22 @@
         android:label="KiosFragment"
         tools:layout="@layout/fragment_kios" />
 
+    <fragment
+        android:id="@+id/addCheckStockFragment"
+        android:name="com.kitabeli.ae.ui.addcheckStock.AddCheckStockFragment"
+        android:label="AddCheckStockFragment"
+        tools:layout="@layout/fragment_add_check_stock" />
+
+    <fragment
+        android:id="@+id/signatureFragment"
+        android:name="com.kitabeli.ae.ui.signature.SignatureFragment"
+        android:label="SignatureFragment"
+        tools:layout="@layout/fragment_signature" />
+
+    <fragment
+        android:id="@+id/photoViewFragment"
+        android:name="com.kitabeli.ae.ui.photoview.PhotoViewFragment"
+        android:label="PhotoViewFragment"
+        tools:layout="@layout/fragment_photo_view" />
+
 </navigation>

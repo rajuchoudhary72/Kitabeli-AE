@@ -5,7 +5,10 @@
         <item name="colorPrimary">@color/orange60</item>
         <item name="colorSecondary">@color/white</item>
 
-     //   <item name="editTextStyle">@style/Style.KitabeliAE.EditText</item>
+        <!-- <item name="editTextStyle">@style/Style.KitabeliAE.EditText</item>-->
+        <item name="materialButtonStyle">@style/Widget.KitabeliAE.MaterialButton</item>
+        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.YourApp.BottomSheetDialog</item>
+
     </style>
 
     <style name="Theme.KitabeliAE" parent="Base.Theme.KitabeliAE" />
@@ -21,5 +24,24 @@
     <style name="TextAppearanceOverlay.KitabeliAE.EditText" parent="">
         <item name="android:textSize">16sp</item>
         <item name="fontFamily">@font/inter_regular</item>
+    </style>
+
+    <style name="Widget.KitabeliAE.MaterialButton" parent="@style/Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="shapeAppearanceOverlay">?attr/shapeAppearanceCornerExtraSmall</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="strokeWidth">0dp</item>
+        <item name="backgroundTint">?attr/colorPrimary</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="fontFamily">@font/inter_semi_bold</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="ThemeOverlay.YourApp.BottomSheetDialog" parent="ThemeOverlay.MaterialComponents.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">
+            @style/Animation.MaterialComponents.BottomSheetDialog
+        </item>
+        <item name="bottomSheetStyle">@style/Widget.MaterialComponents.BottomSheet.Modal</item>
     </style>
 </resources>

@@ -2,16 +2,24 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <color name="orange60">#EC5D13</color>
     <color name="orange50">#FF5F0B</color>
+    <color name="orange10">#1AEC5D13</color>
     <color name="black">#1e1e1e</color>
     <color name="white">#FFFFFFFF</color>
 
 
     <color name="green" tools:ignore="MissingDefaultResource">#0DC836</color>
     <color name="blue">#0058D0</color>
+    <color name="dark_blue">#02357A</color>
     <color name="grey">#979797</color>
     <color name="red">#E53535</color>
     <color name="yellow">#FFD706</color>
 
 
+    <color name="green_10">#1A0DC836</color>
+    <color name="blue_10">#1A0058D0</color>
+    <color name="dark_blue_10">#1A02357A</color>
+    <color name="grey_10">#1A979797</color>
+    <color name="red_10">#1AE53535</color>
+    <color name="yellow_10">#1AFFD706</color>
 
 </resources>

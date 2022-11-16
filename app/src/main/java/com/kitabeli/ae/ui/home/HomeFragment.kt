@@ -18,7 +18,6 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
 
     private val homeViewModel: HomeViewModel by viewModels()
-
     private val binding get() = _binding!!
 
     @Inject
@@ -39,15 +38,24 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.recyclerViewKios.adapter = kiosAdapter
-        binding.recyclerViewKios.addItemDecoration(LinearMarginDecoration.create(margin = resources.getDimensionPixelOffset(
-            R.dimen.screen_margin)))
+        binding.recyclerViewKios.addItemDecoration(
+            LinearMarginDecoration.create(
+                margin = resources.getDimensionPixelOffset(
+                    R.dimen.screen_margin
+                )
+            )
+        )
 
         val list: List<Int> = (0..4).map { it }
 
         kiosAdapter.submitList(list)
 
         binding.btn.setOnClickListener {
-            findNavController().navigate(R.id.kiosFragment)
+            KiosCodeInputDialog()
+                .setCodeInputListener {
+                    findNavController().navigate(R.id.kiosFragment)
+                }
+                .show(childFragmentManager, "")
         }
     }
 

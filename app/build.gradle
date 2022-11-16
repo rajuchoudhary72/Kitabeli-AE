@@ -83,8 +83,17 @@ dependencies {
     /* Date store */
     implementation "androidx.datastore:datastore-preferences:1.0.0"
 
+    /* Recyclerview decorator */
     implementation 'com.rubensousa:decorator:2.0.0'
 
+    /* Signature */
+    implementation 'se.warting.signature:signature-view:0.0.21'
+
+    /* Pinview */
+    implementation 'com.github.aabhasr1:OtpView:v1.1.2-ktx'
+
+    /* photo view */
+    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
 
     /* testing */
     testImplementation 'junit:junit:4.13.2'
