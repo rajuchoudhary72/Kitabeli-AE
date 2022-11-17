@@ -2,6 +2,13 @@
     <string name="app_name">Kitabeli-AE</string>
     <string name="action_settings">Settings</string>
 
+    <string name="error_network">A network error has occurred. Please try again.</string>
+    <string name="error_no_internet_connection">Please check your internet connection. Please try again.</string>
+    <string name="error_server">A server error has occurred. Please try again.</string>
+    <string name="error_unknown">An unknown error has occurred. Please try again.</string>
+    <string name="error_auth">You do not have permissions to access the service.</string>
+
+
     <string name="cari_produk">Cari Produk</string>
     <string name="simpan">Simpan</string>
     <string name="cek_stok_hari_ini">Cek Stok Hari Ini</string>
