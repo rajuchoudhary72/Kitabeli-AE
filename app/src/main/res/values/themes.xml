@@ -26,11 +26,10 @@
         <item name="fontFamily">@font/inter_regular</item>
     </style>
 
-    <style name="Widget.KitabeliAE.MaterialButton" parent="@style/Widget.MaterialComponents.Button.OutlinedButton">
+    <style name="Widget.KitabeliAE.MaterialButton" parent="@style/Widget.MaterialComponents.Button">
         <item name="shapeAppearanceOverlay">?attr/shapeAppearanceCornerExtraSmall</item>
         <item name="android:insetBottom">0dp</item>
         <item name="strokeWidth">0dp</item>
-        <item name="backgroundTint">?attr/colorPrimary</item>
         <item name="android:textColor">?attr/colorOnPrimary</item>
         <item name="fontFamily">@font/inter_semi_bold</item>
         <item name="android:insetTop">0dp</item>
@@ -43,5 +42,10 @@
             @style/Animation.MaterialComponents.BottomSheetDialog
         </item>
         <item name="bottomSheetStyle">@style/Widget.MaterialComponents.BottomSheet.Modal</item>
+    </style>
+
+
+    <style name="ShapeAppearanceOverlay.KitabeliAE.CircularImageView" parent="">
+        <item name="cornerSize">50%</item>
     </style>
 </resources>

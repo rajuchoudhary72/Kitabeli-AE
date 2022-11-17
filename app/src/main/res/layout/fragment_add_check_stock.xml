@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="loginViewModel"
-            type="com.kitabeli.ae.ui.login.LoginViewModel" />
+            name="addCheckStockViewModel"
+            type="com.kitabeli.ae.ui.addcheckStock.AddCheckStockViewModel" />
 
     </data>
 
@@ -26,7 +26,6 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:navigationIcon="@drawable/ic_arrow"
                 app:title="@string/tambah_cek_stok" />
 
         </com.google.android.material.appbar.AppBarLayout>
@@ -187,7 +186,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/screen_margin"
-                        android:checked="true"
+                        android:checked="@={addCheckStockViewModel.tncAgree}"
                         android:fontFamily="@font/inter_regular"
                         android:paddingStart="10dp"
                         android:text="@string/dengan_ini_saya_menyatakan_sudah_menarik_dan_menerima_uang_sejumlah_di_atas_dari_kios_ini"
@@ -289,9 +288,10 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/screen_margin"
                     android:layout_marginBottom="@dimen/screen_margin"
+                    android:enabled="@{addCheckStockViewModel.enableButton}"
                     android:insetTop="0dp"
                     android:insetBottom="0dp"
-                    android:text="@string/tambah_cek_stok_kios"
+                    android:text="@string/minta_otp"
                     app:shapeAppearanceOverlay="?attr/shapeAppearanceCornerExtraSmall" />
 
             </FrameLayout>

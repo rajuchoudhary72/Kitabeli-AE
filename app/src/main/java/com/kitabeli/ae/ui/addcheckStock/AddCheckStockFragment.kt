@@ -40,6 +40,7 @@ class AddCheckStockFragment : Fragment() {
     ): View? {
         _binding = FragmentAddCheckStockBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
+            addCheckStockViewModel = viewModel
         }
         return binding.root
     }
@@ -78,6 +79,8 @@ class AddCheckStockFragment : Fragment() {
                                     100
                                 )
                             }
+
+                            //findNavController().navigate()
 
                         }
                         .show(childFragmentManager, "")

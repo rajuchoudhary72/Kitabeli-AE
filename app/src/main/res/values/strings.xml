@@ -31,4 +31,5 @@
     <string name="save_signature">Save Signature</string>
     <string name="belum">Belum</string>
     <string name="sudah_terima">Sudah terima</string>
+    <string name="minta_otp">Minta OTP</string>
 </resources>

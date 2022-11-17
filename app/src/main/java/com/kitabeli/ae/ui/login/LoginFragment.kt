@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.kitabeli.ae.R
 import com.kitabeli.ae.databinding.FragmentLoginBinding
 
 class LoginFragment : Fragment() {
@@ -33,7 +32,7 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnMasuk.setOnClickListener {
-            findNavController().navigate(R.id.homeFragment)
+            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
         }
 
     }
