@@ -4,6 +4,8 @@ import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFact
 import com.kitabeli.ae.BuildConfig
 import com.kitabeli.ae.data.remote.AuthTokenInterceptor
 import com.kitabeli.ae.data.remote.NetworkConnectionInterceptor
+import com.kitabeli.ae.data.remote.service.KiosService
+import com.kitabeli.ae.data.remote.service.UserService
 import com.kitabeli.ae.utils.retrofit.FlowCallAdapterFactory
 import dagger.Module
 import dagger.Provides
@@ -67,7 +69,7 @@ class NetworkModule {
 
         return Retrofit
             .Builder()
-            .baseUrl("")
+            .baseUrl(BuildConfig.BASE_PATH)
             .client(okHttpClient)
             .addCallAdapterFactory(FlowCallAdapterFactory.create())
             .addConverterFactory(
@@ -77,12 +79,20 @@ class NetworkModule {
     }
 
 
-    /* @Singleton
-     @Provides
-     fun provideAuthenticationService(
-       retrofit: Retrofit,
-     ): UserService {
-         return retrofit.create(UserService::class.java)
-     }*/
+    @Singleton
+    @Provides
+    fun provideUserService(
+        retrofit: Retrofit,
+    ): UserService {
+        return retrofit.create(UserService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideKiosService(
+        retrofit: Retrofit,
+    ): KiosService {
+        return retrofit.create(KiosService::class.java)
+    }
 
 }

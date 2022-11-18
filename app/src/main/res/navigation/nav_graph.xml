@@ -44,6 +44,10 @@
             app:popUpTo="@id/kiosFragment"
             app:popUpToInclusive="true" />
 
+        <argument
+            android:name="kios"
+            app:argType="com.kitabeli.ae.data.remote.dto.KiosDto" />
+
     </fragment>
 
     <fragment

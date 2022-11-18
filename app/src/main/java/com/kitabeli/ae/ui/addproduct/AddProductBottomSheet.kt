@@ -5,26 +5,36 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.fragment.app.DialogFragment
+import androidx.core.os.bundleOf
+import androidx.fragment.app.viewModels
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.github.dhaval2404.imagepicker.util.FileUriUtils
 import com.kitabeli.ae.R
 import com.kitabeli.ae.databinding.BottomSheetAddProductBinding
+import com.kitabeli.ae.ui.common.BaseDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 
 @AndroidEntryPoint
-class AddProductBottomSheet : DialogFragment(R.layout.bottom_sheet_add_product) {
+class AddProductBottomSheet :
+    BaseDialogFragment<AddProductViewModel>(R.layout.bottom_sheet_add_product) {
     private var _binding: BottomSheetAddProductBinding? = null
-
     private val binding get() = _binding!!
 
+    private val addProductViewModel: AddProductViewModel by viewModels()
+
+    private var productAddListener: (() -> Unit)? = null
+
+    fun setProductAddListener(listener: () -> Unit): AddProductBottomSheet {
+        productAddListener = listener
+        return this
+    }
 
     private val startForProfileImageResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            addProductViewModel.showLoading(false)
             val resultCode = result.resultCode
             val data = result.data
 
@@ -32,6 +42,7 @@ class AddProductBottomSheet : DialogFragment(R.layout.bottom_sheet_add_product) 
                 Activity.RESULT_OK -> {
                     val fileUri: Uri = data?.data!!
                     val file = File(FileUriUtils.getRealPath(requireContext(), fileUri)!!)
+                    addProductViewModel.uploadProductImage(file)
                     binding.productImage.setImageURI(fileUri)
                 }
 
@@ -45,15 +56,18 @@ class AddProductBottomSheet : DialogFragment(R.layout.bottom_sheet_add_product) 
             }
         }
 
-    private fun showMessage(error: String) {
-        Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
+    override fun getViewModel(): AddProductViewModel {
+        return addProductViewModel
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         dialog?.window?.setBackgroundDrawableResource(R.drawable.bg_dialog)
         super.onViewCreated(view, savedInstanceState)
-        _binding = BottomSheetAddProductBinding.bind(view)
+        _binding = BottomSheetAddProductBinding.bind(view).apply {
+            lifecycleOwner = viewLifecycleOwner
+            addProductViewModel = getViewModel()
+        }
 
         binding.icClose.setOnClickListener { dismiss() }
 
@@ -65,6 +79,16 @@ class AddProductBottomSheet : DialogFragment(R.layout.bottom_sheet_add_product) 
         val adapter = ArrayAdapter(requireContext(), R.layout.list_item, items)
         binding.products.setAdapter(adapter)
 
+
+        binding.btnAdd.setOnClickListener {
+            if (addProductViewModel.photoProof.value.isNullOrBlank())
+                showMessage("Please capture product photo")
+            addProductViewModel.addProduct {
+                showMessage("Added successfully.")
+                dismiss()
+            }
+        }
+
     }
 
     private fun pickProductImage() {
@@ -73,6 +97,7 @@ class AddProductBottomSheet : DialogFragment(R.layout.bottom_sheet_add_product) 
             .crop()
             .compress(1024)
             .createIntent { intent ->
+                addProductViewModel.showLoading(true)
                 startForProfileImageResult.launch(intent)
             }
     }
@@ -81,5 +106,16 @@ class AddProductBottomSheet : DialogFragment(R.layout.bottom_sheet_add_product) 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+
+    companion object {
+
+        const val STOCK_OP_NAME_ID = "stockOpNameId"
+        fun getInstance(stockOpNameId: Int): AddProductBottomSheet {
+            return AddProductBottomSheet().apply {
+                arguments = bundleOf(STOCK_OP_NAME_ID to stockOpNameId)
+            }
+        }
     }
 }

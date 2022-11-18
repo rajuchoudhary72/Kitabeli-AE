@@ -4,17 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.kitabeli.ae.R
+import com.kitabeli.ae.data.remote.dto.KiosDto
 import com.kitabeli.ae.databinding.FragmentHomeBinding
+import com.kitabeli.ae.ui.common.BaseFragment
 import com.rubensousa.decorator.LinearMarginDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
+class HomeFragment : BaseFragment<HomeViewModel>() {
     private var _binding: FragmentHomeBinding? = null
 
     private val homeViewModel: HomeViewModel by viewModels()
@@ -31,6 +32,10 @@ class HomeFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
         }
         return binding.root
+    }
+
+    override fun getViewModel(): HomeViewModel {
+        return homeViewModel
     }
 
 
@@ -53,7 +58,13 @@ class HomeFragment : Fragment() {
         binding.btn.setOnClickListener {
             KiosCodeInputDialog()
                 .setCodeInputListener {
-                    findNavController().navigate(R.id.kiosFragment)
+                    homeViewModel.initializeStock(it) { kios: KiosDto ->
+                        findNavController().navigate(
+                            HomeFragmentDirections.actionHomeFragmentToKiosFragment(
+                                kios
+                            )
+                        )
+                    }
                 }
                 .show(childFragmentManager, "")
         }

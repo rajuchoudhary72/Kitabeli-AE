@@ -7,7 +7,6 @@ import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.provider.Settings.Secure
-import android.util.Patterns
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
@@ -77,8 +76,6 @@ fun Activity.showSoftInput() {
  * Used to Hide Keyboard
  */
 fun Fragment.hideSoftInput() = requireActivity().hideSoftInput()
-
-fun String.isValidEmail() = Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
 @SuppressLint("HardwareIds")
 fun Context.getDeviceId(): String {

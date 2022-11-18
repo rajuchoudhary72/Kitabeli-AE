@@ -1,6 +1,5 @@
 package com.kitabeli.ae.data.remote
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.net.ConnectivityManager
 import com.kitabeli.ae.data.remote.exception.NetworkNotConnectedException
@@ -22,12 +21,11 @@ class NetworkConnectionInterceptor @Inject constructor(
         }
 
         val builder: Request.Builder = chain.request().newBuilder()
-        val response = chain.proceed(builder.build())
 
-        return response
+        return chain.proceed(builder.build())
     }
 
-    @SuppressLint("MissingPermission")
+
     private fun isConnected(): Boolean {
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

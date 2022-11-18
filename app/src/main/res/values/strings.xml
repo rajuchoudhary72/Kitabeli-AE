@@ -9,6 +9,10 @@
     <string name="error_auth">You do not have permissions to access the service.</string>
 
 
+    <string name="email_validation_message">Please enter a valid email address.</string>
+    <string name="password_validation_message">Please enter password.</string>
+
+
     <string name="cari_produk">Cari Produk</string>
     <string name="simpan">Simpan</string>
     <string name="cek_stok_hari_ini">Cek Stok Hari Ini</string>

@@ -55,7 +55,12 @@ class KiosFragment : Fragment() {
         productAdapter.submitList(list)
 
         binding.floatingActionButton.setOnClickListener {
-            AddProductBottomSheet().show(childFragmentManager, "")
+            AddProductBottomSheet
+                .getInstance(kiosViewModel.kios?.stockOpnameId!!)
+                .setProductAddListener {
+
+                }
+                .show(childFragmentManager, "")
         }
 
         binding.btn.setOnClickListener {

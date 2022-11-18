@@ -23,14 +23,13 @@ class AuthTokenInterceptor @Inject constructor(
         requestBuilder.addHeader("accept", "application/json")
 
 
-        if (chain.request().url.host.contains("amazonaws").not())
-            runBlocking {
-                sessionManager.fetchAuthToken()
-            }?.let { authToken ->
-                if (BuildConfig.DEBUG)
-                    Log.e(TAG, "Token: $authToken")
-                requestBuilder.addHeader("Authorization", "Bearer $authToken")
-            }
+        runBlocking {
+            sessionManager.fetchAuthToken()
+        }?.let { authToken ->
+            if (BuildConfig.DEBUG)
+                Log.e(TAG, "Token: $authToken")
+            requestBuilder.addHeader("Authorization", "Bearer $authToken")
+        }
 
         return chain.proceed(requestBuilder.build())
     }
