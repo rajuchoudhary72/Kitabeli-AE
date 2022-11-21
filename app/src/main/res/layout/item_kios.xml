@@ -26,19 +26,21 @@
                 tools:ignore="ContentDescription" />
 
             <TextView
+                android:id="@+id/text_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/screen_margin"
                 android:layout_weight="1"
                 android:fontFamily="@font/inter_semi_bold"
-                android:text="Kios 1"
+                tools:text="Kios 1"
                 android:textAppearance="?attr/textAppearanceTitleMedium" />
 
             <TextView
+                android:id="@+id/text_data"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_light"
-                android:text="18 Jan 2022"
+                tools:text="18 Jan 2022"
                 android:textAppearance="?attr/textAppearanceCaption" />
 
         </LinearLayout>

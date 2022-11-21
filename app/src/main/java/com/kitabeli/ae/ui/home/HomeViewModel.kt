@@ -1,5 +1,6 @@
 package com.kitabeli.ae.ui.home
 
+import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.kitabeli.ae.data.remote.dto.KiosDto
 import com.kitabeli.ae.model.repository.KiosRepository
@@ -18,6 +19,15 @@ class HomeViewModel @Inject constructor(
 ) : BaseViewModel() {
 
 
+    private val _kiosData = liveData {
+        kiosRepository
+            .getKiosData()
+            .flowOn(Dispatchers.IO)
+            .toLoadingState()
+            .collectLatest { emit(it) }
+    }
+    val kiosData = _kiosData
+
     fun initializeStock(kiosCode: String, func: (KiosDto) -> Unit) {
         viewModelScope.launch {
             kiosRepository
@@ -31,5 +41,9 @@ class HomeViewModel @Inject constructor(
                     }
                 }
         }
+    }
+
+    fun retry() {
+
     }
 }

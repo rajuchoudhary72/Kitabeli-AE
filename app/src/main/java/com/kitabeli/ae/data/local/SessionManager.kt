@@ -8,4 +8,5 @@ interface SessionManager {
     suspend fun createSession(loginResponseDto: LoginResponseDto)
     suspend fun fetchAuthToken(): String?
     fun isUserSessionAvailable(): Flow<Boolean>
+    fun getAeId(): Flow<Int>
 }

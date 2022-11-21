@@ -25,10 +25,7 @@
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_kiosFragment"
-            app:destination="@id/kiosFragment"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/homeFragment"
-            app:popUpToInclusive="true" />
+            app:destination="@id/kiosFragment" />
     </fragment>
 
     <fragment
@@ -39,14 +36,11 @@
 
         <action
             android:id="@+id/action_kiosFragment_to_addCheckStockFragment"
-            app:destination="@id/addCheckStockFragment"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/kiosFragment"
-            app:popUpToInclusive="true" />
+            app:destination="@id/addCheckStockFragment" />
 
         <argument
-            android:name="kios"
-            app:argType="com.kitabeli.ae.data.remote.dto.KiosDto" />
+            android:name="stockOpNameId"
+            app:argType="integer" />
 
     </fragment>
 
@@ -58,10 +52,11 @@
 
         <action
             android:id="@+id/action_addCheckStockFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/addCheckStockFragment"
-            app:popUpToInclusive="true" />
+            app:destination="@id/homeFragment" />
+
+        <argument
+            android:name="stockOpNameId"
+            app:argType="integer" />
 
     </fragment>
 

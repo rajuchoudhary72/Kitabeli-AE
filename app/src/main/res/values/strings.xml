@@ -43,4 +43,8 @@
     <string name="belum">Belum</string>
     <string name="sudah_terima">Sudah terima</string>
     <string name="minta_otp">Minta OTP</string>
+    <string name="dokumen_cek_stok_barang">DOKUMEN CEK STOK BARANG</string>
+    <string name="legal_conent">Dengan ditandatanganinya Hasil Pemeriksaan ini, mitra telah mengetahui dan menyetujui hasil pemeriksaan. Dalam hal terdapat perbedaan antara data penjualan dengan data hasil pemeriksaan, Mitra wajib melakukan pembayaran ganti rugi sesuai data hasil selisih tersebut</string>
+    <string name="ohh">Ohh…</string>
+    <string name="retry">Retry</string>
 </resources>

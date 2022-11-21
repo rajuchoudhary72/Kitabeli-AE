@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
@@ -50,6 +51,17 @@ class AddCheckStockFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.recyclerView.adapter = kiosAdapter
+
+
+        viewLifecycleOwner.lifecycleScope.launch {
+
+            viewModel
+                .uiState
+                .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)
+                .collectLatest {
+
+                }
+        }
 
         val list: List<Int> = (0..7).map { it }
 

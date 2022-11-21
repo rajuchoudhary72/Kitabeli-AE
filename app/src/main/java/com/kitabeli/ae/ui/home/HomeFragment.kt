@@ -30,6 +30,7 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
+            viewModel = homeViewModel
         }
         return binding.root
     }
@@ -50,26 +51,34 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
                 )
             )
         )
+        kiosAdapter.onClickItem = { kios ->
+            navigateToKios(kios.stockOpnameId!!)
+        }
 
-        val list: List<Int> = (0..4).map { it }
-
-        kiosAdapter.submitList(list)
+        homeViewModel.kiosData.observe(viewLifecycleOwner) { data ->
+            data.getValueOrNull()?.items?.let {
+                kiosAdapter.submitList(it)
+            }
+        }
 
         binding.btn.setOnClickListener {
             KiosCodeInputDialog()
                 .setCodeInputListener {
                     homeViewModel.initializeStock(it) { kios: KiosDto ->
-                        findNavController().navigate(
-                            HomeFragmentDirections.actionHomeFragmentToKiosFragment(
-                                kios
-                            )
-                        )
+                        navigateToKios(kios.stockOpnameId!!)
                     }
                 }
                 .show(childFragmentManager, "")
         }
     }
 
+    private fun navigateToKios(stockOpnameId: Int) {
+        findNavController().navigate(
+            HomeFragmentDirections.actionHomeFragmentToKiosFragment(
+                stockOpnameId
+            )
+        )
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

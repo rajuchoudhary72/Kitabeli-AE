@@ -29,6 +29,7 @@
         <ImageView
             android:id="@+id/img_info_cek_stok_terakhir"
             android:layout_width="wrap_content"
+            android:visibility="gone"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:background="?attr/selectableItemBackgroundBorderless"
@@ -41,6 +42,7 @@
 
 
         <ImageView
+            android:visibility="gone"
             android:id="@+id/img_info_top_up"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

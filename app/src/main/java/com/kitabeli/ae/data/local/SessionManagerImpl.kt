@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.kitabeli.ae.data.remote.dto.LoginResponseDto
@@ -26,6 +27,7 @@ class SessionManagerImpl @Inject constructor(
             userSession[AUTH_TOKEN] = loginResponseDto.jwtToken
             userSession[EMAIL] = loginResponseDto.email
             userSession[PHONE] = loginResponseDto.email
+            userSession[AE_ID] = loginResponseDto.aeId
         }
     }
 
@@ -42,9 +44,15 @@ class SessionManagerImpl @Inject constructor(
         }
     }
 
+    override fun getAeId(): Flow<Int> {
+        return context.dataStore.data.map { userSession ->
+            userSession[AE_ID]!!
+        }
+    }
+
 
     companion object {
-        val USER_ID = stringPreferencesKey("user_id")
+        val AE_ID = intPreferencesKey("ae_id")
         val FULL_NAME = stringPreferencesKey("full_name")
         val PHONE = stringPreferencesKey("phone")
         val EMAIL = stringPreferencesKey("email")

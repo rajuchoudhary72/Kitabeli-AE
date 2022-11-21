@@ -2,13 +2,20 @@ package com.kitabeli.ae.data
 
 import android.content.Context
 import androidx.core.net.toUri
+import com.kitabeli.ae.data.local.SessionManager
 import com.kitabeli.ae.data.remote.dto.AddStockProductRequestDto
+import com.kitabeli.ae.data.remote.dto.GenerateReportRequestDto
 import com.kitabeli.ae.data.remote.dto.InitializeStockRequestDto
+import com.kitabeli.ae.data.remote.dto.KiosData
+import com.kitabeli.ae.data.remote.dto.KiosDetail
 import com.kitabeli.ae.data.remote.dto.KiosDto
+import com.kitabeli.ae.data.remote.dto.Report
+import com.kitabeli.ae.data.remote.dto.SkuDTO
 import com.kitabeli.ae.data.remote.service.KiosService
 import com.kitabeli.ae.model.repository.KiosRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -20,6 +27,7 @@ import javax.inject.Inject
 class KiosRepositoryImpl @Inject constructor(
     @ApplicationContext val context: Context,
     private val kiosService: KiosService,
+    private val sessionManager: SessionManager
 ) : KiosRepository {
 
     override fun initializeStock(kiosCode: String): Flow<KiosDto> {
@@ -30,7 +38,7 @@ class KiosRepositoryImpl @Inject constructor(
                     aeId = "5"
                 )
             )
-            .map { it.payload }
+            .map { it.payload!! }
     }
 
     override fun addStockProduct(
@@ -50,7 +58,7 @@ class KiosRepositoryImpl @Inject constructor(
                     stockCount = stockCount
                 )
             )
-            .map { it.payload }
+            .map { it.payload!! }
     }
 
     override fun uploadProductImage(stockOpNameId: Int, file: File): Flow<String> {
@@ -68,6 +76,26 @@ class KiosRepositoryImpl @Inject constructor(
         return kiosService.uploadProductImage(
             stockOpNameId = stockOpNameId.toString().toRequestBody(MultipartBody.FORM),
             file = filePart
-        ).map { it.payload }
+        ).map { it.payload!! }
+    }
+
+    override fun generateReport(stockOpNameId: Int): Flow<Report?> {
+        return kiosService
+            .generateReport(GenerateReportRequestDto(stockOpNameId = stockOpNameId))
+            .map { it.payload }
+    }
+
+    override fun getKiosStocks(stockOpNameId: Int): Flow<KiosDetail?> {
+        return kiosService.getKiosStocks(stockOpNameId).map { it.payload }
+    }
+
+    override fun getSkuProducts(kiosCode: String): Flow<List<SkuDTO>?> {
+        return kiosService
+            .getProducts(kiosCode)
+            .map { it.payload?.skuDTOList }
+    }
+
+    override suspend fun getKiosData(): Flow<KiosData> {
+        return kiosService.getKios(sessionManager.getAeId().first()).map { it.payload!! }
     }
 }

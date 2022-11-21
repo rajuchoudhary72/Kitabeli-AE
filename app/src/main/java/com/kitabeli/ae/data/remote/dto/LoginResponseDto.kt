@@ -8,6 +8,8 @@ import kotlinx.serialization.Serializable
 data class LoginResponseDto(
     @SerialName("email")
     val email: String,
+    @SerialName("aeId")
+    val aeId: Int,
     @SerialName("jwtToken")
     val jwtToken: String,
     @SerialName("phone")

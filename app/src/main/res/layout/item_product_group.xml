@@ -12,6 +12,7 @@
         app:cardCornerRadius="4dp"
         app:cardBackgroundColor="@color/white"
         app:strokeColor="@color/grey"
+        app:strokeWidth="0dp"
         app:contentPadding="10dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -49,6 +50,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
                 android:orientation="vertical"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="@id/text_status"
                 app:layout_constraintStart_toStartOf="@id/text_product"
                 app:layout_constraintTop_toBottomOf="@+id/text_product">

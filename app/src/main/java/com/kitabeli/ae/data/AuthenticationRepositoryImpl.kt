@@ -21,7 +21,7 @@ class AuthenticationRepositoryImpl @Inject constructor(
             )
         )
             .map {
-                it.payload
+                it.payload!!
             }
     }
 }

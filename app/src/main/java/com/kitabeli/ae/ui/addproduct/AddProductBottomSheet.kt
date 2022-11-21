@@ -9,12 +9,17 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.github.dhaval2404.imagepicker.util.FileUriUtils
 import com.kitabeli.ae.R
 import com.kitabeli.ae.databinding.BottomSheetAddProductBinding
 import com.kitabeli.ae.ui.common.BaseDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import java.io.File
 
 @AndroidEntryPoint
@@ -69,15 +74,27 @@ class AddProductBottomSheet :
             addProductViewModel = getViewModel()
         }
 
+        viewLifecycleOwner.lifecycleScope.launch {
+            addProductViewModel
+                .products
+                .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)
+                .collectLatest {
+
+                    it.getValueOrNull()?.let {
+                        val adapter =
+                            ArrayAdapter(requireContext(), R.layout.list_item, it.map { it.name })
+                        binding.products.setAdapter(adapter)
+                    }
+                }
+        }
+
         binding.icClose.setOnClickListener { dismiss() }
 
         binding.productImage.setOnClickListener {
             pickProductImage()
         }
 
-        val items = (0..200).map { "Item $it" }
-        val adapter = ArrayAdapter(requireContext(), R.layout.list_item, items)
-        binding.products.setAdapter(adapter)
+
 
 
         binding.btnAdd.setOnClickListener {
@@ -112,9 +129,10 @@ class AddProductBottomSheet :
     companion object {
 
         const val STOCK_OP_NAME_ID = "stockOpNameId"
-        fun getInstance(stockOpNameId: Int): AddProductBottomSheet {
+        const val KIOS_CODE = "kios_code"
+        fun getInstance(stockOpNameId: Int, kiosCode: String): AddProductBottomSheet {
             return AddProductBottomSheet().apply {
-                arguments = bundleOf(STOCK_OP_NAME_ID to stockOpNameId)
+                arguments = bundleOf(STOCK_OP_NAME_ID to stockOpNameId, KIOS_CODE to kiosCode)
             }
         }
     }
