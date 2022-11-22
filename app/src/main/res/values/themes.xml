@@ -8,7 +8,6 @@
         <!-- <item name="editTextStyle">@style/Style.KitabeliAE.EditText</item>-->
         <item name="materialButtonStyle">@style/Widget.KitabeliAE.MaterialButton</item>
         <item name="bottomSheetDialogTheme">@style/ThemeOverlay.YourApp.BottomSheetDialog</item>
-
     </style>
 
     <style name="Theme.KitabeliAE" parent="Base.Theme.KitabeliAE" />
@@ -47,5 +46,11 @@
 
     <style name="ShapeAppearanceOverlay.KitabeliAE.CircularImageView" parent="">
         <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="TextAppearance.KitabeliAE.Toolbar" parent="TextAppearance.Material3.HeadlineLarge">
+        <item name="fontFamily">@font/inter_semi_bold</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 </resources>

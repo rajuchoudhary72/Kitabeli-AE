@@ -36,7 +36,10 @@
 
         <action
             android:id="@+id/action_kiosFragment_to_addCheckStockFragment"
-            app:destination="@id/addCheckStockFragment" />
+            app:destination="@id/addCheckStockFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/kiosFragment"
+            app:popUpToInclusive="true" />
 
         <argument
             android:name="stockOpNameId"
@@ -52,7 +55,10 @@
 
         <action
             android:id="@+id/action_addCheckStockFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
 
         <argument
             android:name="stockOpNameId"

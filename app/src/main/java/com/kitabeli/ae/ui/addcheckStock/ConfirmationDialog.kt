@@ -13,24 +13,38 @@ class ConfirmationDialog : DialogFragment(R.layout.dialog_confirmation) {
     private var _binding: DialogConfirmationBinding? = null
     private val binding get() = _binding!!
 
-    private var codeInputListener: ((String) -> Unit)? = null
+    private var submitReport: (() -> Unit)? = null
 
-    fun setCodeInputListener(listener: (String) -> Unit): ConfirmationDialog {
-        codeInputListener = listener
+
+    private var onCancel: (() -> Unit)? = null
+
+    fun setCancelListener(listener: () -> Unit): ConfirmationDialog {
+        onCancel = listener
+        return this
+    }
+
+    fun setSubmitReportListener(listener: () -> Unit): ConfirmationDialog {
+        submitReport = listener
         return this
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         dialog?.window?.setBackgroundDrawableResource(R.drawable.bg_dialog)
+        isCancelable = false
         super.onViewCreated(view, savedInstanceState)
         _binding = DialogConfirmationBinding.bind(view)
 
         binding.icClose.setOnClickListener {
+            onCancel?.invoke()
             dismiss()
         }
 
         binding.btnSudahTerima.setOnClickListener {
-            codeInputListener?.invoke("234")
+            submitReport?.invoke()
+            dismiss()
+        }
+        binding.btnBelum.setOnClickListener {
+            onCancel?.invoke()
             dismiss()
         }
 
@@ -44,6 +58,6 @@ class ConfirmationDialog : DialogFragment(R.layout.dialog_confirmation) {
 
     override fun onDestroy() {
         super.onDestroy()
-        codeInputListener = null
+        submitReport = null
     }
 }

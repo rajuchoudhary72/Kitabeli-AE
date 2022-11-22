@@ -26,7 +26,9 @@ data class KiosDetail(
     val stockOpNameItemDTOS: List<StockOpNameItemDTOS>? = null,
     @SerialName("stockOpnameLocalDate")
     val stockOpNameLocalDate: String? = null
-)
+) {
+    fun isStatusCompleted() = status == "COMPLETED"
+}
 
 @Serializable
 data class StockOpNameItemDTOS(

@@ -40,7 +40,16 @@ private fun HttpException.httpExceptionToAppError(): AppError {
                     )
                 )
             } catch (e: Exception) {
-                AppError.UnknownException(e)
+                when (ErrorType.getErrorType(response()!!.code())) {
+                    ErrorType.UNAUTHORIZED ->
+                        AppError.ApiException.SessionNotFoundException(this)
+
+                    ErrorType.SYSTEM_ERROR ->
+                        AppError.ApiException.ServerException(this)
+
+                    else ->
+                        AppError.ApiException.NetworkException(this)
+                }
             }
         } else {
             when (ErrorType.getErrorType(response()!!.code())) {

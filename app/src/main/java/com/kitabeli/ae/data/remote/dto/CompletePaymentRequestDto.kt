@@ -9,5 +9,5 @@ data class CompletePaymentRequestDto(
     @SerialName("otp")
     val otp: String? = null,
     @SerialName("stockOPNameReportId")
-    val stockOPNameReportId: String? = null
+    val stockOPNameReportId: Int? = null
 )

@@ -2,9 +2,11 @@ package com.kitabeli.ae.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.kitabeli.ae.R
 import com.kitabeli.ae.data.remote.dto.KiosItem
 import com.kitabeli.ae.databinding.ItemKiosBinding
 import javax.inject.Inject
@@ -21,6 +23,39 @@ class KiosAdapter @Inject constructor() :
 
             binding.root.setOnClickListener {
                 onClickItem?.invoke(item)
+            }
+
+
+            when (item.status) {
+                "COMPLETED" -> {
+                    binding.statusImage.setImageResource(R.drawable.ic_done)
+                    binding.card.setStrokeColor(
+                        ContextCompat.getColorStateList(
+                            binding.card.context,
+                            R.color.green
+                        )
+                    )
+                }
+
+                "QA_REJECTED" -> {
+                    binding.statusImage.setImageResource(R.drawable.ic_cancel)
+                    binding.card.setStrokeColor(
+                        ContextCompat.getColorStateList(
+                            binding.card.context,
+                            R.color.red
+                        )
+                    )
+                }
+
+                else -> {
+                    binding.statusImage.setImageResource(R.drawable.ic_watch)
+                    binding.card.setStrokeColor(
+                        ContextCompat.getColorStateList(
+                            binding.card.context,
+                            R.color.yellow
+                        )
+                    )
+                }
             }
         }
     }

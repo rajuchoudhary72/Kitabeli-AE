@@ -13,13 +13,13 @@ data class Report(
     @SerialName("kioskDTO")
     val kioskDTO: KioskDTO? = null,
     @SerialName("offPlatformSaleAmount")
-    val offPlatformSaleAmount: String? = null,
+    val offPlatformSaleAmount: Int? = null,
     @SerialName("onPlatformAmount")
-    val onPlatformAmount: String? = null,
+    val onPlatformAmount: Int? = null,
     @SerialName("stockOPNameReportItemDTOs")
     val stockOPNameReportItemDTOs: List<StockOPNameReportItemDTO?>? = null,
     @SerialName("totalAmountToBePaid")
-    val totalAmountToBePaid: String? = null
+    val totalAmountToBePaid: Int? = null
 )
 
 @Serializable
@@ -27,7 +27,7 @@ data class AccountExecutiveDTO(
     @SerialName("aeCode")
     val aeCode: String? = null,
     @SerialName("aeId")
-    val aeId: String? = null,
+    val aeId: Int? = null,
     @SerialName("aeSignURL")
     val aeSignURL: String? = null,
     @SerialName("email")
@@ -45,15 +45,15 @@ data class KioskDTO(
     @SerialName("kioskName")
     val kioskName: String? = null,
     @SerialName("locationId")
-    val locationId: String? = null,
+    val locationId: Int? = null,
     @SerialName("warehouseId")
-    val warehouseId: String? = null
+    val warehouseId: Int? = null
 )
 
 @Serializable
 data class StockOPNameReportItemDTO(
     @SerialName("amountToBePaid")
-    val amountToBePaid: String? = null,
+    val amountToBePaid: Int? = null,
     @SerialName("id")
     val id: Int? = null,
     @SerialName("itemId")
@@ -61,19 +61,19 @@ data class StockOPNameReportItemDTO(
     @SerialName("itemName")
     val itemName: String? = null,
     @SerialName("lastStockOpCount")
-    val lastStockOpCount: String? = null,
+    val lastStockOpCount: Int? = null,
     @SerialName("offPlatformSaleAmount")
-    val offPlatformSaleAmount: String? = null,
+    val offPlatformSaleAmount: Int? = null,
     @SerialName("offPlatformSaleQuantity")
-    val offPlatformSaleQuantity: String? = null,
+    val offPlatformSaleQuantity: Int? = null,
     @SerialName("onPlatformAmount")
-    val onPlatformAmount: String? = null,
+    val onPlatformAmount: Int? = null,
     @SerialName("onPlatformSaleQuantity")
-    val onPlatformSaleQuantity: String? = null,
+    val onPlatformSaleQuantity: Int? = null,
     @SerialName("quantitiesToBePaid")
-    val quantitiesToBePaid: String? = null,
+    val quantitiesToBePaid: Int? = null,
     @SerialName("stnItemCount")
-    val stnItemCount: String? = null,
+    val stnItemCount: Int? = null,
     @SerialName("stockOpCount")
-    val stockOpCount: String? = null
+    val stockOpCount: Int? = null
 )

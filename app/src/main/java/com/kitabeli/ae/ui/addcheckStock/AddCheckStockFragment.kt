@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.core.net.toUri
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -17,6 +17,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.kitabeli.ae.R
 import com.kitabeli.ae.databinding.FragmentAddCheckStockBinding
+import com.kitabeli.ae.ui.common.BaseFragment
 import com.kitabeli.ae.ui.signature.SignatureFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -26,10 +27,10 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class AddCheckStockFragment : Fragment() {
+class AddCheckStockFragment : BaseFragment<AddCheckStockViewModel>() {
     private var _binding: FragmentAddCheckStockBinding? = null
 
-    private val viewModel: AddCheckStockViewModel by viewModels()
+    private val mViewModel: AddCheckStockViewModel by viewModels()
     private val binding get() = _binding!!
 
     @Inject
@@ -41,9 +42,13 @@ class AddCheckStockFragment : Fragment() {
     ): View? {
         _binding = FragmentAddCheckStockBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
-            addCheckStockViewModel = viewModel
+            addCheckStockViewModel = mViewModel
         }
         return binding.root
+    }
+
+    override fun getViewModel(): AddCheckStockViewModel {
+        return mViewModel
     }
 
 
@@ -54,50 +59,20 @@ class AddCheckStockFragment : Fragment() {
 
 
         viewLifecycleOwner.lifecycleScope.launch {
-
-            viewModel
+            mViewModel
                 .uiState
                 .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)
-                .collectLatest {
-
+                .collectLatest { uiState ->
+                    if (uiState is UiState.Success) {
+                        kiosAdapter.submitList(uiState.report?.stockOPNameReportItemDTOs)
+                        binding.price.text = "Rp ${uiState.report?.totalAmountToBePaid}"
+                    }
                 }
         }
 
-        val list: List<Int> = (0..7).map { it }
-
-        kiosAdapter.submitList(list)
-
         binding.btn.setOnClickListener {
-            ConfirmationDialog()
-                .setCodeInputListener {
-                    OtpDialog()
-                        .setCodeInputListener {
-                            val bitmap = getBitmapFromView(
-                                binding.scrollView,
-                                binding.scrollView.getChildAt(0).height,
-                                binding.scrollView.getChildAt(0).width
-                            )
+            askForConfirmation()
 
-
-
-                            if (bitmap != null) {
-                                val file =
-                                    File(context?.filesDir?.path + File.separator + "Screenshot.png")
-                                file.createNewFile()
-
-                                file.write(
-                                    bitmap,
-                                    Bitmap.CompressFormat.JPEG,
-                                    100
-                                )
-                            }
-
-                            //findNavController().navigate()
-
-                        }
-                        .show(childFragmentManager, "")
-                }
-                .show(childFragmentManager, "qwe")
         }
 
         binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
@@ -125,14 +100,14 @@ class AddCheckStockFragment : Fragment() {
             repeatOnLifecycle(Lifecycle.State.CREATED) {
 
                 launch {
-                    viewModel.mirtaSignature.collectLatest {
-                        binding.mirtaSign.setImageBitmap(it)
+                    mViewModel.mirtaSignature.collectLatest {
+                        binding.mirtaSign.setImageURI(it?.toUri())
                     }
                 }
 
                 launch {
-                    viewModel.aeSignature.collectLatest {
-                        binding.aeSign.setImageBitmap(it)
+                    mViewModel.aeSignature.collectLatest {
+                        binding.aeSign.setImageURI(it?.toUri())
                     }
                 }
 
@@ -140,20 +115,68 @@ class AddCheckStockFragment : Fragment() {
         }
     }
 
+    private fun askForConfirmation() {
+        ConfirmationDialog()
+            .setSubmitReportListener {
+                createReportFile()
+                mViewModel.submitReport {
+                    collectOpt()
+                }
+            }
+            .setCancelListener {
+                navigateToHome()
+            }
+            .show(childFragmentManager, "CONFIRM")
+    }
+
+    private fun navigateToHome() {
+        findNavController().navigate(AddCheckStockFragmentDirections.actionAddCheckStockFragmentToHomeFragment())
+    }
+
+    private fun createReportFile() {
+        val bitmap = getBitmapFromView(
+            binding.scrollView,
+            binding.scrollView.getChildAt(0).height,
+            binding.scrollView.getChildAt(0).width
+        )
+        mViewModel.setReportFile(createFile(bitmap!!, SCREENSHOT_FILE_NAME))
+    }
+
+    private fun collectOpt() {
+        OtpDialog()
+            .setOtpListener { otp ->
+                mViewModel.verifyOtp(otp) {
+                    navigateToHome()
+                }
+            }
+            .setCancelListener {
+                navigateToHome()
+            }
+            .show(childFragmentManager, "OTP")
+    }
+
+
     private fun collectSignature(isMitra: Boolean) {
         setFragmentResultListener(SignatureFragment.REQUEST_KEY_SIGNATURE) { _, bundle ->
             if (bundle.containsKey(SignatureFragment.SIGNATURE_BITMAP)) {
-                bundle.getParcelable<Bitmap>(SignatureFragment.SIGNATURE_BITMAP)?.let { signature ->
-                    if (isMitra)
-                        viewModel.setMitraSignature(signature)
-                    else
-                        viewModel.setAeSignature(signature)
-
-                    binding.scrollView.smoothScrollTo(0, binding.scrollView.getChildAt(0).height)
-
-                }
+                bundle.getParcelable<Bitmap>(SignatureFragment.SIGNATURE_BITMAP)
+                    ?.let { signature: Bitmap ->
+                        if (isMitra) {
+                            mViewModel.setMitraSignature(
+                                createFile(
+                                    signature,
+                                    MITRA_SIGN_FILE_NAME
+                                )
+                            )
+                        } else {
+                            mViewModel.setAeSignature(createFile(signature, AE_SIGN_FILE_NAME))
+                        }
+                        binding.scrollView.smoothScrollTo(
+                            0,
+                            binding.scrollView.getChildAt(0).height
+                        )
+                    }
             }
-
         }
         findNavController().navigate(R.id.signatureFragment)
     }
@@ -167,12 +190,25 @@ class AddCheckStockFragment : Fragment() {
         return bitmap
     }
 
-    private fun File.createFileAndDirs() = apply {
-        parentFile?.mkdirs()
-        createNewFile()
+
+    private fun createFile(bitmap: Bitmap, fileName: String): File {
+        val file = File(context?.filesDir?.path + File.separator + fileName)
+
+        if (file.exists())
+            file.delete()
+
+        file.createNewFile()
+
+        file.write(
+            bitmap,
+            Bitmap.CompressFormat.JPEG,
+            100
+        )
+
+        return file
     }
 
-    fun File.write(
+    private fun File.write(
         bitmap: Bitmap,
         format: Bitmap.CompressFormat = Bitmap.CompressFormat.JPEG,
         quality: Int = 80
@@ -184,9 +220,21 @@ class AddCheckStockFragment : Fragment() {
         }
     }
 
+    private fun File.createFileAndDirs() = apply {
+        parentFile?.mkdirs()
+        createNewFile()
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+
+    companion object {
+        private const val AE_SIGN_FILE_NAME = "ae_sign.jpg"
+        private const val MITRA_SIGN_FILE_NAME = "mitra_sing.jpg"
+        private const val SCREENSHOT_FILE_NAME = "screenshot.jpg"
     }
 }

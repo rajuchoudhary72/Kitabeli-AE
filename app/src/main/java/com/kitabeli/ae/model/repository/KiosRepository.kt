@@ -28,6 +28,14 @@ interface KiosRepository {
         stockOpNameId: Int,
     ): Flow<Report?>
 
+    suspend fun confirmReport(
+        stockOPNameReportId: Int,
+        totalAmountToBePaid: Int,
+        kiosOwnerSignURLFile: File,
+        aeSignURLFile: File,
+        reportFile: File,
+    ): Flow<Report?>
+
     fun getKiosStocks(
         stockOpNameId: Int,
     ): Flow<KiosDetail?>
@@ -37,4 +45,5 @@ interface KiosRepository {
     ): Flow<List<SkuDTO>?>
 
     suspend fun getKiosData(): Flow<KiosData>
+    fun verifyOtp(stockOPNameReportId: Int, otp: String): Flow<Report?>
 }

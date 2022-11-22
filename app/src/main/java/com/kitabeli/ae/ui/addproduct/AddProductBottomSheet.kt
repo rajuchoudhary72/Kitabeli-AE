@@ -9,17 +9,12 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.flowWithLifecycle
-import androidx.lifecycle.lifecycleScope
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.github.dhaval2404.imagepicker.util.FileUriUtils
 import com.kitabeli.ae.R
 import com.kitabeli.ae.databinding.BottomSheetAddProductBinding
 import com.kitabeli.ae.ui.common.BaseDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 import java.io.File
 
 @AndroidEntryPoint
@@ -74,19 +69,26 @@ class AddProductBottomSheet :
             addProductViewModel = getViewModel()
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            addProductViewModel
-                .products
-                .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)
-                .collectLatest {
+        addProductViewModel
+            .products
+            .observe(viewLifecycleOwner) { state ->
+                addProductViewModel.showLoading(state.isLoading)
 
-                    it.getValueOrNull()?.let {
-                        val adapter =
-                            ArrayAdapter(requireContext(), R.layout.list_item, it.map { it.name })
-                        binding.products.setAdapter(adapter)
-                    }
+                state.getAppErrorIfExists()?.let { appError ->
+                    addProductViewModel.onError(appError)
+                    dismiss()
                 }
-        }
+
+                state.getValueOrNull()?.let { skuItems ->
+                    val adapter =
+                        ArrayAdapter(
+                            requireContext(),
+                            R.layout.list_item,
+                            skuItems.map { sku -> sku.name })
+                    binding.products.setAdapter(adapter)
+                }
+            }
+
 
         binding.icClose.setOnClickListener { dismiss() }
 
@@ -94,15 +96,11 @@ class AddProductBottomSheet :
             pickProductImage()
         }
 
-
-
-
         binding.btnAdd.setOnClickListener {
-            if (addProductViewModel.photoProof.value.isNullOrBlank())
-                showMessage("Please capture product photo")
             addProductViewModel.addProduct {
-                showMessage("Added successfully.")
+                showMessage(getString(R.string.added_successfully))
                 dismiss()
+                productAddListener?.invoke()
             }
         }
 

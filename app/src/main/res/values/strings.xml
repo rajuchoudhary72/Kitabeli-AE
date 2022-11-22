@@ -3,7 +3,7 @@
     <string name="action_settings">Settings</string>
 
     <string name="error_network">A network error has occurred. Please try again.</string>
-    <string name="error_no_internet_connection">Please check your internet connection. Please try again.</string>
+    <string name="error_no_internet_connection">Please check your internet connection and try again.</string>
     <string name="error_server">A server error has occurred. Please try again.</string>
     <string name="error_unknown">An unknown error has occurred. Please try again.</string>
     <string name="error_auth">You do not have permissions to access the service.</string>
@@ -47,4 +47,6 @@
     <string name="legal_conent">Dengan ditandatanganinya Hasil Pemeriksaan ini, mitra telah mengetahui dan menyetujui hasil pemeriksaan. Dalam hal terdapat perbedaan antara data penjualan dengan data hasil pemeriksaan, Mitra wajib melakukan pembayaran ganti rugi sesuai data hasil selisih tersebut</string>
     <string name="ohh">Ohh…</string>
     <string name="retry">Retry</string>
+    <string name="belum_ada_cek_stok_kios_hari_ini">Belum ada cek stok kios hari ini</string>
+    <string name="added_successfully">Added successfully.</string>
 </resources>

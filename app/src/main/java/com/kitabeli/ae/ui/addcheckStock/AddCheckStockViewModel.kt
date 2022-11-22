@@ -1,33 +1,36 @@
 package com.kitabeli.ae.ui.addcheckStock
 
-import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.kitabeli.ae.model.AppError
 import com.kitabeli.ae.model.LoadState
 import com.kitabeli.ae.model.repository.KiosRepository
+import com.kitabeli.ae.ui.common.BaseViewModel
 import com.kitabeli.ae.utils.ext.toLoadingState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
 class AddCheckStockViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val kiosRepository: KiosRepository
-) : ViewModel() {
+) : BaseViewModel() {
 
     private val _retry = MutableStateFlow(false)
 
@@ -75,11 +78,13 @@ class AddCheckStockViewModel @Inject constructor(
     val error: LiveData<AppError?> =
         uiState.map { if (it is UiState.Error) it.error else null }.asLiveData()
 
+    private val _reportFile = MutableStateFlow<File?>(null)
+    val reportFile = _reportFile.asStateFlow()
 
-    private val _mirtaSignature = MutableStateFlow<Bitmap?>(null)
+    private val _mirtaSignature = MutableStateFlow<File?>(null)
     val mirtaSignature = _mirtaSignature.asStateFlow()
 
-    private val _aeSignature = MutableStateFlow<Bitmap?>(null)
+    private val _aeSignature = MutableStateFlow<File?>(null)
     val aeSignature = _aeSignature.asStateFlow()
 
 
@@ -88,12 +93,60 @@ class AddCheckStockViewModel @Inject constructor(
     }
 
 
-    fun setMitraSignature(bitmap: Bitmap) {
-        _mirtaSignature.update { bitmap }
+    fun setMitraSignature(file: File) {
+        _mirtaSignature.update { file }
     }
 
-    fun setAeSignature(bitmap: Bitmap) {
-        _aeSignature.update { bitmap }
+    fun setAeSignature(file: File) {
+        _aeSignature.update { file }
+    }
+
+    fun setReportFile(file: File) {
+        _reportFile.update { file }
+    }
+
+    fun submitReport(func: () -> Unit) {
+        viewModelScope.launch {
+            delay(100)
+            val report = (uiState.value as UiState.Success).report!!
+            kiosRepository.confirmReport(
+                stockOPNameReportId = report.id!!,
+                totalAmountToBePaid = report.totalAmountToBePaid!!,
+                aeSignURLFile = aeSignature.value!!,
+                kiosOwnerSignURLFile = mirtaSignature.value!!,
+                reportFile = reportFile.value!!
+            )
+                .flowOn(Dispatchers.IO)
+                .toLoadingState()
+                .collectLatest { state ->
+                    state.handleErrorAndLoadingState()
+                    if (state is LoadState.Loaded) {
+                        func.invoke()
+                    }
+                }
+        }
+    }
+
+    fun verifyOtp(otp: String, func: () -> Unit) {
+
+        viewModelScope.launch {
+            val report = (uiState.value as UiState.Success).report!!
+            kiosRepository.verifyOtp(
+                stockOPNameReportId = report.id!!,
+                otp = otp
+            )
+                .flowOn(Dispatchers.IO)
+                .toLoadingState()
+                .collectLatest { state ->
+                    state.handleErrorAndLoadingState()
+
+                    if (state is LoadState.Loaded) {
+                        func.invoke()
+                    }
+
+                }
+        }
+
     }
 
     val enableButton = combine(

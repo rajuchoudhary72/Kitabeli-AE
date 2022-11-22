@@ -27,6 +27,7 @@
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar"
+                app:titleTextAppearance="@style/TextAppearance.KitabeliAE.Toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:title="@string/tambah_cek_stok" />
@@ -185,7 +186,7 @@
                             android:background="@drawable/bg_price"
                             android:fontFamily="@font/inter_semi_bold"
                             android:gravity="center"
-                            android:text="Rp 2.000.000"
+                            tools:text="Rp 2.000.000"
                             android:textAppearance="?attr/textAppearanceTitleMedium"
                             app:layout_constraintBaseline_toBaselineOf="@+id/nominal_perlu_ditarik"
                             app:layout_constraintEnd_toEndOf="parent" />

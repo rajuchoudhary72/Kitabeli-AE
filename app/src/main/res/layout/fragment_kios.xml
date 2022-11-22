@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
-            name="loginViewModel"
-            type="com.kitabeli.ae.ui.login.LoginViewModel" />
+            name="viewModel"
+            type="com.kitabeli.ae.ui.kios.KiosViewModel" />
 
     </data>
 
@@ -28,7 +29,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:navigationIcon="@drawable/ic_arrow"
-                app:title="@string/tambah_cek_stok" />
+                app:title="@string/tambah_cek_stok"
+                app:titleTextAppearance="@style/TextAppearance.KitabeliAE.Toolbar" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -95,7 +97,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/screen_margin"
-                    android:visibility="gone"
                     app:layout_constraintTop_toBottomOf="@+id/kios_container" />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -116,6 +117,7 @@
                     android:layout_marginBottom="@dimen/screen_margin"
                     android:backgroundTint="@color/white"
                     android:text="@string/tambah_produk"
+                    android:visibility="gone"
                     app:icon="@drawable/round_add_circle_outline_24"
                     app:layout_constraintBottom_toBottomOf="@id/recycler_view_kios"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -145,6 +147,20 @@
                         app:shapeAppearanceOverlay="?attr/shapeAppearanceCornerExtraSmall" />
 
                 </FrameLayout>
+
+                <include
+                    layout="@layout/loading_and_error_layout"
+                    android:visibility="gone"
+                    bind:error="@{viewModel.loadingState.appErrorIfExists}"
+                    bind:isLoading="@{viewModel.loadingState.isLoading}"
+                    bind:retryClickListener="@{v -> viewModel.retry()}" />
+
+                <androidx.constraintlayout.widget.Group
+                    android:id="@+id/group"
+                    isVisible="@{viewModel.loadingState.succeeded}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:constraint_referenced_ids="kios_container,header,recycler_view_kios,bottom_view" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

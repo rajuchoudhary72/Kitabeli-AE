@@ -26,6 +26,7 @@
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
+                app:titleTextAppearance="@style/TextAppearance.KitabeliAE.Toolbar"
                 android:layout_height="?attr/actionBarSize"
                 app:title="@string/cek_stok_hari_ini" />
 
@@ -89,17 +90,29 @@
 
             <androidx.constraintlayout.widget.Group
                 android:id="@+id/group"
-                isVisible="@{viewModel.kiosData.valueOrNull !=null}"
+                isVisible="@{viewModel.kiosData.valueOrNull != null}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:constraint_referenced_ids="recycler_view_kios,bottom_view" />
 
-
             <include
                 layout="@layout/loading_and_error_layout"
+                android:visibility="gone"
                 bind:error="@{viewModel.kiosData.appErrorIfExists}"
                 bind:isLoading="@{viewModel.kiosData.isLoading}"
                 bind:retryClickListener="@{v -> viewModel.retry()}" />
+
+            <TextView
+                android:id="@+id/text_empty_message"
+                isVisible="@{viewModel.isEmpty()}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:fontFamily="@font/inter_regular"
+                android:gravity="center"
+                android:text="@string/belum_ada_cek_stok_kios_hari_ini"
+                android:textAppearance="?attr/textAppearanceBodyLarge"
+                android:visibility="gone" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

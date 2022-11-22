@@ -1,6 +1,7 @@
 package com.kitabeli.ae.ui.addproduct
 
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.kitabeli.ae.model.repository.KiosRepository
 import com.kitabeli.ae.ui.addproduct.AddProductBottomSheet.Companion.KIOS_CODE
@@ -11,8 +12,11 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.io.File
@@ -27,16 +31,29 @@ class AddProductViewModel @Inject constructor(
     private val _stockOpNameId = savedStateHandle.getStateFlow(STOCK_OP_NAME_ID, 0)
     private val _kiosCode = savedStateHandle.getStateFlow(KIOS_CODE, "")
 
+    val productName = MutableStateFlow("")
 
     private val _products =
         _kiosCode.flatMapLatest { kiosRepository.getSkuProducts(it) }.flowOn(Dispatchers.IO)
-            .toLoadingState()
+            .toLoadingState().asLiveData()
     val products = _products
+
+    private val productSku = productName.map { productName ->
+        products.value?.getValueOrNull()?.firstOrNull { it.name == productName }
+    }
 
     val stockCount = MutableStateFlow("0")
 
-    val photoProof = MutableStateFlow("")
+    private val photoProof = MutableStateFlow("")
 
+
+    val isAllDataFiled = combine(
+        flow = stockCount,
+        flow2 = photoProof,
+        flow3 = productSku
+    ) { count, proof, sku ->
+        count.isNotEmpty() && count.toInt() > 0 && proof.isNotEmpty() && sku != null
+    }.asLiveData()
 
     fun increaseStockCount() {
         stockCount.update { it.toInt().plus(1).toString() }
@@ -71,12 +88,13 @@ class AddProductViewModel @Inject constructor(
 
     fun addProduct(func: () -> Unit) {
         viewModelScope.launch {
+            val skuItem = productSku.first()
             kiosRepository.addStockProduct(
                 stockOpNameId = _stockOpNameId.value,
                 photoProof = photoProof.value,
                 stockCount = stockCount.value.toInt(),
-                skuName = "Rice 1kg",
-                skuId = 456
+                skuName = skuItem?.name ?: "",
+                skuId = skuItem?.skuId ?: 2
             )
                 .flowOn(Dispatchers.IO)
                 .toLoadingState()

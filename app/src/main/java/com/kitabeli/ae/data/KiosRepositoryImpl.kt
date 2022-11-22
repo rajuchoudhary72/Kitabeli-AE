@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.core.net.toUri
 import com.kitabeli.ae.data.local.SessionManager
 import com.kitabeli.ae.data.remote.dto.AddStockProductRequestDto
+import com.kitabeli.ae.data.remote.dto.CompletePaymentRequestDto
 import com.kitabeli.ae.data.remote.dto.GenerateReportRequestDto
 import com.kitabeli.ae.data.remote.dto.InitializeStockRequestDto
 import com.kitabeli.ae.data.remote.dto.KiosData
@@ -85,6 +86,61 @@ class KiosRepositoryImpl @Inject constructor(
             .map { it.payload }
     }
 
+    override suspend fun confirmReport(
+        stockOPNameReportId: Int,
+        totalAmountToBePaid: Int,
+        kiosOwnerSignURLFile: File,
+        aeSignURLFile: File,
+        reportFile: File
+    ): Flow<Report?> {
+
+
+        val requestKiosOwnerSignURLFile =
+            File(kiosOwnerSignURLFile.path).asRequestBody(
+                context.contentResolver.getType(kiosOwnerSignURLFile.toUri())
+                    ?.toMediaTypeOrNull()
+            )
+        val kiosOwnerSignURLFilePart: MultipartBody.Part = MultipartBody.Part.createFormData(
+            "kiosOwnerSignURLFile",
+            File(kiosOwnerSignURLFile.path).name,
+            requestKiosOwnerSignURLFile
+        )
+
+
+        val requestReportFile =
+            File(reportFile.path).asRequestBody(
+                context.contentResolver.getType(reportFile.toUri())
+                    ?.toMediaTypeOrNull()
+            )
+        val reportFilePart: MultipartBody.Part = MultipartBody.Part.createFormData(
+            "reportFile",
+            File(reportFile.path).name,
+            requestReportFile
+        )
+
+
+        val requestAeSignURLFile =
+            File(aeSignURLFile.path).asRequestBody(
+                context.contentResolver.getType(aeSignURLFile.toUri())
+                    ?.toMediaTypeOrNull()
+            )
+        val aeSignURLFilePart: MultipartBody.Part = MultipartBody.Part.createFormData(
+            "aeSignURLFile",
+            File(aeSignURLFile.path).name,
+            requestAeSignURLFile
+        )
+
+
+        return kiosService.confirmReport(
+            stockOPNameReportId = stockOPNameReportId.toString().toRequestBody(MultipartBody.FORM),
+            totalAmountToBePaid = totalAmountToBePaid.toString().toRequestBody(MultipartBody.FORM),
+            aeId = sessionManager.getAeId().first().toString().toRequestBody(MultipartBody.FORM),
+            kiosOwnerSignURLFile = kiosOwnerSignURLFilePart,
+            aeSignURLFile = aeSignURLFilePart,
+            reportFile = reportFilePart
+        ).map { it.payload }
+    }
+
     override fun getKiosStocks(stockOpNameId: Int): Flow<KiosDetail?> {
         return kiosService.getKiosStocks(stockOpNameId).map { it.payload }
     }
@@ -92,10 +148,23 @@ class KiosRepositoryImpl @Inject constructor(
     override fun getSkuProducts(kiosCode: String): Flow<List<SkuDTO>?> {
         return kiosService
             .getProducts(kiosCode)
-            .map { it.payload?.skuDTOList }
+            .map { it.payload }
     }
 
     override suspend fun getKiosData(): Flow<KiosData> {
         return kiosService.getKios(sessionManager.getAeId().first()).map { it.payload!! }
+    }
+
+    override fun verifyOtp(stockOPNameReportId: Int, otp: String): Flow<Report?> {
+        return kiosService
+            .completePayment(
+                CompletePaymentRequestDto(
+                    stockOPNameReportId = stockOPNameReportId,
+                    otp = otp
+                )
+            )
+            .map {
+                it.payload
+            }
     }
 }

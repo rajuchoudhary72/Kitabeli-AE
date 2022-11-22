@@ -3,14 +3,13 @@ package com.kitabeli.ae.data.remote.service
 import com.kitabeli.ae.data.remote.dto.AddStockProductRequestDto
 import com.kitabeli.ae.data.remote.dto.BaseResponseDto
 import com.kitabeli.ae.data.remote.dto.CompletePaymentRequestDto
-import com.kitabeli.ae.data.remote.dto.ConfirmReportRequestDto
 import com.kitabeli.ae.data.remote.dto.GenerateReportRequestDto
 import com.kitabeli.ae.data.remote.dto.InitializeStockRequestDto
 import com.kitabeli.ae.data.remote.dto.KiosData
 import com.kitabeli.ae.data.remote.dto.KiosDetail
 import com.kitabeli.ae.data.remote.dto.KiosDto
 import com.kitabeli.ae.data.remote.dto.Report
-import com.kitabeli.ae.data.remote.dto.SkuProducts
+import com.kitabeli.ae.data.remote.dto.SkuDTO
 import kotlinx.coroutines.flow.Flow
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -43,8 +42,16 @@ interface KiosService {
     @POST("api/v1/stock-opname/report")
     fun generateReport(@Body requestDto: GenerateReportRequestDto): Flow<BaseResponseDto<Report>>
 
+    @Multipart
     @POST("api/v1/stock-opname/report/confirm")
-    fun confirmReport(@Body requestDto: ConfirmReportRequestDto): Flow<BaseResponseDto<Report>>
+    fun confirmReport(
+        @Part("stockOPNameReportId") stockOPNameReportId: RequestBody,
+        @Part("totalAmountToBePaid") totalAmountToBePaid: RequestBody,
+        @Part("aeId") aeId: RequestBody,
+        @Part kiosOwnerSignURLFile: MultipartBody.Part,
+        @Part aeSignURLFile: MultipartBody.Part,
+        @Part reportFile: MultipartBody.Part,
+    ): Flow<BaseResponseDto<Report>>
 
     @POST("api/v1/stock-opname/report/complete-payment")
     fun completePayment(@Body requestDto: CompletePaymentRequestDto): Flow<BaseResponseDto<Report>>
@@ -53,7 +60,7 @@ interface KiosService {
     fun getKiosStocks(@Path("stockOpNameId") stockOpNameId: Int): Flow<BaseResponseDto<KiosDetail>>
 
     @GET("api/v1/stock-opname/item/list")
-    fun getProducts(@Query("kioskCode") kioskCode: String): Flow<BaseResponseDto<SkuProducts>>
+    fun getProducts(@Query("kioskCode") kioskCode: String): Flow<BaseResponseDto<List<SkuDTO>>>
 
     @GET("api/v1/stock-opname/")
     fun getKios(@Query("aeId") aeId: Int): Flow<BaseResponseDto<KiosData>>
