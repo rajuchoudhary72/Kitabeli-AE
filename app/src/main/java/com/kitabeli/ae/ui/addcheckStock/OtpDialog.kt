@@ -2,6 +2,7 @@ package com.kitabeli.ae.ui.addcheckStock
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import com.kitabeli.ae.R
 import com.kitabeli.ae.databinding.DialogOtpBinding
@@ -32,6 +33,10 @@ class OtpDialog : DialogFragment(R.layout.dialog_otp) {
         isCancelable = false
         super.onViewCreated(view, savedInstanceState)
         _binding = DialogOtpBinding.bind(view)
+
+        arguments?.getInt(ID)?.let { id ->
+            binding.title.text = "ID $id"
+        }
 
         binding.icClose.setOnClickListener {
             onCancel?.invoke()
@@ -66,5 +71,16 @@ class OtpDialog : DialogFragment(R.layout.dialog_otp) {
     override fun onDestroy() {
         super.onDestroy()
         otpListener = null
+    }
+
+    companion object {
+        private const val ID = "id"
+        fun getInstance(id: String): OtpDialog {
+            return OtpDialog().apply {
+                arguments = bundleOf(
+                    ID to id
+                )
+            }
+        }
     }
 }

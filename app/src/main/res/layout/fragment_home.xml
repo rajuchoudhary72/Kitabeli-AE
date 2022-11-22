@@ -26,9 +26,24 @@
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                app:titleTextAppearance="@style/TextAppearance.KitabeliAE.Toolbar"
                 android:layout_height="?attr/actionBarSize"
-                app:title="@string/cek_stok_hari_ini" />
+                app:title="@string/cek_stok_hari_ini"
+                app:titleTextAppearance="@style/TextAppearance.KitabeliAE.Toolbar">
+
+
+                <ImageView
+                    android:id="@+id/btn_logout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="@dimen/screen_margin"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:gravity="end"
+                    android:padding="6dp"
+                    android:src="@drawable/baseline_logout_24"
+                    tools:ignore="ContentDescription" />
+
+            </com.google.android.material.appbar.MaterialToolbar>
 
         </com.google.android.material.appbar.AppBarLayout>
 

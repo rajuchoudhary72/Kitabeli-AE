@@ -5,6 +5,7 @@ import androidx.lifecycle.liveData
 import androidx.lifecycle.map
 import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
+import com.kitabeli.ae.data.local.SessionManager
 import com.kitabeli.ae.data.remote.dto.KiosDto
 import com.kitabeli.ae.model.repository.KiosRepository
 import com.kitabeli.ae.ui.common.BaseViewModel
@@ -18,7 +19,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val kiosRepository: KiosRepository
+    private val kiosRepository: KiosRepository,
+    private val sessionManager: SessionManager
 ) : BaseViewModel() {
 
     private val _retry = MutableLiveData(false)
@@ -56,5 +58,12 @@ class HomeViewModel @Inject constructor(
 
     fun retry() {
         _retry.postValue(true)
+    }
+
+    fun logout(func: () -> Unit) {
+        viewModelScope.launch {
+            sessionManager.clearSession()
+            func()
+        }
     }
 }

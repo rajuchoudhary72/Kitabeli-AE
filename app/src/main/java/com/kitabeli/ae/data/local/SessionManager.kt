@@ -9,4 +9,5 @@ interface SessionManager {
     suspend fun fetchAuthToken(): String?
     fun isUserSessionAvailable(): Flow<Boolean>
     fun getAeId(): Flow<Int>
+    suspend fun clearSession()
 }

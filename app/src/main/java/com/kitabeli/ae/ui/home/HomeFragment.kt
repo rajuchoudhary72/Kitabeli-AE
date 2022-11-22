@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.kitabeli.ae.R
 import com.kitabeli.ae.data.remote.dto.KiosDto
 import com.kitabeli.ae.databinding.FragmentHomeBinding
@@ -70,6 +71,25 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
                 }
                 .show(childFragmentManager, "")
         }
+
+        binding.btnLogout.setOnClickListener {
+            logout()
+        }
+    }
+
+    private fun logout() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Logout?")
+            .setMessage("Are you sure, you want to logout.")
+            .setPositiveButton("Logout") { _, _ ->
+                homeViewModel.logout {
+                    findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToLoginFragment())
+                }
+            }
+            .setNegativeButton("Cancel") { _, _ ->
+
+            }
+            .show()
     }
 
     private fun navigateToKios(stockOpnameId: Int) {

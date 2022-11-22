@@ -66,6 +66,14 @@ class AddCheckStockFragment : BaseFragment<AddCheckStockViewModel>() {
                     if (uiState is UiState.Success) {
                         kiosAdapter.submitList(uiState.report?.stockOPNameReportItemDTOs)
                         binding.price.text = "Rp ${uiState.report?.totalAmountToBePaid}"
+
+                        if (uiState.report?.status == "OTP_GENERATED") {
+                            collectOpt()
+                        }
+
+                        if (uiState.report?.status == "PAYMENT_COMPLETED" || uiState.report?.status == "CANCELLED") {
+                            navigateToHome()
+                        }
                     }
                 }
         }
@@ -143,7 +151,9 @@ class AddCheckStockFragment : BaseFragment<AddCheckStockViewModel>() {
     }
 
     private fun collectOpt() {
-        OtpDialog()
+        val report = (mViewModel.uiState.value as UiState.Success).report!!
+        OtpDialog
+            .getInstance(report.id.toString())
             .setOtpListener { otp ->
                 mViewModel.verifyOtp(otp) {
                     navigateToHome()

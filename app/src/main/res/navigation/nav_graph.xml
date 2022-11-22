@@ -16,6 +16,8 @@
             app:launchSingleTop="true"
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true" />
+
+
     </fragment>
 
     <fragment
@@ -26,6 +28,14 @@
         <action
             android:id="@+id/action_homeFragment_to_kiosFragment"
             app:destination="@id/kiosFragment" />
+
+
+        <action
+            android:id="@+id/action_homeFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment

@@ -50,6 +50,12 @@ class SessionManagerImpl @Inject constructor(
         }
     }
 
+    override suspend fun clearSession() {
+        context.dataStore.edit {
+            it.clear()
+        }
+    }
+
 
     companion object {
         val AE_ID = intPreferencesKey("ae_id")
