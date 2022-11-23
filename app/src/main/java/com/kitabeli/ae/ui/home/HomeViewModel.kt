@@ -1,19 +1,22 @@
 package com.kitabeli.ae.ui.home
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.liveData
-import androidx.lifecycle.map
-import androidx.lifecycle.switchMap
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.kitabeli.ae.data.local.SessionManager
+import com.kitabeli.ae.data.remote.dto.KiosData
 import com.kitabeli.ae.data.remote.dto.KiosDto
+import com.kitabeli.ae.model.LoadState
+import com.kitabeli.ae.model.LoadingState
 import com.kitabeli.ae.model.repository.KiosRepository
 import com.kitabeli.ae.ui.common.BaseViewModel
 import com.kitabeli.ae.utils.ext.toLoadingState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,23 +25,48 @@ class HomeViewModel @Inject constructor(
     private val kiosRepository: KiosRepository,
     private val sessionManager: SessionManager
 ) : BaseViewModel() {
+    val loadingState = MutableStateFlow<LoadingState>(LoadingState.Loading)
 
-    private val _retry = MutableLiveData(false)
+    private val _kiosData = MutableStateFlow<KiosData?>(null)
+    val kiosData = _kiosData.asLiveData()
 
+    val isEmpty = _kiosData.map {
+        it?.items.isNullOrEmpty()
+    }.asLiveData()
 
-    private val _kiosData = _retry.switchMap {
-        liveData {
+    init {
+        fetchKiosData()
+    }
+
+    fun fetchKiosData(refreshState: ((Boolean) -> Unit)? = null) {
+        viewModelScope.launch {
             kiosRepository
                 .getKiosData()
                 .flowOn(Dispatchers.IO)
                 .toLoadingState()
-                .collectLatest { emit(it) }
-        }
-    }
-    val kiosData = _kiosData
+                .collectLatest { state ->
+                    refreshState?.invoke(state.isLoading)
+                    when (state) {
+                        LoadState.Loading -> {
+                            if (refreshState == null)
+                                loadingState.update { LoadingState.Loading }
+                        }
 
-    val isEmpty = _kiosData.map {
-        it.getValueOrNull() != null && it.getValueOrNull()!!.items.isNullOrEmpty()
+                        is LoadState.Error -> {
+                            if (refreshState == null) {
+                                loadingState.update { LoadingState.Error(state.e) }
+                            } else {
+                                onError(state.getAppErrorIfExists()!!)
+                            }
+                        }
+
+                        is LoadState.Loaded -> {
+                            loadingState.update { LoadingState.Loaded }
+                            _kiosData.update { state.value }
+                        }
+                    }
+                }
+        }
     }
 
     fun initializeStock(kiosCode: String, func: (KiosDto) -> Unit) {
@@ -57,7 +85,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun retry() {
-        _retry.postValue(true)
+        fetchKiosData()
     }
 
     fun logout(func: () -> Unit) {

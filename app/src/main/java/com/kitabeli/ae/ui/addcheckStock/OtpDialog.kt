@@ -34,7 +34,7 @@ class OtpDialog : DialogFragment(R.layout.dialog_otp) {
         super.onViewCreated(view, savedInstanceState)
         _binding = DialogOtpBinding.bind(view)
 
-        arguments?.getInt(ID)?.let { id ->
+        arguments?.getString(ID)?.let { id ->
             binding.title.text = "ID $id"
         }
 

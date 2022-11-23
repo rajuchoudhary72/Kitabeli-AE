@@ -37,7 +37,7 @@ class KiosAdapter @Inject constructor() :
                     )
                 }
 
-                "QA_REJECTED" -> {
+                "QA_REJECTED", "CANCELLED", "EXPIRED" -> {
                     binding.statusImage.setImageResource(R.drawable.ic_cancel)
                     binding.card.setStrokeColor(
                         ContextCompat.getColorStateList(

@@ -57,7 +57,7 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
         }
 
         homeViewModel.kiosData.observe(viewLifecycleOwner) { data ->
-            data.getValueOrNull()?.items?.let {
+            data?.items?.let {
                 kiosAdapter.submitList(it)
             }
         }
@@ -66,7 +66,7 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
             KiosCodeInputDialog()
                 .setCodeInputListener {
                     homeViewModel.initializeStock(it) { kios: KiosDto ->
-                        navigateToKios(kios.stockOpnameId!!)
+                        refreshKiosData()
                     }
                 }
                 .show(childFragmentManager, "")
@@ -74,6 +74,16 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
 
         binding.btnLogout.setOnClickListener {
             logout()
+        }
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            refreshKiosData()
+        }
+    }
+
+    private fun refreshKiosData() {
+        homeViewModel.fetchKiosData { isRefreshing ->
+            binding.swipeRefreshLayout.isRefreshing = isRefreshing
         }
     }
 

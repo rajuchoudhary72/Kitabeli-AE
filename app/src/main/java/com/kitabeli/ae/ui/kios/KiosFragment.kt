@@ -69,7 +69,7 @@ class KiosFragment : BaseFragment<KiosViewModel>() {
                     productAdapter.submitList(kiosDetails?.stockOpNameItemDTOS)
                     binding.kiosCode.text = kiosDetails?.kiosCode
                     binding.floatingActionButton.isVisible =
-                        kiosDetails?.isStatusCompleted()?.not() ?: true
+                        kiosDetails?.isStatusCompleted()?.not() ?: false
                     binding.btn.isEnabled = kiosDetails?.isStatusCompleted() ?: false
                 }
         }
