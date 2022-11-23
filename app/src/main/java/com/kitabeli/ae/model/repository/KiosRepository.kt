@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 import java.io.File
 
 interface KiosRepository {
-    fun initializeStock(kiosCode: String): Flow<KiosDto>
+    suspend fun initializeStock(kiosCode: String): Flow<KiosDto>
 
     fun addStockProduct(
         stockOpNameId: Int,

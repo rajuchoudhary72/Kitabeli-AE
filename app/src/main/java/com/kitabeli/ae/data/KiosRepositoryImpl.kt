@@ -31,12 +31,12 @@ class KiosRepositoryImpl @Inject constructor(
     private val sessionManager: SessionManager
 ) : KiosRepository {
 
-    override fun initializeStock(kiosCode: String): Flow<KiosDto> {
+    override suspend fun initializeStock(kiosCode: String): Flow<KiosDto> {
         return kiosService
             .initializeStock(
                 InitializeStockRequestDto(
                     kiosCode = kiosCode,
-                    aeId = "5"
+                    aeId = sessionManager.getAeId().first().toString()
                 )
             )
             .map { it.payload!! }
