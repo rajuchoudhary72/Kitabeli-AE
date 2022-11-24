@@ -1,5 +1,6 @@
 package com.kitabeli.ae.model.repository
 
+import com.kitabeli.ae.data.remote.dto.BtnStatusDto
 import com.kitabeli.ae.data.remote.dto.KiosData
 import com.kitabeli.ae.data.remote.dto.KiosDetail
 import com.kitabeli.ae.data.remote.dto.KiosDto
@@ -39,6 +40,10 @@ interface KiosRepository {
     fun getKiosStocks(
         stockOpNameId: Int,
     ): Flow<KiosDetail?>
+
+    fun getBtnStatus(
+        stockOpNameId: Int,
+    ): Flow<BtnStatusDto?>
 
     fun getSkuProducts(
         kiosCode: String,

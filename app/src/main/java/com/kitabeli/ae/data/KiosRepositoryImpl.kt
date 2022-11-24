@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.core.net.toUri
 import com.kitabeli.ae.data.local.SessionManager
 import com.kitabeli.ae.data.remote.dto.AddStockProductRequestDto
+import com.kitabeli.ae.data.remote.dto.BtnStatusDto
 import com.kitabeli.ae.data.remote.dto.CompletePaymentRequestDto
 import com.kitabeli.ae.data.remote.dto.GenerateReportRequestDto
 import com.kitabeli.ae.data.remote.dto.InitializeStockRequestDto
@@ -143,6 +144,10 @@ class KiosRepositoryImpl @Inject constructor(
 
     override fun getKiosStocks(stockOpNameId: Int): Flow<KiosDetail?> {
         return kiosService.getKiosStocks(stockOpNameId).map { it.payload }
+    }
+
+    override fun getBtnStatus(stockOpNameId: Int): Flow<BtnStatusDto?> {
+        return kiosService.getBtnStatus(stockOpNameId).map { it.payload }
     }
 
     override fun getSkuProducts(kiosCode: String): Flow<List<SkuDTO>?> {

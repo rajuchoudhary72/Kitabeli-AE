@@ -14,6 +14,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
@@ -30,8 +31,13 @@ class HomeViewModel @Inject constructor(
     private val _kiosData = MutableStateFlow<KiosData?>(null)
     val kiosData = _kiosData.asLiveData()
 
-    val isEmpty = _kiosData.map {
-        it?.items.isNullOrEmpty()
+    val isEmpty = combine(
+        flow = loadingState,
+        flow2 = _kiosData
+    ) { a, b ->
+        Pair(a, b)
+    }.map {
+        it.first.isSucceeded() && it.second?.items.isNullOrEmpty()
     }.asLiveData()
 
     init {

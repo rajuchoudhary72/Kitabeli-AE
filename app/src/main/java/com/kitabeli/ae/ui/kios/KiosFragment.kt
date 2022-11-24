@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
@@ -68,9 +67,6 @@ class KiosFragment : BaseFragment<KiosViewModel>() {
                 .collectLatest { kiosDetails ->
                     productAdapter.submitList(kiosDetails?.stockOpNameItemDTOS)
                     binding.kiosCode.text = kiosDetails?.kiosCode
-                    binding.floatingActionButton.isVisible =
-                        kiosDetails?.isStatusCompleted()?.not() ?: false
-                    binding.btn.isEnabled = kiosDetails?.isStatusCompleted() ?: false
                 }
         }
 

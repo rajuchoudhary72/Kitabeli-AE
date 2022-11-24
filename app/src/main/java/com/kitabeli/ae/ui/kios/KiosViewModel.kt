@@ -1,7 +1,9 @@
 package com.kitabeli.ae.ui.kios
 
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.kitabeli.ae.data.remote.dto.BtnStatusDto
 import com.kitabeli.ae.data.remote.dto.KiosDetail
 import com.kitabeli.ae.model.LoadState
 import com.kitabeli.ae.model.LoadingState
@@ -13,6 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -31,6 +34,9 @@ class KiosViewModel @Inject constructor(
     private val _kiosDetail = MutableStateFlow<KiosDetail?>(null)
     val kiosDetail = _kiosDetail.asStateFlow()
 
+    private val _btnStatus = MutableStateFlow<BtnStatusDto?>(null)
+    val btnStatus = _btnStatus.asLiveData()
+
     val loadingState = MutableStateFlow<LoadingState>(LoadingState.Loading)
 
 
@@ -40,8 +46,13 @@ class KiosViewModel @Inject constructor(
 
     fun fetchKissDetails(refreshState: ((Boolean) -> Unit)? = null) {
         viewModelScope.launch {
-            kiosRepository
-                .getKiosStocks(stockOpNameId)
+
+            combine(
+                flow = kiosRepository.getKiosStocks(stockOpNameId),
+                flow2 = kiosRepository.getBtnStatus(stockOpNameId)
+            ) { kiosDetail, btnStatusDto ->
+                Pair(kiosDetail, btnStatusDto)
+            }
                 .flowOn(Dispatchers.IO)
                 .toLoadingState()
                 .collectLatest { state ->
@@ -62,7 +73,8 @@ class KiosViewModel @Inject constructor(
 
                         is LoadState.Loaded -> {
                             loadingState.update { LoadingState.Loaded }
-                            _kiosDetail.update { state.value }
+                            _kiosDetail.update { state.value.first }
+                            _btnStatus.update { state.value.second }
                         }
                     }
                 }

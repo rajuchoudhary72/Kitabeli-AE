@@ -50,4 +50,5 @@
     <string name="belum_ada_cek_stok_kios_hari_ini">Belum ada cek stok kios hari ini</string>
     <string name="added_successfully">Added successfully.</string>
     <string name="masukkan_otp_yang_terkirim_di_kios_dashboard">Masukkan OTP yang terkirim di kios dashboard</string>
+    <string name="tanda_tangan_dokumen">Tanda Tangan Dokumen</string>
 </resources>

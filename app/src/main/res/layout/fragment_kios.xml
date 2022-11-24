@@ -112,12 +112,12 @@
 
                 <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                     android:id="@+id/floatingActionButton"
+                    isVisible="@{viewModel.btnStatus.showTambahProduk}"
                     android:layout_width="200dp"
                     android:layout_height="45dp"
                     android:layout_marginBottom="@dimen/screen_margin"
                     android:backgroundTint="@color/white"
                     android:text="@string/tambah_produk"
-                    android:visibility="gone"
                     app:icon="@drawable/round_add_circle_outline_24"
                     app:layout_constraintBottom_toBottomOf="@id/recycler_view_kios"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -134,17 +134,38 @@
                     app:layout_constraintEnd_toEndOf="@id/guideline_right"
                     app:layout_constraintStart_toStartOf="@id/guideline_left">
 
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/screen_margin"
-                        android:layout_marginBottom="@dimen/screen_margin"
-                        android:insetTop="0dp"
-                        android:insetBottom="0dp"
-                        android:text="@string/ajukan_validasi"
-                        app:shapeAppearanceOverlay="?attr/shapeAppearanceCornerExtraSmall" />
+                        android:orientation="vertical">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn"
+                            isVisible="@{!viewModel.btnStatus.tandaTanganDokumenEnabled}"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/screen_margin"
+                            android:layout_marginBottom="@dimen/screen_margin"
+                            android:enabled="@{viewModel.btnStatus.ajukanValidasiEnabled}"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:text="@string/ajukan_validasi"
+                            app:shapeAppearanceOverlay="?attr/shapeAppearanceCornerExtraSmall" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_tanda_tangan_dokumen"
+                            isVisible="@{viewModel.btnStatus.tandaTanganDokumenEnabled}"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/screen_margin"
+                            android:layout_marginBottom="@dimen/screen_margin"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:text="@string/tanda_tangan_dokumen"
+                            app:shapeAppearanceOverlay="?attr/shapeAppearanceCornerExtraSmall" />
+
+                    </LinearLayout>
+
 
                 </FrameLayout>
 

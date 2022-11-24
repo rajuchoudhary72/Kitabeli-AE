@@ -2,6 +2,7 @@ package com.kitabeli.ae.data.remote.service
 
 import com.kitabeli.ae.data.remote.dto.AddStockProductRequestDto
 import com.kitabeli.ae.data.remote.dto.BaseResponseDto
+import com.kitabeli.ae.data.remote.dto.BtnStatusDto
 import com.kitabeli.ae.data.remote.dto.CompletePaymentRequestDto
 import com.kitabeli.ae.data.remote.dto.GenerateReportRequestDto
 import com.kitabeli.ae.data.remote.dto.InitializeStockRequestDto
@@ -58,6 +59,9 @@ interface KiosService {
 
     @GET("api/v1/stock-opname/{stockOpNameId}")
     fun getKiosStocks(@Path("stockOpNameId") stockOpNameId: Int): Flow<BaseResponseDto<KiosDetail>>
+
+    @GET("api/v1/stock-opname/btn-state")
+    fun getBtnStatus(@Query("stockOpnameId") stockOpNameId: Int): Flow<BaseResponseDto<BtnStatusDto>>
 
     @GET("api/v1/stock-opname/item/list")
     fun getProducts(@Query("kioskCode") kioskCode: String): Flow<BaseResponseDto<List<SkuDTO>>>
