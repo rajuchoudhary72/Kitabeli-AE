@@ -11,6 +11,8 @@ import com.kitabeli.ae.data.remote.dto.InitializeStockRequestDto
 import com.kitabeli.ae.data.remote.dto.KiosData
 import com.kitabeli.ae.data.remote.dto.KiosDetail
 import com.kitabeli.ae.data.remote.dto.KiosDto
+import com.kitabeli.ae.data.remote.dto.MarkEligibleForQaRequestDto
+import com.kitabeli.ae.data.remote.dto.MarkEligibleForQaResponseDto
 import com.kitabeli.ae.data.remote.dto.Report
 import com.kitabeli.ae.data.remote.dto.SkuDTO
 import com.kitabeli.ae.data.remote.service.KiosService
@@ -148,6 +150,11 @@ class KiosRepositoryImpl @Inject constructor(
 
     override fun getBtnStatus(stockOpNameId: Int): Flow<BtnStatusDto?> {
         return kiosService.getBtnStatus(stockOpNameId).map { it.payload }
+    }
+
+    override fun markEligibleForQa(stockOpNameId: Int): Flow<MarkEligibleForQaResponseDto?> {
+        return kiosService.markEligibleForQa(MarkEligibleForQaRequestDto(stockOpNameId))
+            .map { it.payload }
     }
 
     override fun getSkuProducts(kiosCode: String): Flow<List<SkuDTO>?> {

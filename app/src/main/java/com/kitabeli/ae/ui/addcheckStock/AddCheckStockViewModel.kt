@@ -35,7 +35,7 @@ class AddCheckStockViewModel @Inject constructor(
     private val _retry = MutableStateFlow(false)
 
     private val stockOpNameId = savedStateHandle.get<Int>("stockOpNameId")
-        ?: throw RuntimeException("stockOpNameId requried, pass stockOpNameId in fragment argumnets.")
+        ?: throw RuntimeException("stockOpNameId required, pass stockOpNameId in fragment arguments.")
 
     val tncAgree = MutableStateFlow(false)
 

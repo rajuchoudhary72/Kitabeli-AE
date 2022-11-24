@@ -34,6 +34,10 @@ class KiosCodeInputDialog : DialogFragment(R.layout.dialog_kios_code_input) {
             dismiss()
         }
 
+        binding.kiosCode.doAfterTextChanged {
+            binding.btnOk.isEnabled = it?.isNotEmpty() ?: false
+        }
+
         binding.btnOk.setOnClickListener {
             val kiosCode = binding.kiosCode.text.toString()
             codeInputListener?.invoke(kiosCode)

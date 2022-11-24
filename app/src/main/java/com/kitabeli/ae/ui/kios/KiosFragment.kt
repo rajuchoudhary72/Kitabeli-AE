@@ -90,6 +90,10 @@ class KiosFragment : BaseFragment<KiosViewModel>() {
         }
 
         binding.btn.setOnClickListener {
+            kiosViewModel.markEligibleForQa()
+        }
+
+        binding.btnTandaTanganDokumen.setOnClickListener {
             kiosViewModel.getKiosDetails()?.let { kios ->
                 findNavController().navigate(
                     KiosFragmentDirections.actionKiosFragmentToAddCheckStockFragment(

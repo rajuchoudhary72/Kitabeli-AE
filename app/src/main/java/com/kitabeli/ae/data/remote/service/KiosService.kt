@@ -9,6 +9,8 @@ import com.kitabeli.ae.data.remote.dto.InitializeStockRequestDto
 import com.kitabeli.ae.data.remote.dto.KiosData
 import com.kitabeli.ae.data.remote.dto.KiosDetail
 import com.kitabeli.ae.data.remote.dto.KiosDto
+import com.kitabeli.ae.data.remote.dto.MarkEligibleForQaRequestDto
+import com.kitabeli.ae.data.remote.dto.MarkEligibleForQaResponseDto
 import com.kitabeli.ae.data.remote.dto.Report
 import com.kitabeli.ae.data.remote.dto.SkuDTO
 import kotlinx.coroutines.flow.Flow
@@ -68,5 +70,8 @@ interface KiosService {
 
     @GET("api/v1/stock-opname/")
     fun getKios(@Query("aeId") aeId: Int): Flow<BaseResponseDto<KiosData>>
+
+    @POST("api/v1/stock-opname/mark-eligible-qa")
+    fun markEligibleForQa(@Body request: MarkEligibleForQaRequestDto): Flow<BaseResponseDto<MarkEligibleForQaResponseDto>>
 
 }

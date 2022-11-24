@@ -17,6 +17,7 @@
 
             <ImageView
                 android:id="@+id/ic_close"
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/screen_margin"
@@ -81,6 +82,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/screen_margin"
+                android:enabled="false"
                 android:text="@string/sudah_terima"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

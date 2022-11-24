@@ -89,4 +89,20 @@ class KiosViewModel @Inject constructor(
 
     fun getKiosDetails(): KiosDetail? = _kiosDetail.value
 
+    fun markEligibleForQa() {
+        viewModelScope.launch {
+            kiosRepository
+                .markEligibleForQa(stockOpNameId)
+                .flowOn(Dispatchers.IO)
+                .toLoadingState()
+                .collectLatest { state ->
+                    state.handleErrorAndLoadingState()
+                    state.getValueOrNull()?.let {
+                        fetchKissDetails()
+                    }
+                }
+        }
+
+    }
+
 }

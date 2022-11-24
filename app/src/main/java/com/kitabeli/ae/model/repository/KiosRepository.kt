@@ -4,6 +4,7 @@ import com.kitabeli.ae.data.remote.dto.BtnStatusDto
 import com.kitabeli.ae.data.remote.dto.KiosData
 import com.kitabeli.ae.data.remote.dto.KiosDetail
 import com.kitabeli.ae.data.remote.dto.KiosDto
+import com.kitabeli.ae.data.remote.dto.MarkEligibleForQaResponseDto
 import com.kitabeli.ae.data.remote.dto.Report
 import com.kitabeli.ae.data.remote.dto.SkuDTO
 import kotlinx.coroutines.flow.Flow
@@ -44,6 +45,11 @@ interface KiosRepository {
     fun getBtnStatus(
         stockOpNameId: Int,
     ): Flow<BtnStatusDto?>
+
+
+    fun markEligibleForQa(
+        stockOpNameId: Int,
+    ): Flow<MarkEligibleForQaResponseDto?>
 
     fun getSkuProducts(
         kiosCode: String,
