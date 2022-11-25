@@ -132,7 +132,7 @@ class AddCheckStockViewModel @Inject constructor(
         viewModelScope.launch {
             val report = (uiState.value as UiState.Success).report!!
             kiosRepository.verifyOtp(
-                stockOPNameReportId = report.id!!,
+                stockOPNameReportId = report.id,
                 otp = otp
             )
                 .flowOn(Dispatchers.IO)
@@ -147,6 +147,23 @@ class AddCheckStockViewModel @Inject constructor(
                 }
         }
 
+    }
+
+    fun cancelReport(func: () -> Unit) {
+        viewModelScope.launch {
+            val report = (uiState.value as UiState.Success).report!!
+            kiosRepository.cancelReport(
+                stockOPNameReportId = report.id,
+            )
+                .flowOn(Dispatchers.IO)
+                .toLoadingState()
+                .collectLatest { state ->
+                    state.handleErrorAndLoadingState()
+                    if (state is LoadState.Loaded) {
+                        func.invoke()
+                    }
+                }
+        }
     }
 
     val enableButton = combine(

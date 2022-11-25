@@ -132,7 +132,9 @@ class AddCheckStockFragment : BaseFragment<AddCheckStockViewModel>() {
                 }
             }
             .setCancelListener {
-                navigateToHome()
+                mViewModel.cancelReport {
+                    navigateToHome()
+                }
             }
             .show(childFragmentManager, "CONFIRM")
     }

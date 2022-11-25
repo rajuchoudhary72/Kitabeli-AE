@@ -38,6 +38,11 @@ interface KiosRepository {
         reportFile: File,
     ): Flow<Report?>
 
+
+    suspend fun cancelReport(
+        stockOPNameReportId: Int
+    ): Flow<Boolean>
+
     fun getKiosStocks(
         stockOpNameId: Int,
     ): Flow<KiosDetail?>

@@ -5,6 +5,7 @@ import androidx.core.net.toUri
 import com.kitabeli.ae.data.local.SessionManager
 import com.kitabeli.ae.data.remote.dto.AddStockProductRequestDto
 import com.kitabeli.ae.data.remote.dto.BtnStatusDto
+import com.kitabeli.ae.data.remote.dto.CancelReportRequestDto
 import com.kitabeli.ae.data.remote.dto.CompletePaymentRequestDto
 import com.kitabeli.ae.data.remote.dto.GenerateReportRequestDto
 import com.kitabeli.ae.data.remote.dto.InitializeStockRequestDto
@@ -142,6 +143,12 @@ class KiosRepositoryImpl @Inject constructor(
             aeSignURLFile = aeSignURLFilePart,
             reportFile = reportFilePart
         ).map { it.payload }
+    }
+
+    override suspend fun cancelReport(stockOPNameReportId: Int): Flow<Boolean> {
+        return kiosService.cancelReport(CancelReportRequestDto(stockOPNameReportId)).map {
+            it.message == "Success"
+        }
     }
 
     override fun getKiosStocks(stockOpNameId: Int): Flow<KiosDetail?> {

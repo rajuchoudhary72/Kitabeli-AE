@@ -3,6 +3,7 @@ package com.kitabeli.ae.data.remote.service
 import com.kitabeli.ae.data.remote.dto.AddStockProductRequestDto
 import com.kitabeli.ae.data.remote.dto.BaseResponseDto
 import com.kitabeli.ae.data.remote.dto.BtnStatusDto
+import com.kitabeli.ae.data.remote.dto.CancelReportRequestDto
 import com.kitabeli.ae.data.remote.dto.CompletePaymentRequestDto
 import com.kitabeli.ae.data.remote.dto.GenerateReportRequestDto
 import com.kitabeli.ae.data.remote.dto.InitializeStockRequestDto
@@ -73,5 +74,8 @@ interface KiosService {
 
     @POST("api/v1/stock-opname/mark-eligible-qa")
     fun markEligibleForQa(@Body request: MarkEligibleForQaRequestDto): Flow<BaseResponseDto<MarkEligibleForQaResponseDto>>
+
+    @POST("api/v1/stock-opname/report/cancel")
+    fun cancelReport(@Body cancelReportRequestDto: CancelReportRequestDto): Flow<BaseResponseDto<Report>>
 
 }
