@@ -91,13 +91,29 @@
 
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/rejected_status"
+                    isVisible="@{viewModel.isStockItemRejected()}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:elevation="4dp"
+                    android:fontFamily="@font/inter_regular"
+                    android:gravity="center"
+                    android:paddingHorizontal="@dimen/screen_margin"
+                    android:paddingVertical="10dp"
+                    android:text="@string/harap_cek_dan_masukkan_kembali_data_produk_yang_ditolak_dengan_benar"
+                    android:textAppearance="?attr/textAppearanceBodyLarge"
+                    android:textColor="@color/red"
+                    app:layout_constraintTop_toBottomOf="@+id/kios_container" />
+
                 <include
                     android:id="@+id/header"
                     layout="@layout/item_product_group"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/screen_margin"
-                    app:layout_constraintTop_toBottomOf="@+id/kios_container" />
+                    app:layout_constraintTop_toBottomOf="@+id/rejected_status" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_view_kios"

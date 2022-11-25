@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -89,14 +90,15 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
 
     private fun logout() {
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Logout?")
-            .setMessage("Are you sure, you want to logout.")
-            .setPositiveButton("Logout") { _, _ ->
+            .setTitle(getString(R.string.logout))
+            .setMessage(getString(R.string.are_you_sure_you_want_to_logout))
+            .setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.bg_dialog))
+            .setPositiveButton(getString(R.string.logout_)) { _, _ ->
                 homeViewModel.logout {
                     findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToLoginFragment())
                 }
             }
-            .setNegativeButton("Cancel") { _, _ ->
+            .setNegativeButton(getString(R.string.cancel)) { _, _ ->
 
             }
             .show()

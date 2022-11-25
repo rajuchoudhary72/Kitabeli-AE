@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -38,6 +39,11 @@ class KiosViewModel @Inject constructor(
     val btnStatus = _btnStatus.asLiveData()
 
     val loadingState = MutableStateFlow<LoadingState>(LoadingState.Loading)
+
+
+    val isStockItemRejected =
+        _kiosDetail.map { it?.stockOpNameItemDTOS?.any { it.status == "QA_REJECTED" } ?: false }
+            .asLiveData()
 
 
     init {
