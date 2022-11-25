@@ -9,7 +9,7 @@ data class Report(
     @SerialName("accountExecutiveDTO")
     val accountExecutiveDTO: AccountExecutiveDTO? = null,
     @SerialName("id")
-    val id: Int? = null,
+    val id: Int,
     @SerialName("kioskDTO")
     val kioskDTO: KioskDTO? = null,
     @SerialName("offPlatformSaleAmount")

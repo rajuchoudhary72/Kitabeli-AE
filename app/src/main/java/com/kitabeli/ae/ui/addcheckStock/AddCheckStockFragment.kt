@@ -153,11 +153,9 @@ class AddCheckStockFragment : BaseFragment<AddCheckStockViewModel>() {
     private fun collectOpt() {
         val report = (mViewModel.uiState.value as UiState.Success).report!!
         OtpDialog
-            .getInstance(report.id.toString())
-            .setOtpListener { otp ->
-                mViewModel.verifyOtp(otp) {
-                    navigateToHome()
-                }
+            .getInstance(report.id)
+            .setOtpSuccessListener {
+                navigateToHome()
             }
             .setCancelListener {
                 navigateToHome()

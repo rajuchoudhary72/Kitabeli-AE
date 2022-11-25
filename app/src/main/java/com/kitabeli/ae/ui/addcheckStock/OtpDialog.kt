@@ -3,22 +3,25 @@ package com.kitabeli.ae.ui.addcheckStock
 import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
-import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.viewModels
 import com.kitabeli.ae.R
 import com.kitabeli.ae.databinding.DialogOtpBinding
+import com.kitabeli.ae.ui.common.BaseDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import `in`.aabhasjindal.otptextview.OTPListener
 
 @AndroidEntryPoint
-class OtpDialog : DialogFragment(R.layout.dialog_otp) {
+class OtpDialog : BaseDialogFragment<OtpViewModel>(R.layout.dialog_otp) {
+
+    private val otpViewModel: OtpViewModel by viewModels()
 
     private var _binding: DialogOtpBinding? = null
     private val binding get() = _binding!!
 
-    private var otpListener: ((String) -> Unit)? = null
+    private var otpListener: (() -> Unit)? = null
     private var onCancel: (() -> Unit)? = null
 
-    fun setOtpListener(listener: (String) -> Unit): OtpDialog {
+    fun setOtpSuccessListener(listener: () -> Unit): OtpDialog {
         otpListener = listener
         return this
     }
@@ -28,13 +31,17 @@ class OtpDialog : DialogFragment(R.layout.dialog_otp) {
         return this
     }
 
+    override fun getViewModel(): OtpViewModel {
+        return otpViewModel
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         dialog?.window?.setBackgroundDrawableResource(R.drawable.bg_dialog)
         isCancelable = false
         super.onViewCreated(view, savedInstanceState)
         _binding = DialogOtpBinding.bind(view)
 
-        arguments?.getString(ID)?.let { id ->
+        arguments?.getInt(ID)?.let { id ->
             binding.title.text = "ID $id"
         }
 
@@ -55,8 +62,10 @@ class OtpDialog : DialogFragment(R.layout.dialog_otp) {
 
         binding.btnSudahTerima.setOnClickListener {
             binding.otpView.otp?.let { otp ->
-                otpListener?.invoke(otp)
-                dismiss()
+                otpViewModel.verifyOtp(otp) {
+                    otpListener?.invoke()
+                    dismiss()
+                }
             }
         }
 
@@ -74,8 +83,8 @@ class OtpDialog : DialogFragment(R.layout.dialog_otp) {
     }
 
     companion object {
-        private const val ID = "id"
-        fun getInstance(id: String): OtpDialog {
+        const val ID = "id"
+        fun getInstance(id: Int): OtpDialog {
             return OtpDialog().apply {
                 arguments = bundleOf(
                     ID to id
