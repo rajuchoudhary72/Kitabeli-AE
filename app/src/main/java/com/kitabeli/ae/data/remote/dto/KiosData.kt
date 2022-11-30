@@ -31,7 +31,7 @@ data class KiosItem(
     @SerialName("status")
     val status: String? = null,
     @SerialName("stockOpnameId")
-    val stockOpnameId: Int? = null,
+    val stockOpnameId: Int,
     @SerialName("stockOpnameItemDTOS")
     val stockOpnameItemDTOS: List<StockOpNameItemDTOS>? = null,
     @SerialName("stockOpnameLocalDate")

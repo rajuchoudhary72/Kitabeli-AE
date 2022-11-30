@@ -82,7 +82,7 @@
                 app:icon="@drawable/baseline_add_24"
                 app:iconTint="@color/black"
                 app:layout_constraintBottom_toBottomOf="@+id/text_product_quantity"
-                app:layout_constraintStart_toStartOf="@+id/text_product_name"
+                app:layout_constraintEnd_toEndOf="@+id/text_product_name"
                 app:layout_constraintTop_toTopOf="@+id/text_product_quantity"
                 app:shapeAppearanceOverlay="?attr/shapeAppearanceCornerExtraLarge" />
 
@@ -95,8 +95,8 @@
                 android:layout_marginHorizontal="@dimen/screen_margin"
                 android:paddingStart="0dp"
                 android:paddingEnd="0dp"
-                app:layout_constraintEnd_toStartOf="@+id/btnMinus"
-                app:layout_constraintStart_toEndOf="@+id/btnPlus"
+                app:layout_constraintEnd_toStartOf="@+id/btnPlus"
+                app:layout_constraintStart_toEndOf="@+id/btnMinus"
                 app:layout_constraintTop_toBottomOf="@+id/text_product_name">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -121,7 +121,7 @@
                 app:icon="@drawable/baseline_horizontal_rule_24"
                 app:iconTint="@color/black"
                 app:layout_constraintBottom_toBottomOf="@+id/text_product_quantity"
-                app:layout_constraintEnd_toEndOf="@+id/text_product_name"
+                app:layout_constraintStart_toStartOf="@+id/text_product_name"
                 app:layout_constraintTop_toTopOf="@+id/text_product_quantity"
                 app:shapeAppearanceOverlay="?attr/shapeAppearanceCornerExtraLarge" />
 

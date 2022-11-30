@@ -29,6 +29,10 @@
             android:id="@+id/action_homeFragment_to_kiosFragment"
             app:destination="@id/kiosFragment" />
 
+        <action
+            android:id="@+id/action_homeFragment_to_addCheckStockFragment"
+            app:destination="@id/addCheckStockFragment" />
+
 
         <action
             android:id="@+id/action_homeFragment_to_loginFragment"

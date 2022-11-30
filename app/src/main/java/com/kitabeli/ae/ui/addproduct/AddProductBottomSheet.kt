@@ -64,6 +64,7 @@ class AddProductBottomSheet :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         dialog?.window?.setBackgroundDrawableResource(R.drawable.bg_dialog)
         super.onViewCreated(view, savedInstanceState)
+        isCancelable = false
         _binding = BottomSheetAddProductBinding.bind(view).apply {
             lifecycleOwner = viewLifecycleOwner
             addProductViewModel = getViewModel()
@@ -104,6 +105,10 @@ class AddProductBottomSheet :
             }
         }
 
+        binding.products.setOnFocusChangeListener { view, b ->
+            if (b)
+                binding.products.showDropDown()
+        }
     }
 
     private fun pickProductImage() {

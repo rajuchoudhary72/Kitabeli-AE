@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.kitabeli.ae.R
 import com.kitabeli.ae.data.remote.dto.KiosDto
+import com.kitabeli.ae.data.remote.dto.KiosItem
 import com.kitabeli.ae.databinding.FragmentHomeBinding
 import com.kitabeli.ae.ui.common.BaseFragment
 import com.rubensousa.decorator.LinearMarginDecoration
@@ -60,6 +61,7 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
         homeViewModel.kiosData.observe(viewLifecycleOwner) { data ->
             data?.items?.let {
                 kiosAdapter.submitList(it)
+                checkIsReportGenerated(data.items)
             }
         }
 
@@ -80,6 +82,18 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
         binding.swipeRefreshLayout.setOnRefreshListener {
             refreshKiosData()
         }
+    }
+
+    private fun checkIsReportGenerated(items: List<KiosItem>) {
+        items
+            .firstOrNull { kios -> kios.status == "REPORT_GENERATED" }
+            ?.let { kios ->
+                findNavController().navigate(
+                    HomeFragmentDirections.actionHomeFragmentToAddCheckStockFragment(
+                        kios.stockOpnameId
+                    )
+                )
+            }
     }
 
     private fun refreshKiosData() {
