@@ -55,13 +55,23 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
             )
         )
         kiosAdapter.onClickItem = { kios ->
-            navigateToKios(kios.stockOpnameId!!)
+            val kiosReport =
+                kiosAdapter.currentList.firstOrNull { kios -> kios.status == "REPORT_GENERATED" }
+
+            if (kiosReport != null) {
+                findNavController().navigate(
+                    HomeFragmentDirections.actionHomeFragmentToAddCheckStockFragment(
+                        kios.stockOpnameId
+                    )
+                )
+            } else {
+                navigateToKios(kios.stockOpnameId)
+            }
         }
 
         homeViewModel.kiosData.observe(viewLifecycleOwner) { data ->
             data?.items?.let {
                 kiosAdapter.submitList(it)
-                checkIsReportGenerated(data.items)
             }
         }
 
@@ -85,15 +95,7 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
     }
 
     private fun checkIsReportGenerated(items: List<KiosItem>) {
-        items
-            .firstOrNull { kios -> kios.status == "REPORT_GENERATED" }
-            ?.let { kios ->
-                findNavController().navigate(
-                    HomeFragmentDirections.actionHomeFragmentToAddCheckStockFragment(
-                        kios.stockOpnameId
-                    )
-                )
-            }
+
     }
 
     private fun refreshKiosData() {

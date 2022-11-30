@@ -92,6 +92,9 @@ class KiosFragment : BaseFragment<KiosViewModel>() {
         binding.btn.setOnClickListener {
             kiosViewModel.markEligibleForQa()
         }
+        binding.btnRefresh.setOnClickListener {
+            refreshKiosDetails()
+        }
 
         binding.btnTandaTanganDokumen.setOnClickListener {
             kiosViewModel.getKiosDetails()?.let { kios ->

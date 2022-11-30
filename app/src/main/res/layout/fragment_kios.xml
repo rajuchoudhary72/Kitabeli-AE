@@ -30,7 +30,22 @@
                 android:layout_height="?attr/actionBarSize"
                 app:navigationIcon="@drawable/ic_arrow"
                 app:title="@string/tambah_cek_stok"
-                app:titleTextAppearance="@style/TextAppearance.KitabeliAE.Toolbar" />
+                app:titleTextAppearance="@style/TextAppearance.KitabeliAE.Toolbar">
+
+                <ImageView
+                    android:id="@+id/btnRefresh"
+                    isVisible="@{viewModel.loadingState.succeeded}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="@dimen/screen_margin"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:padding="8dp"
+                    android:src="@drawable/baseline_refresh_24"
+                    app:tint="@color/black"
+                    tools:ignore="ContentDescription" />
+
+            </com.google.android.material.appbar.MaterialToolbar>
 
         </com.google.android.material.appbar.AppBarLayout>
 

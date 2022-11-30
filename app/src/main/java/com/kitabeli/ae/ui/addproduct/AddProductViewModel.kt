@@ -52,7 +52,7 @@ class AddProductViewModel @Inject constructor(
         flow2 = photoProof,
         flow3 = productSku
     ) { count, proof, sku ->
-        count.isNotEmpty() && count.toInt() > 0 && proof.isNotEmpty() && sku != null
+        (count.isNotEmpty() && count.toInt() > 0) && proof.isNotEmpty() && sku != null
     }.asLiveData()
 
     fun increaseStockCount() {
