@@ -34,7 +34,7 @@ class AddProductBottomSheet :
 
     private val startForProfileImageResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
-            addProductViewModel.showLoading(false)
+            showProgress(false)
             val resultCode = result.resultCode
             val data = result.data
 
@@ -105,20 +105,18 @@ class AddProductBottomSheet :
             }
         }
 
-        binding.products.setOnFocusChangeListener { view, b ->
+        /*binding.products.setOnFocusChangeListener { view, b ->
             if (b)
                 binding.products.showDropDown()
-        }
+        }*/
     }
 
     private fun pickProductImage() {
         ImagePicker.with(this)
             .cameraOnly()
-            .crop()
-            .compress(1024)
             .createIntent { intent ->
-                addProductViewModel.showLoading(true)
                 startForProfileImageResult.launch(intent)
+                showProgress(true)
             }
     }
 

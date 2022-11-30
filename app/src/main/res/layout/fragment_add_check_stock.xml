@@ -167,9 +167,10 @@
                             app:layout_constraintTop_toBottomOf="@+id/recycler_view" />
 
                         <ImageView
+                            android:id="@+id/img_offer"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
+                            android:padding="10dp"
                             android:src="@drawable/ic_info"
                             app:layout_constraintBottom_toBottomOf="@+id/nominal_perlu_ditarik"
                             app:layout_constraintStart_toEndOf="@+id/nominal_perlu_ditarik"
@@ -289,7 +290,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:elevation="5dp"
+                    android:elevation="10dp"
                     app:layout_constraintBottom_toBottomOf="parent">
 
                     <com.google.android.material.button.MaterialButton

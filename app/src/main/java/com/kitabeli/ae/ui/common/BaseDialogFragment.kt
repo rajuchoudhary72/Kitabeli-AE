@@ -67,9 +67,9 @@ abstract class BaseDialogFragment<M : BaseViewModel>(layoutId: Int) : DialogFrag
         getViewModel().onError(appError)
     }
 
-    private fun showProgress(visible: Boolean) {
-        getBaseActivity().showProgress(visible)
-    }
+     fun showProgress(visible: Boolean) {
+         getBaseActivity().showProgress(visible)
+     }
 
     fun hideProgressBar() {
         getBaseActivity().hideProgressBar()

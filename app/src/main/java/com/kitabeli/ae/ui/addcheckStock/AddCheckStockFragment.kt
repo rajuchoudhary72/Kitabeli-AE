@@ -103,6 +103,13 @@ class AddCheckStockFragment : BaseFragment<AddCheckStockViewModel>() {
                 R.id.photoViewFragment
             )
         }
+        binding.imgOffer.setOnClickListener {
+            val report = (mViewModel.uiState.value as UiState.Success).report!!
+
+            OfferDialog
+                .getInstance(report.onPlatformSalesAmount ?: 0, report.offPlatformSalesAmount ?: 0)
+                .show(childFragmentManager, "")
+        }
 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             repeatOnLifecycle(Lifecycle.State.CREATED) {

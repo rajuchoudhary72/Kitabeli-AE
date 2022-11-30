@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.kitabeli.ae.data.remote.dto.Report
 import com.kitabeli.ae.model.AppError
 import com.kitabeli.ae.model.LoadState
 import com.kitabeli.ae.model.repository.KiosRepository
@@ -47,7 +48,7 @@ class AddCheckStockViewModel @Inject constructor(
     val uiState = combine(
         flow = _report,
         flow2 = tncAgree
-    ) { report, _ ->
+    ) { report: LoadState<Report?>, _ ->
         when (report) {
             LoadState.Loading -> {
                 UiState.Loading

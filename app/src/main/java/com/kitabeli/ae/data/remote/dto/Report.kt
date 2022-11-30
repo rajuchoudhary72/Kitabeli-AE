@@ -21,7 +21,11 @@ data class Report(
     @SerialName("totalAmountToBePaid")
     val totalAmountToBePaid: Int? = null,
     @SerialName("status")
-    val status: String? = null
+    val status: String? = null,
+    @SerialName("onPlatformSalesAmount")
+    val onPlatformSalesAmount: Int? = null,
+    @SerialName("offPlatformSalesAmount")
+    val offPlatformSalesAmount: Int? = null
 )
 
 @Serializable
