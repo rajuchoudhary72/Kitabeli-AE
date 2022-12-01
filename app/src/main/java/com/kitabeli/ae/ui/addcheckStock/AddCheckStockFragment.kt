@@ -107,7 +107,10 @@ class AddCheckStockFragment : BaseFragment<AddCheckStockViewModel>() {
             val report = (mViewModel.uiState.value as UiState.Success).report!!
 
             OfferDialog
-                .getInstance(report.onPlatformSalesAmount ?: 0, report.offPlatformSalesAmount ?: 0)
+                .getInstance(
+                    report.onPlatformSalesAmount ?: "0.0",
+                    report.offPlatformSalesAmount ?: "0.0"
+                )
                 .show(childFragmentManager, "")
         }
 

@@ -55,10 +55,7 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
             )
         )
         kiosAdapter.onClickItem = { kios ->
-            val kiosReport =
-                kiosAdapter.currentList.firstOrNull { kios -> kios.status == "REPORT_GENERATED" }
-
-            if (kiosReport != null) {
+            if (kios.status == "REPORT_GENERATED") {
                 findNavController().navigate(
                     HomeFragmentDirections.actionHomeFragmentToAddCheckStockFragment(
                         kios.stockOpnameId

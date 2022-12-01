@@ -19,13 +19,13 @@ data class Report(
     @SerialName("stockOPNameReportItemDTOs")
     val stockOPNameReportItemDTOs: List<StockOPNameReportItemDTO?>? = null,
     @SerialName("totalAmountToBePaid")
-    val totalAmountToBePaid: Int? = null,
+    val totalAmountToBePaid: String? = null,
     @SerialName("status")
     val status: String? = null,
     @SerialName("onPlatformSalesAmount")
-    val onPlatformSalesAmount: Int? = null,
+    val onPlatformSalesAmount: String? = null,
     @SerialName("offPlatformSalesAmount")
-    val offPlatformSalesAmount: Int? = null
+    val offPlatformSalesAmount: String? = null
 )
 
 @Serializable

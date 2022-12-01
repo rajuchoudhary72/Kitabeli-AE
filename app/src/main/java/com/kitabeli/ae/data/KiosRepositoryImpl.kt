@@ -92,7 +92,7 @@ class KiosRepositoryImpl @Inject constructor(
 
     override suspend fun confirmReport(
         stockOPNameReportId: Int,
-        totalAmountToBePaid: Int,
+        totalAmountToBePaid: String,
         kiosOwnerSignURLFile: File,
         aeSignURLFile: File,
         reportFile: File

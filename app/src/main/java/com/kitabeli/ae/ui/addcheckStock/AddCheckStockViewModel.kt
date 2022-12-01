@@ -115,7 +115,7 @@ class AddCheckStockViewModel @Inject constructor(
             delay(100)
             val report = (uiState.value as UiState.Success).report!!
             kiosRepository.confirmReport(
-                stockOPNameReportId = report.id!!,
+                stockOPNameReportId = report.id,
                 totalAmountToBePaid = report.totalAmountToBePaid!!,
                 aeSignURLFile = aeSignature.value!!,
                 kiosOwnerSignURLFile = mirtaSignature.value!!,
