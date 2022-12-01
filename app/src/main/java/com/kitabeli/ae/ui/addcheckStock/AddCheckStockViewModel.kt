@@ -74,6 +74,10 @@ class AddCheckStockViewModel @Inject constructor(
 
     val isSuccess = uiState.map { it is UiState.Success }.asLiveData()
 
+    val kiosCode =
+        uiState.map { if (it is UiState.Success) it.report?.kioskDTO?.kioskCode ?: "" else "" }
+            .asLiveData()
+
     val isLoading = uiState.map { it is UiState.Loading }.asLiveData()
 
     val error: LiveData<AppError?> =

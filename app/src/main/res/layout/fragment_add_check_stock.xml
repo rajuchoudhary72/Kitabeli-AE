@@ -261,7 +261,8 @@
                             android:layout_marginBottom="10dp"
                             android:fontFamily="@font/inter_regular"
                             android:paddingVertical="@dimen/screen_margin"
-                            android:text="@string/mitra"
+                            android:text='@{"Pemilik " +addCheckStockViewModel.kiosCode}'
+                            tools:text="@string/mitra"
                             android:textAppearance="?attr/textAppearanceBodyMedium"
                             app:layout_constraintEnd_toEndOf="@+id/sign_mitra"
                             app:layout_constraintStart_toStartOf="@+id/sign_mitra"
