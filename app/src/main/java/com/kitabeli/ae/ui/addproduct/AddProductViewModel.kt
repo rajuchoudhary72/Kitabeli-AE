@@ -43,7 +43,6 @@ class AddProductViewModel @Inject constructor(
 
     private val photoProof = MutableLiveData("")
 
-
     val isAllDataFiled = combine(
         false,
         liveData1 = stockCount,
