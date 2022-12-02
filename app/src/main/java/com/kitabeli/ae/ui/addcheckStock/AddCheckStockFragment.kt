@@ -160,7 +160,7 @@ class AddCheckStockFragment : BaseFragment<AddCheckStockViewModel>() {
             binding.scrollView.getChildAt(0).height,
             binding.scrollView.getChildAt(0).width
         )
-        mViewModel.setReportFile(createFile(bitmap!!, SCREENSHOT_FILE_NAME))
+        mViewModel.setReportFile(createFile(bitmap!!, "${System.currentTimeMillis()}.jpg"))
     }
 
     private fun collectOpt() {
@@ -186,11 +186,16 @@ class AddCheckStockFragment : BaseFragment<AddCheckStockViewModel>() {
                             mViewModel.setMitraSignature(
                                 createFile(
                                     signature,
-                                    MITRA_SIGN_FILE_NAME
+                                    "${System.currentTimeMillis()}.jpg"
                                 )
                             )
                         } else {
-                            mViewModel.setAeSignature(createFile(signature, AE_SIGN_FILE_NAME))
+                            mViewModel.setAeSignature(
+                                createFile(
+                                    signature,
+                                    "${System.currentTimeMillis()}.jpg"
+                                )
+                            )
                         }
                         binding.scrollView.smoothScrollTo(
                             0,
@@ -250,12 +255,5 @@ class AddCheckStockFragment : BaseFragment<AddCheckStockViewModel>() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-
-    companion object {
-        private const val AE_SIGN_FILE_NAME = "ae_sign.jpg"
-        private const val MITRA_SIGN_FILE_NAME = "mitra_sing.jpg"
-        private const val SCREENSHOT_FILE_NAME = "screenshot.jpg"
     }
 }
