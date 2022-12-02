@@ -1,23 +1,19 @@
 package com.kitabeli.ae.ui.addproduct
 
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.kitabeli.ae.data.remote.dto.SkuDTO
 import com.kitabeli.ae.model.repository.KiosRepository
 import com.kitabeli.ae.ui.addproduct.AddProductBottomSheet.Companion.KIOS_CODE
 import com.kitabeli.ae.ui.addproduct.AddProductBottomSheet.Companion.STOCK_OP_NAME_ID
 import com.kitabeli.ae.ui.common.BaseViewModel
+import com.kitabeli.ae.utils.ext.combine
+import com.kitabeli.ae.utils.ext.requireValue
 import com.kitabeli.ae.utils.ext.toLoadingState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.io.File
 import javax.inject.Inject
@@ -31,7 +27,7 @@ class AddProductViewModel @Inject constructor(
     private val _stockOpNameId = savedStateHandle.getStateFlow(STOCK_OP_NAME_ID, 0)
     private val _kiosCode = savedStateHandle.getStateFlow(KIOS_CODE, "")
 
-    val productName = MutableStateFlow("")
+    val productName = MutableLiveData("")
 
     private val _products =
         _kiosCode.flatMapLatest { kiosRepository.getSkuProducts(it) }.flowOn(Dispatchers.IO)
@@ -40,37 +36,36 @@ class AddProductViewModel @Inject constructor(
 
     private val productSku = productName.map { productName ->
         products.value?.getValueOrNull()?.firstOrNull { it.name == productName }
+            ?: SkuDTO(skuId = -1, name = "")
     }
 
-    val stockCount = MutableStateFlow("0")
+    val stockCount = MutableLiveData("0")
 
-    private val photoProof = MutableStateFlow("")
+    private val photoProof = MutableLiveData("")
 
 
     val isAllDataFiled = combine(
-        flow = stockCount,
-        flow2 = photoProof,
-        flow3 = productSku
-    ) { count, proof, sku ->
-        (count.isNotEmpty()) && proof.isNotEmpty() && sku != null
-    }.asLiveData()
-
-
-    init {
-        stockCount.update { "0" }
+        false,
+        liveData1 = stockCount,
+        liveData2 = photoProof,
+        liveData3 = productSku
+    ) { _: Boolean, count: String, proof: String, sku: SkuDTO ->
+        count.isNotEmpty() && proof.isNotEmpty() && sku.skuId != -1
     }
 
+
     fun increaseStockCount() {
-        stockCount.update { it.toInt().plus(1).toString() }
+        stockCount.value = stockCount.value?.toInt()?.plus(1).toString()
     }
 
     fun decreaseStockCount() {
-        stockCount.update {
-            if (it == "0")
-                it
+        val currentValue = stockCount.value
+
+        stockCount.value =
+            if (currentValue.isNullOrEmpty() || currentValue == "0")
+                "0"
             else
-                it.toInt().minus(1).toString()
-        }
+                currentValue.toInt().minus(1).toString()
     }
 
     fun uploadProductImage(file: File) {
@@ -84,7 +79,7 @@ class AddProductViewModel @Inject constructor(
                 .collectLatest { response ->
                     response.handleErrorAndLoadingState()
                     response.getValueOrNull()?.let { photoUrl ->
-                        photoProof.update { photoUrl }
+                        photoProof.value = photoUrl
                     }
                 }
         }
@@ -93,11 +88,11 @@ class AddProductViewModel @Inject constructor(
 
     fun addProduct(func: () -> Unit) {
         viewModelScope.launch {
-            val skuItem = productSku.first()
+            val skuItem = productSku.value
             kiosRepository.addStockProduct(
                 stockOpNameId = _stockOpNameId.value,
-                photoProof = photoProof.value,
-                stockCount = stockCount.value.toInt(),
+                photoProof = photoProof.requireValue(),
+                stockCount = stockCount.requireValue().toInt(),
                 skuName = skuItem?.name ?: "",
                 skuId = skuItem?.skuId ?: 2
             )
