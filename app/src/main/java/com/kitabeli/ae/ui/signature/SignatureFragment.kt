@@ -9,6 +9,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
+import com.kitabeli.ae.R
 import com.kitabeli.ae.databinding.FragmentSignatureBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -44,7 +45,8 @@ class SignatureFragment : Fragment() {
 
         binding.btnSave.setOnClickListener {
             if (binding.signaturePad.isEmpty) {
-                Toast.makeText(requireContext(), "Add signature", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.save_sign), Toast.LENGTH_SHORT)
+                    .show()
                 return@setOnClickListener
             }
             setFragmentResult(

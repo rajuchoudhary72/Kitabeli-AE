@@ -7,5 +7,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class CancelReportRequestDto(
     @SerialName("stockOPNameReportId")
-    val stockOPNameReportId: Int? = null
+    val stockOPNameReportId: Int? = null,
 )

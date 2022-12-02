@@ -9,11 +9,11 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="4dp"
         app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="4dp"
+        app:contentPadding="10dp"
         app:strokeColor="@color/grey"
-        app:strokeWidth="0dp"
-        app:contentPadding="10dp">
+        app:strokeWidth="0dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

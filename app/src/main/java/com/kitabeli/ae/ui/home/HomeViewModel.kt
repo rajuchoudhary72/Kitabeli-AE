@@ -12,19 +12,14 @@ import com.kitabeli.ae.ui.common.BaseViewModel
 import com.kitabeli.ae.utils.ext.toLoadingState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val kiosRepository: KiosRepository,
-    private val sessionManager: SessionManager
+    private val sessionManager: SessionManager,
 ) : BaseViewModel() {
     val loadingState = MutableStateFlow<LoadingState>(LoadingState.Loading)
 

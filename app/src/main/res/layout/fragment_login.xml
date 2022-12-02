@@ -53,8 +53,8 @@
             app:boxBackgroundColor="@color/white"
             app:boxStrokeColor="@color/white"
             app:boxStrokeWidth="0dp"
-            app:hintEnabled="false"
             app:errorText="@{loginViewModel.emailAddressValidator.error}"
+            app:hintEnabled="false"
             app:layout_constraintEnd_toEndOf="@id/guideline_right"
             app:layout_constraintStart_toStartOf="@id/guideline_left"
             app:layout_constraintTop_toBottomOf="@id/logo">
@@ -65,9 +65,9 @@
                 android:drawableStart="@drawable/ic_email"
                 android:drawablePadding="10dp"
                 android:hint="@string/masukkan_email_kamu_di_sini"
-                android:text="@={loginViewModel.emailAddress}"
                 android:inputType="textEmailAddress"
                 android:singleLine="true"
+                android:text="@={loginViewModel.emailAddress}"
                 android:textSize="15sp" />
 
 
@@ -83,8 +83,8 @@
             android:paddingEnd="0dp"
             app:boxBackgroundColor="@color/white"
             app:boxStrokeColor="@color/white"
-            app:errorText="@{loginViewModel.passwordValidator.error}"
             app:boxStrokeWidth="0dp"
+            app:errorText="@{loginViewModel.passwordValidator.error}"
             app:hintEnabled="false"
             app:layout_constraintEnd_toEndOf="@id/guideline_right"
             app:layout_constraintStart_toStartOf="@id/guideline_left"
@@ -96,10 +96,10 @@
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_key"
                 android:drawablePadding="10dp"
-                android:text="@={loginViewModel.password}"
                 android:hint="@string/masukkan_password_kamu_di_sini"
                 android:inputType="textPassword"
                 android:singleLine="true"
+                android:text="@={loginViewModel.password}"
                 android:textSize="15sp" />
 
 
@@ -111,11 +111,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/screen_margin"
+            android:enabled="@{loginViewModel.isLoginFormValid}"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-            android:enabled="@{loginViewModel.isLoginFormValid}"
-            android:text="@string/masuk"
             android:onClick="@{v -> loginViewModel.login()}"
+            android:text="@string/masuk"
             app:layout_constraintEnd_toEndOf="@id/guideline_right"
             app:layout_constraintStart_toStartOf="@id/guideline_left"
             app:layout_constraintTop_toBottomOf="@id/text_input_password"

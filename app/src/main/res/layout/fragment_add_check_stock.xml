@@ -22,15 +22,15 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             app:liftOnScroll="true"
-            app:liftOnScrollTargetViewId="@id/scrollView"
-            android:fitsSystemWindows="true">
+            android:fitsSystemWindows="true"
+            app:liftOnScrollTargetViewId="@id/scrollView">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar"
-                app:titleTextAppearance="@style/TextAppearance.KitabeliAE.Toolbar"
+                app:title="@string/tambah_cek_stok"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:title="@string/tambah_cek_stok" />
+                app:titleTextAppearance="@style/TextAppearance.KitabeliAE.Toolbar" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -187,10 +187,10 @@
                             android:background="@drawable/bg_price"
                             android:fontFamily="@font/inter_semi_bold"
                             android:gravity="center"
-                            tools:text="Rp 2.000.000"
+                            app:layout_constraintEnd_toEndOf="parent"
                             android:textAppearance="?attr/textAppearanceTitleMedium"
                             app:layout_constraintBaseline_toBaselineOf="@+id/nominal_perlu_ditarik"
-                            app:layout_constraintEnd_toEndOf="parent" />
+                            tools:text="Rp 2.000.000" />
 
 
                         <com.google.android.material.checkbox.MaterialCheckBox
@@ -261,7 +261,7 @@
                             android:layout_marginBottom="10dp"
                             android:fontFamily="@font/inter_regular"
                             android:paddingVertical="@dimen/screen_margin"
-                            android:text='@{"Pemilik " +addCheckStockViewModel.kiosCode}'
+                            android:text='@{"Pemilik KIOS_" +addCheckStockViewModel.kiosCode}'
                             tools:text="@string/mitra"
                             android:textAppearance="?attr/textAppearanceBodyMedium"
                             app:layout_constraintEnd_toEndOf="@+id/sign_mitra"

@@ -98,11 +98,6 @@ class AddCheckStockFragment : BaseFragment<AddCheckStockViewModel>() {
                 R.id.photoViewFragment
             )
         }
-        binding.layoutStockItemHeader.imgInfoTopUp.setOnClickListener {
-            findNavController().navigate(
-                R.id.photoViewFragment
-            )
-        }
         binding.imgOffer.setOnClickListener {
             val report = (mViewModel.uiState.value as UiState.Success).report!!
 
@@ -112,6 +107,12 @@ class AddCheckStockFragment : BaseFragment<AddCheckStockViewModel>() {
                     report.offPlatformSalesAmount ?: "0.0"
                 )
                 .show(childFragmentManager, "")
+        }
+
+        binding.layoutStockItemHeader.imgInfoTopUp.setOnClickListener {
+            findNavController().navigate(
+                R.id.photoViewFragment
+            )
         }
 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {

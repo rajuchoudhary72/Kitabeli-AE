@@ -7,5 +7,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class MarkEligibleForQaRequestDto(
     @SerialName("stockOpnameId")
-    val stockOpNameId: Int
+    val stockOpNameId: Int,
 )

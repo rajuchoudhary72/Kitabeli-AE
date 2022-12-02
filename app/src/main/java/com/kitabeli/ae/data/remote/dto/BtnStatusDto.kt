@@ -11,5 +11,5 @@ data class BtnStatusDto(
     @SerialName("isTandaTanganDokumenEnabled")
     val isTandaTanganDokumenEnabled: Boolean,
     @SerialName("showTambahProduk")
-    val showTambahProduk: Boolean
+    val showTambahProduk: Boolean,
 )

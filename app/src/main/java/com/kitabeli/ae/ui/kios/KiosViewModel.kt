@@ -39,7 +39,6 @@ class KiosViewModel @Inject constructor(
 
     val loadingState = MutableStateFlow<LoadingState>(LoadingState.Loading)
 
-
     val isStockItemRejected =
         combine(
             flow = _btnStatus,
@@ -49,7 +48,6 @@ class KiosViewModel @Inject constructor(
                 ?: false) && (kiosDetail?.stockOpNameItemDTOS?.any { it.status == "QA_REJECTED" }
                 ?: false)
         }.asLiveData()
-
 
     init {
         fetchKissDetails()
@@ -99,7 +97,6 @@ class KiosViewModel @Inject constructor(
 
 
     fun getKiosDetails(): KiosDetail? = _kiosDetail.value
-
     fun markEligibleForQa() {
         viewModelScope.launch {
             kiosRepository
@@ -115,5 +112,4 @@ class KiosViewModel @Inject constructor(
         }
 
     }
-
 }

@@ -37,7 +37,6 @@ class AddCheckStockViewModel @Inject constructor(
 
     private val stockOpNameId = savedStateHandle.get<Int>("stockOpNameId")
         ?: throw RuntimeException("stockOpNameId required, pass stockOpNameId in fragment arguments.")
-
     val tncAgree = MutableStateFlow(false)
 
     private val _report = _retry
@@ -73,11 +72,9 @@ class AddCheckStockViewModel @Inject constructor(
 
 
     val isSuccess = uiState.map { it is UiState.Success }.asLiveData()
-
     val kiosCode =
         uiState.map { if (it is UiState.Success) it.report?.kioskDTO?.kioskCode ?: "" else "" }
             .asLiveData()
-
     val isLoading = uiState.map { it is UiState.Loading }.asLiveData()
 
     val error: LiveData<AppError?> =

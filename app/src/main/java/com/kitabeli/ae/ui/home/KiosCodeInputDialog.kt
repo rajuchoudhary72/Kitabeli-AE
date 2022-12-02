@@ -33,19 +33,28 @@ class KiosCodeInputDialog : DialogFragment(R.layout.dialog_kios_code_input) {
         binding.icClose.setOnClickListener {
             dismiss()
         }
-
         binding.kiosCode.doAfterTextChanged {
             binding.btnOk.isEnabled = it?.isNotEmpty() ?: false
         }
-
         binding.btnOk.setOnClickListener {
             val kiosCode = binding.kiosCode.text.toString()
             codeInputListener?.invoke(kiosCode)
             dismiss()
         }
 
-    }
+        /*  binding.btnOk.setOnClickListener {
+              var kiosCode = binding.kiosCode.text.toString()
+              if (kiosCode != kiosCode.toUpperCase()) {
+                  kiosCode = kiosCode.toUpperCase();
+                  codeInputListener?.invoke(kiosCode)
+                  dismiss()
+              }else{
+                  codeInputListener?.invoke(kiosCode)
+                  dismiss()
+              }
 
+          }*/
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

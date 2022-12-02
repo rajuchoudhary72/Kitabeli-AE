@@ -2,15 +2,15 @@
     <string name="app_name">Kitabeli-AE</string>
     <string name="action_settings">Settings</string>
 
-    <string name="error_network">A network error has occurred. Please try again.</string>
-    <string name="error_no_internet_connection">Please check your internet connection and try again.</string>
-    <string name="error_server">A server error has occurred. Please try again.</string>
-    <string name="error_unknown">An unknown error has occurred. Please try again.</string>
-    <string name="error_auth">You do not have permissions to access the service.</string>
+    <string name="error_network">Terjadi kesalahan jaringan. Silakan coba lagi.</string>
+    <string name="error_no_internet_connection">Silakan periksa koneksi internet Anda dan coba lagi.</string>
+    <string name="error_server">Terjadi kesalahan server. Silakan coba lagi</string>
+    <string name="error_unknown">Terjadi kesalahan yang tidak diketahui. Silakan coba lagi.</string>
+    <string name="error_auth">Anda tidak memiliki izin untuk mengakses layanan.</string>
 
 
-    <string name="email_validation_message">Please enter a valid email address.</string>
-    <string name="password_validation_message">Please enter password.</string>
+    <string name="email_validation_message">email anda salah.</string>
+    <string name="password_validation_message">tolong masukkan password anda.</string>
 
 
     <string name="cari_produk">Cari Produk</string>
@@ -38,23 +38,29 @@
     <string name="top_up">Top up</string>
     <string name="cek_stok_saat_ini">Cek Stok Saat Ini</string>
     <string name="perlu_dibayar">Perlu Dibayar</string>
-    <string name="clear_pad">Clear Pad</string>
-    <string name="save_signature">Save Signature</string>
-    <string name="belum">Belum</string>
-    <string name="sudah_terima">Sudah terima</string>
+    <string name="clear_pad">Hapus Bantalan</string>
+    <string name="save_signature">Simpan Tanda Tangan</string>
+    <string name="belum">Batalkan Penagihan</string>
+    <string name="sudah_terima">Kirim OTP</string>
     <string name="minta_otp">Minta OTP</string>
     <string name="dokumen_cek_stok_barang">DOKUMEN CEK STOK BARANG</string>
     <string name="legal_conent">Dengan ditandatanganinya Hasil Pemeriksaan ini, mitra telah mengetahui dan menyetujui hasil pemeriksaan. Dalam hal terdapat perbedaan antara data penjualan dengan data hasil pemeriksaan, Mitra wajib melakukan pembayaran ganti rugi sesuai data hasil selisih tersebut</string>
     <string name="ohh">Ohh…</string>
     <string name="retry">Retry</string>
     <string name="belum_ada_cek_stok_kios_hari_ini">Belum ada cek stok kios hari ini</string>
-    <string name="added_successfully">Added successfully.</string>
+    <string name="added_successfully">Berhasil ditambahkan.</string>
+    <string name="apakah_kamu_sudah_menerima_uang_hasil_penjualan">Apakah kamu sudah menerima uang hasil penjualan?</string>
+    <string name="wajib_setor_uang_penjualan_bila_proses_input_selesai_atau_mengulang_input_data_bila_belum">Wajib setor uang penjualan bila proses input selesai. Atau mengulang input data bila belum.</string>
+    <string name="title_lorem_ipsum">Masukkan Kode Kios</string>
+    <string name="lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_elit_quisque_dictum_magna_metus_sed_luctus_ex_dictum_non">Pastikan kode kios yang anda masukkan benar sesuai dengan yang sedang anda kunjungi!</string>
+    <string name="kios_code">Kios Code</string>
+    <string name="ok">Oke</string>
     <string name="masukkan_otp_yang_terkirim_di_kios_dashboard">Masukkan OTP yang terkirim di kios dashboard</string>
+    <string name="logout_">Logout?</string>
+    <string name="cancel">Batal</string>
+    <string name="logout_msg">Anda yakin ingin logout?</string>
+    <string name="cancelled_task">Tugas Dibatalkan</string>
+    <string name="save_sign">Tambahkan Tanda Tangan</string>
     <string name="tanda_tangan_dokumen">Tanda Tangan Dokumen</string>
-    <string name="ok">OK</string>
-    <string name="logout">Logout?</string>
-    <string name="are_you_sure_you_want_to_logout">Are you sure, you want to logout.</string>
-    <string name="logout_">Logout</string>
-    <string name="cancel">Cancel</string>
     <string name="harap_cek_dan_masukkan_kembali_data_produk_yang_ditolak_dengan_benar">Harap cek dan masukkan kembali data produk yang ditolak dengan benar</string>
 </resources>

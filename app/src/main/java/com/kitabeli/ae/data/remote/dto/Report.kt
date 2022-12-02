@@ -25,7 +25,7 @@ data class Report(
     @SerialName("onPlatformSalesAmount")
     val onPlatformSalesAmount: String? = null,
     @SerialName("offPlatformSalesAmount")
-    val offPlatformSalesAmount: String? = null
+    val offPlatformSalesAmount: String? = null,
 )
 
 @Serializable

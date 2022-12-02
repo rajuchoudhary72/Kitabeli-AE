@@ -51,7 +51,7 @@ class AddProductBottomSheet :
                 }
 
                 else -> {
-                    showMessage("Task Cancelled")
+                    showMessage(getString(R.string.cancelled_task))
                 }
             }
         }

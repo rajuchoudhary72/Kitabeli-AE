@@ -15,6 +15,7 @@ class ConfirmationDialog : DialogFragment(R.layout.dialog_confirmation) {
 
     private var submitReport: (() -> Unit)? = null
 
+
     private var onCancel: (() -> Unit)? = null
 
     fun setCancelListener(listener: () -> Unit): ConfirmationDialog {

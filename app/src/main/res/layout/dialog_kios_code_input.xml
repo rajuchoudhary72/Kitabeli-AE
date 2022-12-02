@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="80dp"
                 android:fontFamily="@font/inter_semi_bold"
-                android:text="Title Lorem Ipsum"
+                android:text="@string/title_lorem_ipsum"
                 android:textAppearance="?attr/textAppearanceTitleLarge"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/screen_margin"
                 android:fontFamily="@font/inter_regular"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque dictum magna metus, sed luctus ex dictum non."
+                android:text="@string/lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_elit_quisque_dictum_magna_metus_sed_luctus_ex_dictum_non"
                 android:textAlignment="center"
                 android:textAppearance="?attr/textAppearanceBodyMedium"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -68,7 +68,7 @@
                     android:id="@+id/kiosCode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Kios Code"
+                    android:hint="@string/kios_code"
                     android:inputType="textCapCharacters" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -80,8 +80,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/screen_margin"
                 android:layout_marginBottom="40dp"
-                android:enabled="false"
                 android:text="@string/ok"
+                android:enabled="false"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_input_code"
                 app:shapeAppearanceOverlay="?attr/shapeAppearanceCornerExtraSmall" />

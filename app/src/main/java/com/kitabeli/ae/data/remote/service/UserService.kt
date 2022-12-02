@@ -9,9 +9,6 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface UserService {
-
     @POST("api/v1/ae/login")
     fun login(@Body requestDto: LoginRequestDto): Flow<BaseResponseDto<LoginResponseDto>>
-
-
 }

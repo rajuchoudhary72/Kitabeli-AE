@@ -71,7 +71,7 @@ class OfferDialog : BaseDialogFragment<OfferViewModel>(R.layout.dialog_offer) {
         private const val offPlatformSalesAmountKey = "offPlatformSalesAmount"
         fun getInstance(
             onPlatformSalesAmount: String,
-            offPlatformSalesAmount: String
+            offPlatformSalesAmount: String,
         ): OfferDialog {
             return OfferDialog().apply {
                 arguments = bundleOf(

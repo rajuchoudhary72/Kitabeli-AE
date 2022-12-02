@@ -65,10 +65,10 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
                 navigateToKios(kios.stockOpnameId)
             }
         }
-
         homeViewModel.kiosData.observe(viewLifecycleOwner) { data ->
             data?.items?.let {
                 kiosAdapter.submitList(it)
+                //  checkIsReportGenerated(data.items)
             }
         }
 
@@ -85,14 +85,21 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
         binding.btnLogout.setOnClickListener {
             logout()
         }
-
         binding.swipeRefreshLayout.setOnRefreshListener {
             refreshKiosData()
         }
     }
 
     private fun checkIsReportGenerated(items: List<KiosItem>) {
-
+        items
+            .firstOrNull { kios -> kios.status == "REPORT_GENERATED" }
+            ?.let { kios ->
+                findNavController().navigate(
+                    HomeFragmentDirections.actionHomeFragmentToAddCheckStockFragment(
+                        kios.stockOpnameId
+                    )
+                )
+            }
     }
 
     private fun refreshKiosData() {
@@ -103,8 +110,8 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
 
     private fun logout() {
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle(getString(R.string.logout))
-            .setMessage(getString(R.string.are_you_sure_you_want_to_logout))
+            .setTitle(getString(R.string.logout_))
+            .setMessage(getString(R.string.logout_msg))
             .setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.bg_dialog))
             .setPositiveButton(getString(R.string.logout_)) { _, _ ->
                 homeViewModel.logout {

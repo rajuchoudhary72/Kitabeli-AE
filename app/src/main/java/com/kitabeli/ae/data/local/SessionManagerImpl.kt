@@ -56,7 +56,6 @@ class SessionManagerImpl @Inject constructor(
         }
     }
 
-
     companion object {
         val AE_ID = intPreferencesKey("ae_id")
         val FULL_NAME = stringPreferencesKey("full_name")

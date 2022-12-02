@@ -67,6 +67,9 @@ class KiosFragment : BaseFragment<KiosViewModel>() {
                 .collectLatest { kiosDetails ->
                     productAdapter.submitList(kiosDetails?.stockOpNameItemDTOS)
                     binding.kiosCode.text = kiosDetails?.kiosCode
+                    /*   binding.floatingActionButton.isVisible =
+                           kiosDetails?.isStatusCompleted()?.not() ?: true
+                       binding.btn.isEnabled = kiosDetails?.isStatusCompleted() ?: false*/
                 }
         }
 
@@ -88,14 +91,12 @@ class KiosFragment : BaseFragment<KiosViewModel>() {
         binding.swipeRefreshLayout.setOnRefreshListener {
             refreshKiosDetails()
         }
-
         binding.btn.setOnClickListener {
             kiosViewModel.markEligibleForQa()
         }
         binding.btnRefresh.setOnClickListener {
             refreshKiosDetails()
         }
-
         binding.btnTandaTanganDokumen.setOnClickListener {
             kiosViewModel.getKiosDetails()?.let { kios ->
                 findNavController().navigate(

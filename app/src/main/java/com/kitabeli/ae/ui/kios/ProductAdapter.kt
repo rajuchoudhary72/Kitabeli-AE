@@ -35,7 +35,7 @@ class ProductAdapter @Inject constructor() :
                     binding.textProductStatus.text = "Belum diajukan"
                 }
 
-                "QA_ASSIGNMENT_PENDING" -> {
+                "QA_ASSIGNED" -> {
                     binding.textProductStatus.setTextColor(
                         ContextCompat.getColor(
                             binding.textProductStatus.context,
@@ -59,7 +59,7 @@ class ProductAdapter @Inject constructor() :
                     binding.textProductStatus.setTextColor(
                         ContextCompat.getColor(
                             binding.textProductStatus.context,
-                            R.color.orange60
+                            R.color.red
                         )
                     )
                     binding.textProductStatus.text = "Ditolak"

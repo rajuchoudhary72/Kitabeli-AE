@@ -1,29 +1,10 @@
 package com.kitabeli.ae.data.remote.service
 
-import com.kitabeli.ae.data.remote.dto.AddStockProductRequestDto
-import com.kitabeli.ae.data.remote.dto.BaseResponseDto
-import com.kitabeli.ae.data.remote.dto.BtnStatusDto
-import com.kitabeli.ae.data.remote.dto.CancelReportRequestDto
-import com.kitabeli.ae.data.remote.dto.CompletePaymentRequestDto
-import com.kitabeli.ae.data.remote.dto.GenerateReportRequestDto
-import com.kitabeli.ae.data.remote.dto.InitializeStockRequestDto
-import com.kitabeli.ae.data.remote.dto.KiosData
-import com.kitabeli.ae.data.remote.dto.KiosDetail
-import com.kitabeli.ae.data.remote.dto.KiosDto
-import com.kitabeli.ae.data.remote.dto.MarkEligibleForQaRequestDto
-import com.kitabeli.ae.data.remote.dto.MarkEligibleForQaResponseDto
-import com.kitabeli.ae.data.remote.dto.Report
-import com.kitabeli.ae.data.remote.dto.SkuDTO
+import com.kitabeli.ae.data.remote.dto.*
 import kotlinx.coroutines.flow.Flow
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Multipart
-import retrofit2.http.POST
-import retrofit2.http.Part
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface KiosService {
 
@@ -77,5 +58,4 @@ interface KiosService {
 
     @POST("api/v1/stock-opname/report/cancel")
     fun cancelReport(@Body cancelReportRequestDto: CancelReportRequestDto): Flow<BaseResponseDto<Report>>
-
 }

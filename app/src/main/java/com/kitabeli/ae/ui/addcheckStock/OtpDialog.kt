@@ -1,5 +1,6 @@
 package com.kitabeli.ae.ui.addcheckStock
 
+import `in`.aabhasjindal.otptextview.OTPListener
 import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
@@ -8,7 +9,6 @@ import com.kitabeli.ae.R
 import com.kitabeli.ae.databinding.DialogOtpBinding
 import com.kitabeli.ae.ui.common.BaseDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
-import `in`.aabhasjindal.otptextview.OTPListener
 
 @AndroidEntryPoint
 class OtpDialog : BaseDialogFragment<OtpViewModel>(R.layout.dialog_otp) {

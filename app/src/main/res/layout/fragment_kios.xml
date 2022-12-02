@@ -101,8 +101,7 @@
                         android:fontFamily="@font/inter_bold"
                         android:text="@string/kios"
                         android:textAllCaps="true"
-                        android:textAppearance="?attr/textAppearanceTitleMedium"
-                        app:drawableEndCompat="@drawable/ic_arrow_down" />
+                        android:textAppearance="?attr/textAppearanceTitleMedium" />
 
                 </LinearLayout>
 

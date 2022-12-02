@@ -17,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class OtpViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val kiosRepository: KiosRepository
+    private val kiosRepository: KiosRepository,
 ) : BaseViewModel() {
 
     private val stockOPNameReportId = savedStateHandle.get<Int>(ID)

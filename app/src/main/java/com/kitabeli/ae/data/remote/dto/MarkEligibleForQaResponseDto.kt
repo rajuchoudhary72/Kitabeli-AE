@@ -25,5 +25,5 @@ data class MarkEligibleForQaResponseDto(
     @SerialName("stockOpnameItemDTOS")
     val stockOpnameItemDTOS: List<StockOPNameReportItemDTO>? = null,
     @SerialName("stockOpnameLocalDate")
-    val stockOpnameLocalDate: String? = null
+    val stockOpnameLocalDate: String? = null,
 )
