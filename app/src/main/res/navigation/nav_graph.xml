@@ -40,6 +40,11 @@
             app:launchSingleTop="true"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_homeFragment_to_scanqrFragment"
+            app:destination="@id/scanQRFragment" />
+
     </fragment>
 
     <fragment
@@ -91,5 +96,12 @@
         android:name="com.kitabeli.ae.ui.photoview.PhotoViewFragment"
         android:label="PhotoViewFragment"
         tools:layout="@layout/fragment_photo_view" />
+
+    <fragment
+        android:id="@+id/scanQRFragment"
+        android:name="com.kitabeli.ae.ui.scanqr.ScanQrFragment"
+        android:label="ScanQrFragment"
+        tools:layout="@layout/fragment_scanqr" />
+
 
 </navigation>

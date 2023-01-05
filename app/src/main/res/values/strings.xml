@@ -31,6 +31,12 @@
     <string name="tabel_stok">Tabel Stok</string>
     <string name="nominal_perlu_ditarik">Nominal perlu ditarik</string>
     <string name="dengan_ini_saya_menyatakan_sudah_menarik_dan_menerima_uang_sejumlah_di_atas_dari_kios_ini">Dengan ini saya menyatakan sudah menarik dan menerima uang sejumlah di atas dari kios ini</string>
+    <string name="pemilik_kios">Pemilik kios diwakilkan dalam penarikan uang ini</string>
+    <string name="pemilik_kios_selected_subtitle">(Perwakilan Pemilik Kios)</string>
+    <string name="pemilik_kios_subtitle">(Pemilik Kios)</string>
+    <string name="pemilik_kios_hint"> Nama perwakilan</string>
+    <string name="ae_kitabeli_text">(AE Kitabeli)</string>
+
     <string name="mitra">Mitra</string>
     <string name="ae_kitabeli">AE KitaBeli</string>
     <string name="nama_produk">Nama Produk</string>
@@ -53,7 +59,7 @@
     <string name="wajib_setor_uang_penjualan_bila_proses_input_selesai_atau_mengulang_input_data_bila_belum">Wajib setor uang penjualan bila proses input selesai. Atau mengulang input data bila belum.</string>
     <string name="title_lorem_ipsum">Masukkan Kode Kios</string>
     <string name="lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_elit_quisque_dictum_magna_metus_sed_luctus_ex_dictum_non">Pastikan kode kios yang anda masukkan benar sesuai dengan yang sedang anda kunjungi!</string>
-    <string name="kios_code">Kios Code</string>
+    <string name="kios_code">Kode Kios</string>
     <string name="ok">Oke</string>
     <string name="masukkan_otp_yang_terkirim_di_kios_dashboard">Masukkan OTP yang terkirim di kios dashboard</string>
     <string name="logout_">Logout?</string>
@@ -63,4 +69,11 @@
     <string name="save_sign">Tambahkan Tanda Tangan</string>
     <string name="tanda_tangan_dokumen">Tanda Tangan Dokumen</string>
     <string name="harap_cek_dan_masukkan_kembali_data_produk_yang_ditolak_dengan_benar">Harap cek dan masukkan kembali data produk yang ditolak dengan benar</string>
+    <string name="qr_code_error">Terjadi kesalahan. Mohon coba kembali</string>
+    <string name="title_qr_code">Scan Kode QR Kios</string>
+    <string name="subtitle_qr_code">Silahkan scan kode QR kios untuk melanjutkan</string>
+    <string name="lanjutkan">Lanjutkan</string>
+    <string name="scan_code">Gunakan Scan QR</string>
+    <string name="penjualan_di_aplikasi_n_link_kios">Penjualan di Aplikasi\n/Link Kios</string>
+    <string name="off_platform_text">Penjualan Manual</string>
 </resources>

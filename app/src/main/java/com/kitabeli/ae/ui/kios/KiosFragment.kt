@@ -27,6 +27,8 @@ class KiosFragment : BaseFragment<KiosViewModel>() {
 
     private val binding get() = _binding!!
 
+    private var selectedProductIds: List<Int> = emptyList()
+
     @Inject
     lateinit var productAdapter: ProductAdapter
 
@@ -66,6 +68,9 @@ class KiosFragment : BaseFragment<KiosViewModel>() {
                 .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)
                 .collectLatest { kiosDetails ->
                     productAdapter.submitList(kiosDetails?.stockOpNameItemDTOS)
+                    selectedProductIds = kiosDetails?.stockOpNameItemDTOS?.map {
+                        it.skuId ?: 0
+                    }.orEmpty()
                     binding.kiosCode.text = kiosDetails?.kiosCode
                     /*   binding.floatingActionButton.isVisible =
                            kiosDetails?.isStatusCompleted()?.not() ?: true
@@ -80,9 +85,10 @@ class KiosFragment : BaseFragment<KiosViewModel>() {
                         kios.stockOnNameId!!,
                         kios.kiosCode!!
                     )
-                    .setProductAddListener {
-                        refreshKiosDetails()
-                    }
+                    .setProductAddListener(
+                        selectedIds = selectedProductIds,
+                        listener = { refreshKiosDetails() }
+                    )
                     .show(childFragmentManager, "")
             }
 

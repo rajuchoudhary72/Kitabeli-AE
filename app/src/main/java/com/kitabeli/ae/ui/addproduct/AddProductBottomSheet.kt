@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.ArrayAdapter
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import com.github.dhaval2404.imagepicker.ImagePicker
@@ -27,7 +28,10 @@ class AddProductBottomSheet :
 
     private var productAddListener: (() -> Unit)? = null
 
-    fun setProductAddListener(listener: () -> Unit): AddProductBottomSheet {
+    private var selectedProductIds: List<Int> = emptyList()
+
+    fun setProductAddListener(selectedIds: List<Int>, listener: () -> Unit): AddProductBottomSheet {
+        selectedProductIds = selectedIds
         productAddListener = listener
         return this
     }
@@ -81,14 +85,26 @@ class AddProductBottomSheet :
                 }
 
                 state.getValueOrNull()?.let { skuItems ->
+                    val filteredSkuItems = skuItems.filter {
+                        it.skuId !in selectedProductIds.map { id -> id }
+                    }
                     val adapter =
                         ArrayAdapter(
                             requireContext(),
-                            R.layout.list_item,
-                            skuItems.map { sku -> sku.name })
+                            R.layout.item_auto_complete_text,
+                            R.id.tv_item_name,
+                            filteredSkuItems.map { sku -> sku.name })
                     binding.products.setAdapter(adapter)
                 }
             }
+
+        binding.products.threshold = 2
+        binding.products.setDropDownBackgroundDrawable(
+            ContextCompat.getDrawable(
+                view.context,
+                R.drawable.bg_dialog
+            )
+        )
 
 
         binding.icClose.setOnClickListener { dismiss() }

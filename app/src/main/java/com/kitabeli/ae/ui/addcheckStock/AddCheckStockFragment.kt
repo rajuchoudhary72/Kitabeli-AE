@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.net.toUri
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -19,12 +20,12 @@ import com.kitabeli.ae.R
 import com.kitabeli.ae.databinding.FragmentAddCheckStockBinding
 import com.kitabeli.ae.ui.common.BaseFragment
 import com.kitabeli.ae.ui.signature.SignatureFragment
+import com.kitabeli.ae.utils.showGone
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.io.File
 import javax.inject.Inject
-
 
 @AndroidEntryPoint
 class AddCheckStockFragment : BaseFragment<AddCheckStockViewModel>() {
@@ -34,16 +35,17 @@ class AddCheckStockFragment : BaseFragment<AddCheckStockViewModel>() {
     private val binding get() = _binding!!
 
     @Inject
-    lateinit var kiosAdapter: StockItemAdapter
+    lateinit var stockItemAdapter: StockItemAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         _binding = FragmentAddCheckStockBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
             addCheckStockViewModel = mViewModel
         }
+
         return binding.root
     }
 
@@ -51,12 +53,24 @@ class AddCheckStockFragment : BaseFragment<AddCheckStockViewModel>() {
         return mViewModel
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.recyclerView.adapter = kiosAdapter
-
+        binding.recyclerView.adapter = stockItemAdapter.apply {
+            onItemClickListener = { stockItem ->
+                AddCheckStockItemDetailDialog
+                    .getInstance(
+                        itemName = stockItem.itemName.orEmpty(),
+                        orderList = stockItem.kioskOrderItemDetailsDTOList.orEmpty(),
+                        offPlatformQty = stockItem.offPlatformSaleQuantity ?: 0,
+                        offPlatformAmount = stockItem.offPlatformSaleAmount ?: 0L,
+                        onPlatformAmount = stockItem.onPlatformSaleAmount ?: 0L
+                    ).show(
+                        childFragmentManager,
+                        AddCheckStockItemDetailDialog::class.java.simpleName
+                    )
+            }
+        }
 
         viewLifecycleOwner.lifecycleScope.launch {
             mViewModel
@@ -64,7 +78,7 @@ class AddCheckStockFragment : BaseFragment<AddCheckStockViewModel>() {
                 .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)
                 .collectLatest { uiState ->
                     if (uiState is UiState.Success) {
-                        kiosAdapter.submitList(uiState.report?.stockOPNameReportItemDTOs)
+                        stockItemAdapter.submitList(uiState.report?.stockOPNameReportItemDTOs)
                         binding.price.text = "Rp ${uiState.report?.totalAmountToBePaid}"
 
                         if (uiState.report?.status == "OTP_GENERATED") {
@@ -80,7 +94,6 @@ class AddCheckStockFragment : BaseFragment<AddCheckStockViewModel>() {
 
         binding.btn.setOnClickListener {
             askForConfirmation()
-
         }
 
         binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
@@ -92,6 +105,40 @@ class AddCheckStockFragment : BaseFragment<AddCheckStockViewModel>() {
         binding.signAe.setOnClickListener {
             collectSignature(false)
         }
+
+        binding.checkboxEditName.setOnCheckedChangeListener { compoundButton, b ->
+            if (b) {
+                mViewModel.statusMitraName.value = binding.edtMitraName.text.toString().isNotEmpty()
+                binding.mitra.showGone(false)
+                binding.edtMitraName.showGone(true)
+                binding.txtKiosNameSubtitle.text =
+                    context?.getText(R.string.pemilik_kios_selected_subtitle)
+            } else {
+                mViewModel.statusMitraName.value = true
+                binding.mitra.showGone(true)
+                binding.edtMitraName.showGone(false)
+                binding.txtKiosNameSubtitle.text = context?.getText(R.string.pemilik_kios_subtitle)
+            }
+        }
+
+        binding.edtMitraName.doOnTextChanged { text, start, before, count ->
+            if (binding.checkboxEditName.isChecked) {
+                if (text.toString().isNotEmpty()) {
+                    mViewModel.statusMitraName.value = true
+                    mViewModel.enterdMitraname.value = text.toString()
+                } else {
+                    mViewModel.statusMitraName.value = false
+                    mViewModel.enterdMitraname.value = ""
+                }
+            } else {
+                mViewModel.statusMitraName.value = true
+            }
+
+        }
+
+        /* binding.edtMitraName.setOnClickListener {
+             binding.scrollView.smoothScrollBy(0,150)
+         }*/
 
         binding.layoutStockItemHeader.imgInfoCekStokTerakhir.setOnClickListener {
             findNavController().navigate(

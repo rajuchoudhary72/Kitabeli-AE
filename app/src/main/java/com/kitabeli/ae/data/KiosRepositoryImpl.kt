@@ -84,6 +84,7 @@ class KiosRepositoryImpl @Inject constructor(
         kiosOwnerSignURLFile: File,
         aeSignURLFile: File,
         reportFile: File,
+        KiosOwnerSignedBy: String
     ): Flow<Report?> {
 
 
@@ -129,7 +130,8 @@ class KiosRepositoryImpl @Inject constructor(
             aeId = sessionManager.getAeId().first().toString().toRequestBody(MultipartBody.FORM),
             kiosOwnerSignURLFile = kiosOwnerSignURLFilePart,
             aeSignURLFile = aeSignURLFilePart,
-            reportFile = reportFilePart
+            reportFile = reportFilePart,
+            KiosOwnerSignedBy = KiosOwnerSignedBy.toRequestBody(MultipartBody.FORM),
         ).map { it.payload }
     }
 

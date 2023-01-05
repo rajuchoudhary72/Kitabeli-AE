@@ -36,6 +36,7 @@ interface KiosService {
         @Part kiosOwnerSignURLFile: MultipartBody.Part,
         @Part aeSignURLFile: MultipartBody.Part,
         @Part reportFile: MultipartBody.Part,
+        @Part("KiosOwnerSignedBy") KiosOwnerSignedBy: RequestBody,
     ): Flow<BaseResponseDto<Report>>
 
     @POST("api/v1/stock-opname/report/complete-payment")

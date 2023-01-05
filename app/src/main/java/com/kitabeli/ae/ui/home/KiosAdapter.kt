@@ -35,7 +35,7 @@ class KiosAdapter @Inject constructor() :
                             R.color.green
                         )
                     )
-                    binding.card.isClickable = false
+                    binding.card.isClickable = true
                 }
 
                 "QA_REJECTED", "CANCELLED", "EXPIRED" -> {
@@ -46,7 +46,7 @@ class KiosAdapter @Inject constructor() :
                             R.color.red
                         )
                     )
-                    binding.card.isClickable = false
+                    binding.card.isClickable = true
                 }
 
                 else -> {

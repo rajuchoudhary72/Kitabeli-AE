@@ -50,9 +50,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:fillViewport="true"
+                    android:fitsSystemWindows="true"
                     app:layout_constraintBottom_toTopOf="@id/bottom_view"
                     app:layout_constraintTop_toTopOf="parent">
-
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/constraintLayout"
@@ -130,6 +130,7 @@
 
 
                         <androidx.recyclerview.widget.RecyclerView
+
                             android:id="@+id/recycler_view"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -149,7 +150,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:background="@color/white"
-                            app:layout_constraintBottom_toBottomOf="@+id/mitra"
+                            app:layout_constraintBottom_toBottomOf="@+id/linear_edit_name"
                             app:layout_constraintTop_toTopOf="@+id/nominal_perlu_ditarik" />
 
 
@@ -205,6 +206,17 @@
                             android:textAppearance="?attr/textAppearanceBodyMedium"
                             app:layout_constraintTop_toBottomOf="@+id/nominal_perlu_ditarik" />
 
+                        <com.google.android.material.checkbox.MaterialCheckBox
+                            android:id="@+id/checkbox_edit_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/screen_margin"
+                            android:fontFamily="@font/inter_regular"
+                            android:paddingStart="10dp"
+                            android:text="@string/pemilik_kios"
+                            android:textAppearance="?attr/textAppearanceBodyMedium"
+                            app:layout_constraintTop_toBottomOf="@+id/checkbox" />
+
 
                         <com.google.android.material.card.MaterialCardView
                             android:id="@+id/sign_mitra"
@@ -218,7 +230,7 @@
                             app:layout_constraintHorizontal_bias="0.5"
                             app:layout_constraintHorizontal_chainStyle="spread"
                             app:layout_constraintStart_toStartOf="@id/guideline_left"
-                            app:layout_constraintTop_toBottomOf="@+id/checkbox"
+                            app:layout_constraintTop_toBottomOf="@+id/checkbox_edit_name"
                             app:strokeColor="@color/grey"
                             app:strokeWidth="1dp">
 
@@ -254,31 +266,92 @@
                         </com.google.android.material.card.MaterialCardView>
 
 
-                        <TextView
-                            android:id="@+id/mitra"
-                            android:layout_width="wrap_content"
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:id="@+id/linear_edit_name"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"
-                            android:fontFamily="@font/inter_regular"
+                            android:orientation="vertical"
                             android:paddingVertical="@dimen/screen_margin"
-                            android:text='@{"Pemilik KIOS_" +addCheckStockViewModel.kiosCode}'
-                            tools:text="@string/mitra"
-                            android:textAppearance="?attr/textAppearanceBodyMedium"
                             app:layout_constraintEnd_toEndOf="@+id/sign_mitra"
                             app:layout_constraintStart_toStartOf="@+id/sign_mitra"
-                            app:layout_constraintTop_toBottomOf="@+id/sign_mitra" />
+                            app:layout_constraintTop_toBottomOf="@+id/sign_mitra">
 
+                            <TextView
+                                android:id="@+id/mitra"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:fontFamily="@font/inter_regular"
+                                android:gravity="center"
+                                android:text='@{addCheckStockViewModel.mitraName}'
+                                android:textAppearance="?attr/textAppearanceBodyMedium"
+                                tools:text="@string/mitra" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                            <EditText
+                                android:id="@+id/edt_mitra_name"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:background="@drawable/bg_outline_gray"
+                                android:gravity="center"
+                                android:hint="@string/pemilik_kios_hint"
+                                android:inputType="text"
+                                android:padding="@dimen/dimen_thirteen"
+                                android:textAppearance="?attr/textAppearanceBodyMedium"
+                                android:textCursorDrawable="@null"
+                                android:visibility="gone"
+                                tools:text="@string/mitra" />
+
+                            <TextView
+
+                                android:id="@+id/txt_kios_name_subtitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="@dimen/dimen_five"
+                                android:fontFamily="@font/inter_regular"
+                                android:gravity="center"
+                                android:text="@string/pemilik_kios_subtitle"
+                                android:textAppearance="?attr/textAppearanceBodyMedium"
+                                android:textStyle="bold" />
+
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/inter_regular"
                             android:paddingVertical="@dimen/screen_margin"
-                            android:text="@string/ae_kitabeli"
-                            android:textAppearance="?attr/textAppearanceBodyMedium"
                             app:layout_constraintEnd_toEndOf="@+id/sign_ae"
                             app:layout_constraintStart_toStartOf="@+id/sign_ae"
-                            app:layout_constraintTop_toBottomOf="@+id/sign_ae" />
+                            android:layout_marginTop="@dimen/dimen_ten"
+                            android:layout_marginBottom="10dp"
+                            android:orientation="vertical"
+                            app:layout_constraintBottom_toBottomOf="@+id/linear_edit_name"
+                            app:layout_constraintTop_toTopOf="@+id/linear_edit_name">
+
+                            <TextView
+                                android:id="@+id/txt_aename"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:fontFamily="@font/inter_regular"
+                                android:text='@{addCheckStockViewModel.aeName}'
+                                android:textAppearance="?attr/textAppearanceBodyMedium"
+                                tools:text="@string/ae_kitabeli" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="@dimen/dimen_five"
+                                android:fontFamily="@font/inter_regular"
+                                android:gravity="center"
+                                android:text="@string/ae_kitabeli_text"
+                                android:textAppearance="?attr/textAppearanceBodyMedium"
+                                android:textStyle="bold" />
+
+                        </androidx.appcompat.widget.LinearLayoutCompat>
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -294,13 +367,15 @@
                     android:elevation="10dp"
                     app:layout_constraintBottom_toBottomOf="parent">
 
+                    <!--   android:enabled="@{addCheckStockViewModel.enableButton}"-->
                     <com.google.android.material.button.MaterialButton
+                        android:enabled="@{addCheckStockViewModel.enableButton}"
                         android:id="@+id/btn"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/screen_margin"
                         android:layout_marginBottom="@dimen/screen_margin"
-                        android:enabled="@{addCheckStockViewModel.enableButton}"
+
                         android:insetTop="0dp"
                         android:insetBottom="0dp"
                         android:text="@string/minta_otp"

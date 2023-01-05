@@ -38,6 +38,8 @@ class AddCheckStockViewModel @Inject constructor(
     private val stockOpNameId = savedStateHandle.get<Int>("stockOpNameId")
         ?: throw RuntimeException("stockOpNameId required, pass stockOpNameId in fragment arguments.")
     val tncAgree = MutableStateFlow(false)
+    val statusMitraName = MutableStateFlow(true)
+    val enterdMitraname = MutableStateFlow("")
 
     private val _report = _retry
         .flatMapLatest {
@@ -75,6 +77,18 @@ class AddCheckStockViewModel @Inject constructor(
     val kiosCode =
         uiState.map { if (it is UiState.Success) it.report?.kioskDTO?.kioskCode ?: "" else "" }
             .asLiveData()
+
+    val aeName =
+        uiState.map {
+            if (it is UiState.Success) it.report?.accountExecutiveDTO?.legalName ?: "" else ""
+        }
+            .asLiveData()
+
+    val mitraName =
+        uiState.map { if (it is UiState.Success) it.report?.kioskDTO?.mitraName ?: "" else "" }
+            .asLiveData()
+
+
     val isLoading = uiState.map { it is UiState.Loading }.asLiveData()
 
     val error: LiveData<AppError?> =
@@ -116,7 +130,8 @@ class AddCheckStockViewModel @Inject constructor(
                 totalAmountToBePaid = report.totalAmountToBePaid!!,
                 aeSignURLFile = aeSignature.value!!,
                 kiosOwnerSignURLFile = mirtaSignature.value!!,
-                reportFile = reportFile.value!!
+                reportFile = reportFile.value!!,
+                KiosOwnerSignedBy = enterdMitraname.value
             )
                 .flowOn(Dispatchers.IO)
                 .toLoadingState()
@@ -171,9 +186,10 @@ class AddCheckStockViewModel @Inject constructor(
     val enableButton = combine(
         flow = tncAgree,
         flow2 = mirtaSignature,
-        flow3 = aeSignature
-    ) { tncAgree, mirtaSignature, aeSignature ->
-        tncAgree && mirtaSignature != null && aeSignature != null
+        flow3 = aeSignature,
+        flow4 = statusMitraName
+    ) { tncAgree, mirtaSignature, aeSignature, statusMitraName ->
+        tncAgree && statusMitraName && mirtaSignature != null && aeSignature != null
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),

@@ -53,7 +53,11 @@ data class KioskDTO(
     @SerialName("locationId")
     val locationId: Int? = null,
     @SerialName("warehouseId")
-    val warehouseId: Int? = null
+    val warehouseId: Int? = null,
+    @SerialName("mitraName")
+    val mitraName: String? = null,
+    @SerialName("mitraId")
+    val mitraId: Int? = null
 )
 
 @Serializable
@@ -69,11 +73,11 @@ data class StockOPNameReportItemDTO(
     @SerialName("lastStockOpCount")
     val lastStockOpCount: Int? = null,
     @SerialName("offPlatformSaleAmount")
-    val offPlatformSaleAmount: Int? = null,
+    val offPlatformSaleAmount: Long? = null,
     @SerialName("offPlatformSaleQuantity")
     val offPlatformSaleQuantity: Int? = null,
-    @SerialName("onPlatformAmount")
-    val onPlatformAmount: Int? = null,
+    @SerialName("onPlatformSaleAmount")
+    val onPlatformSaleAmount: Long? = null,
     @SerialName("onPlatformSaleQuantity")
     val onPlatformSaleQuantity: Int? = null,
     @SerialName("quantitiesToBePaid")
@@ -81,5 +85,21 @@ data class StockOPNameReportItemDTO(
     @SerialName("stnItemCount")
     val stnItemCount: Int? = null,
     @SerialName("stockOpCount")
-    val stockOpCount: Int? = null
+    val stockOpCount: Int? = null,
+    @SerialName("kiosOrderItemDetailsDTOList")
+    val kioskOrderItemDetailsDTOList: List<KioskOrderItemDetailsDTO?>? = null,
+)
+
+@Serializable
+data class KioskOrderItemDetailsDTO(
+    @SerialName("amount")
+    val amount: Long? = null,
+    @SerialName("itemName")
+    val itemName: String? = null,
+    @SerialName("orderId")
+    val orderId: Long? = null,
+    @SerialName("orderPlacedAt")
+    val orderPlacedAt: Long? = null,
+    @SerialName("quantity")
+    val quantity: Int? = null
 )

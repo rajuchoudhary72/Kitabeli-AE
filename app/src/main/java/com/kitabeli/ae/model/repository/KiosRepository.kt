@@ -30,6 +30,7 @@ interface KiosRepository {
         kiosOwnerSignURLFile: File,
         aeSignURLFile: File,
         reportFile: File,
+        KiosOwnerSignedBy: String,
     ): Flow<Report?>
 
     suspend fun cancelReport(

@@ -18,6 +18,7 @@ abstract class BaseFragment<M : BaseViewModel> : Fragment() {
         setupCommonObserver()
     }
 
+
     private fun setupCommonObserver() {
         getViewModel().errorLiveData.observe(
             viewLifecycleOwner,

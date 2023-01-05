@@ -1,13 +1,17 @@
 package com.kitabeli.ae.ui.home
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import com.kitabeli.ae.R
 import com.kitabeli.ae.data.remote.dto.KiosDto
 import com.kitabeli.ae.data.remote.dto.KiosItem
@@ -78,6 +82,10 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
                     homeViewModel.initializeStock(it) { kios: KiosDto ->
                         refreshKiosData()
                     }
+                }.permissionListener { s: String ->
+                    if (s.isNotEmpty()) {
+                        startScanning()
+                    }
                 }
                 .show(childFragmentManager, "")
         }
@@ -88,6 +96,16 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
         binding.swipeRefreshLayout.setOnRefreshListener {
             refreshKiosData()
         }
+
+        if (!arguments?.getString("qrcodevalue").isNullOrEmpty()) {
+            refreshKiosData()
+        }
+
+        /*  KiosCodeInputDialog().permissionListener { s: String ->
+              if (s.isNotEmpty()) {
+                  startScanning()
+              }
+          }*/
     }
 
     private fun checkIsReportGenerated(items: List<KiosItem>) {
@@ -135,5 +153,42 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onResume() {
+        super.onResume()
+        refreshKiosData()
+    }
+
+    fun startScanning() {
+        if (ContextCompat.checkSelfPermission(
+                requireActivity(),
+                Manifest.permission.CAMERA
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            openCameraWithScanner()
+        } else {
+            activityResultLauncher.launch(Manifest.permission.CAMERA)
+        }
+    }
+
+    val activityResultLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) { isGranted ->
+            if (isGranted) {
+                openCameraWithScanner()
+            } else {
+                Snackbar.make(
+                    requireActivity().findViewById(R.id.nav_host_fragment_content_main),
+                    getString(R.string.cancelled_task),
+                    Snackbar.LENGTH_SHORT
+                )
+                    .show()
+            }
+        }
+
+    fun openCameraWithScanner() {
+        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToScanqrFragment())
     }
 }

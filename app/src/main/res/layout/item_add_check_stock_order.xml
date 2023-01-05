@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/grey_10">
+
+    <TextView
+        android:id="@+id/tv_order_stock_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="6dp"
+        android:layout_marginStart="27dp"
+        android:fontFamily="@font/inter_regular"
+        android:text="Stok Terjual"
+        android:textAppearance="?attr/textAppearanceTitleMedium"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_order_stock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="6dp"
+        android:layout_marginEnd="7dp"
+        android:fontFamily="@font/inter_semi_bold"
+        android:textAppearance="?attr/textAppearanceTitleMedium"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="5 pcs" />
+
+    <ImageView
+        android:id="@+id/iv_separator"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_marginTop="6dp"
+        android:layerType="software"
+        android:src="@drawable/shape_dotted_line"
+        app:layout_constraintTop_toBottomOf="@id/tv_order_stock_label" />
+
+    <TextView
+        android:id="@+id/tv_order_amount_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="6dp"
+        android:layout_marginStart="27dp"
+        android:fontFamily="@font/inter_regular"
+        android:text="Total Penjualan"
+        android:textAppearance="?attr/textAppearanceTitleMedium"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_separator" />
+
+    <TextView
+        android:id="@+id/tv_order_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="6dp"
+        android:layout_marginEnd="7dp"
+        android:fontFamily="@font/inter_semi_bold"
+        android:paddingBottom="6dp"
+        android:textAppearance="?attr/textAppearanceTitleMedium"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_separator"
+        tools:text="Rp105.000" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

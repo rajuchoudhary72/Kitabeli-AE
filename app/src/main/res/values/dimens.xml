@@ -1,4 +1,16 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="screen_margin">20dp</dimen>
+    <dimen name="barcode_reticle_stroke_width">4dp</dimen>
+    <dimen name="barcode_reticle_corner_radius">8dp</dimen>
+    <dimen name="dimen_ten">10dp</dimen>
+    <dimen name="dimen_three">3dp</dimen>
+    <dimen name="dimen_five">5dp</dimen>
+    <dimen name="dimen_thirteen">13dp</dimen>
+    <dimen name="dimen_fifteen">15dp</dimen>
+    <dimen name="dimen_twenty">20dp</dimen>
+    <dimen name="dimen_thirty">30dp</dimen>
+    <dimen name="text_small">12sp</dimen>
+    <dimen name="text_medium">14sp</dimen>
+    <dimen name="text_xlarge">18sp</dimen>
 </resources>

@@ -15,11 +15,18 @@ class KiosCodeInputDialog : DialogFragment(R.layout.dialog_kios_code_input) {
     private val binding get() = _binding!!
 
     private var codeInputListener: ((String) -> Unit)? = null
+    private var permissionListener: ((String) -> Unit)? = null
 
     fun setCodeInputListener(listener: (String) -> Unit): KiosCodeInputDialog {
         codeInputListener = listener
         return this
     }
+
+    fun permissionListener(listener: (String) -> Unit): KiosCodeInputDialog {
+        permissionListener = listener
+        return this
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         dialog?.window?.setBackgroundDrawableResource(R.drawable.bg_dialog)
@@ -35,6 +42,12 @@ class KiosCodeInputDialog : DialogFragment(R.layout.dialog_kios_code_input) {
         }
         binding.kiosCode.doAfterTextChanged {
             binding.btnOk.isEnabled = it?.isNotEmpty() ?: false
+        }
+
+        binding.lvScanCode.setOnClickListener {
+            dismiss()
+            permissionListener?.invoke("camera")
+
         }
         binding.btnOk.setOnClickListener {
             val kiosCode = binding.kiosCode.text.toString()
@@ -64,5 +77,6 @@ class KiosCodeInputDialog : DialogFragment(R.layout.dialog_kios_code_input) {
     override fun onDestroy() {
         super.onDestroy()
         codeInputListener = null
+        permissionListener = null
     }
 }
