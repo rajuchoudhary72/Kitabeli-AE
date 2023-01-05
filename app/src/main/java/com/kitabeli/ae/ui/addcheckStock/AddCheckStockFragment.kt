@@ -185,9 +185,9 @@ class AddCheckStockFragment : BaseFragment<AddCheckStockViewModel>() {
         ConfirmationDialog()
             .setSubmitReportListener {
                 createReportFile()
-                mViewModel.submitReport {
+               /* mViewModel.submitReport {
                     collectOpt()
-                }
+                }*/
             }
             .setCancelListener {
                 mViewModel.cancelReport {
