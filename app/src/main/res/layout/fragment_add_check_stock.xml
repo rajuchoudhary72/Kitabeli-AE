@@ -14,9 +14,9 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:fitsSystemWindows="true"
         android:layout_height="match_parent"
-        android:background="#f5f5f5">
+        android:background="#f5f5f5"
+        android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
@@ -43,14 +43,14 @@
             <LinearLayout
                 isVisible="@{addCheckStockViewModel.isSuccess()}"
                 android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
                 <androidx.core.widget.NestedScrollView
                     android:id="@+id/scrollView"
-                    android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:fillViewport="true"
                     app:layout_constraintBottom_toTopOf="@id/bottom_view"
                     app:layout_constraintTop_toTopOf="parent">
@@ -131,6 +131,7 @@
 
 
                         <androidx.recyclerview.widget.RecyclerView
+
                             android:id="@+id/recycler_view"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -179,7 +180,6 @@
                             app:layout_constraintTop_toTopOf="@+id/nominal_perlu_ditarik"
                             tools:ignore="ContentDescription" />
 
-
                         <TextView
                             android:id="@+id/price"
                             android:layout_width="wrap_content"
@@ -194,7 +194,6 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             tools:text="Rp 2.000.000" />
 
-
                         <com.google.android.material.checkbox.MaterialCheckBox
                             android:id="@+id/checkbox"
                             android:layout_width="match_parent"
@@ -207,6 +206,15 @@
                             android:textAppearance="?attr/textAppearanceBodyMedium"
                             app:layout_constraintTop_toBottomOf="@+id/nominal_perlu_ditarik" />
 
+                        <View
+                            android:id="@+id/separator"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginHorizontal="16dp"
+                            android:layout_marginTop="16dp"
+                            android:background="@color/grey_30"
+                            app:layout_constraintTop_toBottomOf="@id/checkbox" />
+
                         <com.google.android.material.checkbox.MaterialCheckBox
                             android:id="@+id/checkbox_edit_name"
                             android:layout_width="match_parent"
@@ -216,8 +224,7 @@
                             android:paddingStart="10dp"
                             android:text="@string/pemilik_kios"
                             android:textAppearance="?attr/textAppearanceBodyMedium"
-                            app:layout_constraintTop_toBottomOf="@+id/checkbox" />
-
+                            app:layout_constraintTop_toBottomOf="@+id/separator" />
 
                         <com.google.android.material.card.MaterialCardView
                             android:id="@+id/sign_mitra"
@@ -321,7 +328,7 @@
                         <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginTop="@dimen/dimen_ten"
                             android:orientation="vertical"
                             android:paddingVertical="@dimen/screen_margin"
                             app:layout_constraintBottom_toBottomOf="@+id/linear_edit_name"
@@ -366,24 +373,53 @@
                     android:elevation="10dp"
                     app:layout_constraintBottom_toBottomOf="parent">
 
-                    <!--   android:enabled="@{addCheckStockViewModel.enableButton}"-->
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/screen_margin"
-                        android:layout_marginBottom="@dimen/screen_margin"
-                        android:enabled="@{addCheckStockViewModel.enableButton}"
+                        android:layout_margin="16dp"
+                        android:orientation="horizontal">
 
-                        android:insetTop="0dp"
-                        android:insetBottom="0dp"
-                        android:text="@string/minta_otp"
-                        app:shapeAppearanceOverlay="?attr/shapeAppearanceCornerExtraSmall" />
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_cancel"
+                            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="4dp"
+                            android:layout_marginBottom="4dp"
+                            android:layout_weight="1"
+                            android:backgroundTint="@color/white"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:letterSpacing="0"
+                            android:paddingHorizontal="2dp"
+                            android:text="@string/batalkan_penagihan"
+                            android:textAllCaps="false"
+                            android:textColor="@color/orange50"
+                            android:textSize="@dimen/text_medium"
+                            app:cornerRadius="8dp"
+                            app:strokeColor="@color/orange50"
+                            app:strokeWidth="1.5dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginBottom="4dp"
+                            android:layout_weight="1"
+                            android:enabled="@{addCheckStockViewModel.enableButton}"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:letterSpacing="0"
+                            android:text="@string/minta_otp"
+                            app:cornerRadius="8dp"
+                            app:shapeAppearanceOverlay="?attr/shapeAppearanceCornerExtraSmall" />
+
+                    </LinearLayout>
 
                 </FrameLayout>
 
             </LinearLayout>
-
 
             <include
                 layout="@layout/loading_and_error_layout"
@@ -392,11 +428,8 @@
                 bind:isLoading="@{addCheckStockViewModel.isLoading()}"
                 bind:retryClickListener="@{v -> addCheckStockViewModel.retry()}" />
 
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
 
 </layout>

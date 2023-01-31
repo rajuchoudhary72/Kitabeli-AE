@@ -76,4 +76,8 @@
     <string name="scan_code">Gunakan Scan QR</string>
     <string name="penjualan_di_aplikasi_n_link_kios">Penjualan di Aplikasi\n/Link Kios</string>
     <string name="off_platform_text">Penjualan Manual</string>
+    <string name="training_video_title">Video Pelatihan</string>
+    <string name="batalkan_penagihan">Batalkan Penagihan</string>
+    <string name="accepted">Sudah Terima</string>
+    <string name="not_yet">Belum</string>
 </resources>

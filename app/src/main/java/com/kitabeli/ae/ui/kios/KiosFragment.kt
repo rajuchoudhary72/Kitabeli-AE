@@ -67,10 +67,10 @@ class KiosFragment : BaseFragment<KiosViewModel>() {
                 .kiosDetail
                 .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)
                 .collectLatest { kiosDetails ->
-                    productAdapter.submitList(kiosDetails?.stockOpNameItemDTOS)
-                    selectedProductIds = kiosDetails?.stockOpNameItemDTOS?.map {
-                        it.skuId ?: 0
-                    }.orEmpty()
+                    val itemDTOS = kiosDetails?.stockOpNameItemDTOS
+                    val filteredProductList = itemDTOS?.filter { it.status != REJECTED_ITEM_STATUS }
+                    productAdapter.submitList(itemDTOS)
+                    selectedProductIds = filteredProductList?.map { it.skuId ?: 0 }.orEmpty()
                     binding.kiosCode.text = kiosDetails?.kiosCode
                     /*   binding.floatingActionButton.isVisible =
                            kiosDetails?.isStatusCompleted()?.not() ?: true
@@ -125,5 +125,9 @@ class KiosFragment : BaseFragment<KiosViewModel>() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        private const val REJECTED_ITEM_STATUS = "QA_REJECTED"
     }
 }

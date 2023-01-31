@@ -59,4 +59,11 @@ interface KiosService {
 
     @POST("api/v1/stock-opname/report/cancel")
     fun cancelReport(@Body cancelReportRequestDto: CancelReportRequestDto): Flow<BaseResponseDto<Report>>
+
+    @Headers("isAuthorizable: false")
+    @GET("https://api.kitabeli.id/api/v1/mitra/training-tab/ae")
+    fun getTrainingVideos(): Flow<TrainingVideoDto>
+
+    @GET("api/v1/stock-opname/report/cancel-reason")
+    fun getCancelReasons(): Flow<BaseResponseDto<List<CancelReasonDto>>>
 }

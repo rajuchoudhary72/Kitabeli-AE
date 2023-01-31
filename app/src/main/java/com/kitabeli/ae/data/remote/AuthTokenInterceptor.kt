@@ -19,6 +19,9 @@ class AuthTokenInterceptor @Inject constructor(
     override fun intercept(chain: Interceptor.Chain): Response {
         val requestBuilder = chain.request().newBuilder()
 
+        val shouldAddAuthHeaders = chain.request().headers["isAuthorizable"] != "false"
+
+
         requestBuilder.addHeader("Content-Type", "application/json")
         requestBuilder.addHeader("accept", "application/json")
 
@@ -28,7 +31,10 @@ class AuthTokenInterceptor @Inject constructor(
         }?.let { authToken ->
             if (BuildConfig.DEBUG)
                 Log.e(TAG, "Token: $authToken")
-            requestBuilder.addHeader("Authorization", "Bearer $authToken")
+            if (shouldAddAuthHeaders) {
+                requestBuilder.addHeader("Authorization", "Bearer $authToken")
+            }
+            requestBuilder.removeHeader("isAuthorizable")
         }
 
         return chain.proceed(requestBuilder.build())

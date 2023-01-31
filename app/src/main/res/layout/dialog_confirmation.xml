@@ -22,6 +22,7 @@
                 android:layout_margin="@dimen/screen_margin"
                 android:background="?selectableItemBackgroundBorderless"
                 android:padding="8dp"
+                android:visibility="gone"
                 android:src="@drawable/round_close_24"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -69,38 +70,34 @@
                 app:layout_constraintTop_toBottomOf="@+id/title" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_sudah_terima"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="24dp"
+                android:backgroundTint="@color/orange50"
+                android:letterSpacing="0"
+                android:text="@string/accepted"
+                app:cornerRadius="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/message"
+                app:shapeAppearanceOverlay="?attr/shapeAppearanceCornerExtraSmall" />
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_belum"
                 style="@style/Widget.Material3.Button.OutlinedButton"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/screen_margin"
-                android:layout_marginTop="@dimen/screen_margin"
-                android:layout_marginEnd="10dp"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginBottom="40dp"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
-                android:text="@string/belum"
+                android:text="@string/not_yet"
+                app:cornerRadius="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/btn_sudah_terima"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/message"
+                app:layout_constraintTop_toBottomOf="@+id/btn_sudah_terima"
                 app:shapeAppearanceOverlay="?attr/shapeAppearanceCornerExtraSmall"
                 app:strokeColor="?attr/colorPrimary" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_sudah_terima"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="@dimen/screen_margin"
-                android:layout_marginEnd="@dimen/screen_margin"
-                android:text="@string/sudah_terima"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/btn_belum"
-                app:layout_constraintTop_toBottomOf="@+id/message"
-                app:shapeAppearanceOverlay="?attr/shapeAppearanceCornerExtraSmall" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -4,10 +4,10 @@
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/orange60</item>
         <item name="colorSecondary">@color/white</item>
-
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- <item name="editTextStyle">@style/Style.KitabeliAE.EditText</item>-->
         <item name="materialButtonStyle">@style/Widget.KitabeliAE.MaterialButton</item>
-        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.YourApp.BottomSheetDialog</item>
+        <!--        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.YourApp.BottomSheetDialog</item>-->
     </style>
 
     <style name="Theme.KitabeliAE" parent="Base.Theme.KitabeliAE" />
@@ -52,5 +52,19 @@
         <item name="fontFamily">@font/inter_semi_bold</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="AppToolBar" parent="@style/Widget.AppCompat.Light.ActionBar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="elevation">14dp</item>
+        <item name="navigationIcon">?attr/homeAsUpIndicator</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="theme">@style/ThemeOverlay.AppCompat.ActionBar</item>
+    </style>
+
+    <style name="RadioButtonStyle" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@color/orange50</item>
+        <item name="android:textColorSecondary">@color/grey</item>
     </style>
 </resources>

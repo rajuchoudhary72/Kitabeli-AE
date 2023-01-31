@@ -18,6 +18,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.kitabeli.ae.R
 import com.kitabeli.ae.databinding.FragmentAddCheckStockBinding
+import com.kitabeli.ae.ui.cashCollection.CancelCashCollectionBottomSheet
 import com.kitabeli.ae.ui.common.BaseFragment
 import com.kitabeli.ae.ui.signature.SignatureFragment
 import com.kitabeli.ae.utils.showGone
@@ -90,6 +91,16 @@ class AddCheckStockFragment : BaseFragment<AddCheckStockViewModel>() {
                         }
                     }
                 }
+        }
+
+        binding.btnCancel.setOnClickListener {
+            CancelCashCollectionBottomSheet.getInstance(
+                onButtonClick = { reason, note ->
+                    mViewModel.cancelReport(cancelReason = reason, note = note) {
+                        navigateToHome()
+                    }
+                }
+            ).show(childFragmentManager, CancelCashCollectionBottomSheet::class.java.simpleName)
         }
 
         binding.btn.setOnClickListener {
@@ -185,13 +196,8 @@ class AddCheckStockFragment : BaseFragment<AddCheckStockViewModel>() {
         ConfirmationDialog()
             .setSubmitReportListener {
                 createReportFile()
-               /* mViewModel.submitReport {
+                mViewModel.submitReport {
                     collectOpt()
-                }*/
-            }
-            .setCancelListener {
-                mViewModel.cancelReport {
-                    navigateToHome()
                 }
             }
             .show(childFragmentManager, "CONFIRM")

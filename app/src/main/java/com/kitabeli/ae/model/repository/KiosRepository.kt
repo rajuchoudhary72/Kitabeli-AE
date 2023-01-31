@@ -35,7 +35,11 @@ interface KiosRepository {
 
     suspend fun cancelReport(
         stockOPNameReportId: Int,
+        cancelReason: String,
+        note: String
     ): Flow<Boolean>
+
+    suspend fun getCancelReasons(): Flow<List<CancelReasonDto>?>
 
     fun getKiosStocks(
         stockOpNameId: Int,

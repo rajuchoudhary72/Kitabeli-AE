@@ -24,8 +24,8 @@
                 android:src="@drawable/round_close_24"
                 android:layout_marginEnd="@dimen/dimen_twenty"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="@+id/title"
                 app:layout_constraintTop_toTopOf="@+id/title"
+                app:layout_constraintBottom_toBottomOf="@+id/title"
                 tools:ignore="ContentDescription" />
 
 
@@ -35,8 +35,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_twenty"
-                android:layout_marginBottom="@dimen/dimen_twenty"
                 android:textSize="@dimen/text_medium"
+                android:layout_marginBottom="@dimen/dimen_twenty"
                 android:fontFamily="@font/inter_semi_bold"
                 android:text="@string/title_lorem_ipsum"
                 app:layout_constraintStart_toStartOf="parent"
@@ -44,38 +44,38 @@
 
             <View
                 android:id="@+id/view"
+                android:layout_marginTop="@dimen/dimen_ten"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_three"
-                android:layout_marginTop="@dimen/dimen_ten"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:background="@color/divider"
                 app:layout_constraintTop_toBottomOf="@+id/ic_close" />
 
             <TextView
+                android:layout_marginTop="@dimen/dimen_ten"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_medium"
                 android:id="@+id/tv_kode_kios"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_ten"
                 android:fontFamily="@font/inter_semi_bold"
                 android:text="@string/kios_code"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_medium"
                 app:layout_constraintStart_toStartOf="@+id/title"
                 app:layout_constraintTop_toBottomOf="@+id/view" />
 
 
             <EditText
                 android:id="@+id/kiosCode"
+                android:inputType="textCapCharacters"
+                android:padding="@dimen/dimen_thirteen"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_ten"
-                android:background="@drawable/rounded_transparent_black"
-                android:inputType="textCapCharacters"
-                android:padding="@dimen/dimen_thirteen"
-                android:textCursorDrawable="@null"
                 app:layout_constraintEnd_toEndOf="@+id/ic_close"
                 app:layout_constraintStart_toStartOf="@+id/tv_kode_kios"
+                android:background="@drawable/rounded_transparent_black"
+                android:textCursorDrawable="@null"
                 app:layout_constraintTop_toBottomOf="@+id/tv_kode_kios">
 
             </EditText>
@@ -87,41 +87,41 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/screen_margin"
                 android:layout_marginBottom="40dp"
-                android:enabled="false"
                 android:text="@string/lanjutkan"
+                android:enabled="false"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/kiosCode"
                 app:shapeAppearanceOverlay="?attr/shapeAppearanceCornerExtraSmall" />
 
 
             <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/lv_scan_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_fifteen"
+                android:id="@+id/lv_scan_code"
                 android:layout_marginBottom="@dimen/dimen_fifteen"
                 android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dimen_fifteen"
                 android:padding="@dimen/dimen_ten"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btn_ok">
 
                 <TextView
 
+                    android:textAppearance="?attr/textAppearanceTitleLarge"
+                    android:textColor="@color/orange50"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_semi_bold"
                     android:text="@string/scan_code"
-                    android:textAppearance="?attr/textAppearanceTitleLarge"
-                    android:textColor="@color/orange50"
                     android:textSize="@dimen/text_medium" />
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/dimen_ten"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:src="@drawable/ic_qr_code" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 

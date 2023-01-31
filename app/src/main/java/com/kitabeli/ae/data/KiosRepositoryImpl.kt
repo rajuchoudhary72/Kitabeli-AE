@@ -135,10 +135,23 @@ class KiosRepositoryImpl @Inject constructor(
         ).map { it.payload }
     }
 
-    override suspend fun cancelReport(stockOPNameReportId: Int): Flow<Boolean> {
-        return kiosService.cancelReport(CancelReportRequestDto(stockOPNameReportId)).map {
+    override suspend fun cancelReport(
+        stockOPNameReportId: Int,
+        cancelReason: String,
+        note: String
+    ): Flow<Boolean> {
+        val requestBody = CancelReportRequestDto(
+            stockOPNameReportId = stockOPNameReportId,
+            cancelReason = cancelReason,
+            note = note
+        )
+        return kiosService.cancelReport(requestBody).map {
             it.message == "Success"
         }
+    }
+
+    override suspend fun getCancelReasons(): Flow<List<CancelReasonDto>?> {
+        return kiosService.getCancelReasons().map { it.payload }
     }
 
     override fun getKiosStocks(stockOpNameId: Int): Flow<KiosDetail?> {

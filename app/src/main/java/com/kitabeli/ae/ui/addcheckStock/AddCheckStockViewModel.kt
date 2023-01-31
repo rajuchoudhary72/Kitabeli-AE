@@ -166,11 +166,13 @@ class AddCheckStockViewModel @Inject constructor(
 
     }
 
-    fun cancelReport(func: () -> Unit) {
+    fun cancelReport(cancelReason: String, note: String, func: () -> Unit) {
         viewModelScope.launch {
             val report = (uiState.value as UiState.Success).report!!
             kiosRepository.cancelReport(
                 stockOPNameReportId = report.id,
+                cancelReason = cancelReason,
+                note = note
             )
                 .flowOn(Dispatchers.IO)
                 .toLoadingState()

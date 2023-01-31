@@ -8,4 +8,8 @@ import kotlinx.serialization.Serializable
 data class CancelReportRequestDto(
     @SerialName("stockOPNameReportId")
     val stockOPNameReportId: Int? = null,
+    @SerialName("cancelReason")
+    val cancelReason: String? = null,
+    @SerialName("note")
+    val note: String? = null,
 )
