@@ -23,12 +23,13 @@
             android:background="@color/white"
             android:fitsSystemWindows="true">
 
-            <com.google.android.material.appbar.MaterialToolbar
+            <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:title="@string/cek_stok_hari_ini"
-                app:titleTextAppearance="@style/TextAppearance.KitabeliAE.Toolbar">
+                style="@style/AppToolBar"
+                android:elevation="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
 
                 <ImageView
@@ -43,7 +44,7 @@
                     android:src="@drawable/baseline_logout_24"
                     tools:ignore="ContentDescription" />
 
-            </com.google.android.material.appbar.MaterialToolbar>
+            </androidx.appcompat.widget.Toolbar>
 
         </com.google.android.material.appbar.AppBarLayout>
 

@@ -19,63 +19,63 @@
                 android:id="@+id/ic_close"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dimen_twenty"
                 android:background="?selectableItemBackgroundBorderless"
                 android:padding="8dp"
                 android:src="@drawable/round_close_24"
-                android:layout_marginEnd="@dimen/dimen_twenty"
+                app:layout_constraintBottom_toBottomOf="@+id/title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/title"
-                app:layout_constraintBottom_toBottomOf="@+id/title"
                 tools:ignore="ContentDescription" />
 
 
             <TextView
-                android:layout_marginStart="@dimen/dimen_twenty"
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_twenty"
                 android:layout_marginTop="@dimen/dimen_twenty"
-                android:textSize="@dimen/text_medium"
                 android:layout_marginBottom="@dimen/dimen_twenty"
                 android:fontFamily="@font/inter_semi_bold"
                 android:text="@string/title_lorem_ipsum"
+                android:textSize="@dimen/text_medium"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <View
                 android:id="@+id/view"
-                android:layout_marginTop="@dimen/dimen_ten"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_three"
+                android:layout_marginTop="@dimen/dimen_ten"
+                android:background="@color/divider"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:background="@color/divider"
                 app:layout_constraintTop_toBottomOf="@+id/ic_close" />
 
             <TextView
-                android:layout_marginTop="@dimen/dimen_ten"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_medium"
                 android:id="@+id/tv_kode_kios"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_ten"
                 android:fontFamily="@font/inter_semi_bold"
                 android:text="@string/kios_code"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_medium"
                 app:layout_constraintStart_toStartOf="@+id/title"
                 app:layout_constraintTop_toBottomOf="@+id/view" />
 
 
             <EditText
                 android:id="@+id/kiosCode"
-                android:inputType="textCapCharacters"
-                android:padding="@dimen/dimen_thirteen"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_ten"
+                android:background="@drawable/rounded_transparent_black"
+                android:inputType="textCapCharacters"
+                android:padding="@dimen/dimen_thirteen"
+                android:textCursorDrawable="@null"
                 app:layout_constraintEnd_toEndOf="@+id/ic_close"
                 app:layout_constraintStart_toStartOf="@+id/tv_kode_kios"
-                android:background="@drawable/rounded_transparent_black"
-                android:textCursorDrawable="@null"
                 app:layout_constraintTop_toBottomOf="@+id/tv_kode_kios">
 
             </EditText>
@@ -87,46 +87,45 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/screen_margin"
                 android:layout_marginBottom="40dp"
-                android:text="@string/lanjutkan"
                 android:enabled="false"
+                android:text="@string/lanjutkan"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/kiosCode"
                 app:shapeAppearanceOverlay="?attr/shapeAppearanceCornerExtraSmall" />
 
 
             <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/lv_scan_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/lv_scan_code"
+                android:layout_marginTop="@dimen/dimen_fifteen"
                 android:layout_marginBottom="@dimen/dimen_fifteen"
                 android:orientation="horizontal"
-                android:layout_marginTop="@dimen/dimen_fifteen"
                 android:padding="@dimen/dimen_ten"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btn_ok">
 
                 <TextView
 
-                    android:textAppearance="?attr/textAppearanceTitleLarge"
-                    android:textColor="@color/orange50"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_semi_bold"
                     android:text="@string/scan_code"
+                    android:textAppearance="?attr/textAppearanceTitleLarge"
+                    android:textColor="@color/orange50"
                     android:textSize="@dimen/text_medium" />
 
                 <ImageView
-                    android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/dimen_ten"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/dimen_ten"
                     android:src="@drawable/ic_qr_code" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/message"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -135,12 +134,12 @@
                 android:text="@string/lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_elit_quisque_dictum_magna_metus_sed_luctus_ex_dictum_non"
                 android:textAlignment="center"
                 android:textAppearance="?attr/textAppearanceBodyMedium"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/title" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:visibility="gone"
                 android:id="@+id/text_input_code"
                 style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
                 android:layout_width="match_parent"
@@ -148,6 +147,7 @@
                 android:layout_margin="@dimen/screen_margin"
                 android:paddingStart="0dp"
                 android:paddingEnd="0dp"
+                android:visibility="gone"
                 app:layout_constraintTop_toBottomOf="@+id/message">
 
                 <com.google.android.material.textfield.TextInputEditText

@@ -16,6 +16,7 @@ import com.kitabeli.ae.R
 import com.kitabeli.ae.data.remote.dto.KiosDto
 import com.kitabeli.ae.data.remote.dto.KiosItem
 import com.kitabeli.ae.databinding.FragmentHomeBinding
+import com.kitabeli.ae.ui.MainActivity
 import com.kitabeli.ae.ui.common.BaseFragment
 import com.rubensousa.decorator.LinearMarginDecoration
 import dagger.hilt.android.AndroidEntryPoint
@@ -47,9 +48,20 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
     }
 
 
+    private fun setToolbar() {
+        (activity as MainActivity).setSupportActionBar(binding.toolbar)
+        (activity as MainActivity).supportActionBar?.title =
+            resources.getString(R.string.cek_stok_hari_ini)
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
+    }
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setToolbar()
         binding.recyclerViewKios.adapter = kiosAdapter
         binding.recyclerViewKios.addItemDecoration(
             LinearMarginDecoration.create(

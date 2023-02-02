@@ -24,6 +24,7 @@ abstract class BaseActivity : AppCompatActivity() {
         )
             .show()
     }
+
     fun showProgress(visible: Boolean) {
         if (visible) {
             hideSoftInput()

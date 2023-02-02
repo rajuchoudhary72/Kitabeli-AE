@@ -153,4 +153,10 @@
     </fragment>
 
 
+    <fragment
+        android:id="@+id/fragment_maintenance"
+        android:name="com.kitabeli.ae.ui.MaintenanceFragment"
+        android:label="MaintenanceFragment" />
+
+
 </navigation>

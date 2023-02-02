@@ -119,7 +119,8 @@
                     android:text="@string/harap_cek_dan_masukkan_kembali_data_produk_yang_ditolak_dengan_benar"
                     android:textAppearance="?attr/textAppearanceBodyLarge"
                     android:textColor="@color/red"
-                    app:layout_constraintTop_toBottomOf="@+id/kios_container" />
+                    app:layout_constraintTop_toBottomOf="@+id/kios_container"
+                    tools:ignore="TextContrastCheck" />
 
                 <include
                     android:id="@+id/header"
@@ -152,7 +153,8 @@
                     app:layout_constraintBottom_toBottomOf="@id/recycler_view_kios"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:shapeAppearanceOverlay="?attr/shapeAppearanceCornerExtraLarge" />
+                    app:shapeAppearanceOverlay="?attr/shapeAppearanceCornerExtraLarge"
+                    tools:ignore="TouchTargetSizeCheck" />
 
                 <FrameLayout
                     android:id="@+id/bottom_view"

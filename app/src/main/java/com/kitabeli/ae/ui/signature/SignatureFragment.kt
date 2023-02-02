@@ -24,7 +24,7 @@ class SignatureFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-       // requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        // requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         _binding = FragmentSignatureBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
         }

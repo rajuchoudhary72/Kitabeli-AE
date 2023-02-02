@@ -22,9 +22,9 @@
             android:layout_marginEnd="16dp"
             android:background="@drawable/rounded_transparent_red"
             android:padding="@dimen/dimen_ten"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
@@ -33,8 +33,8 @@
                 android:layout_height="@dimen/dimen_twenty"
                 android:layout_marginStart="10dp"
                 android:src="@drawable/ic_close_red"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -46,22 +46,22 @@
                 android:gravity="center_vertical"
                 android:text="@string/qr_code_error"
                 android:textColor="@color/text_red"
-                android:textStyle="bold"
                 android:textSize="@dimen/text_small"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_close"
-                app:layout_constraintStart_toEndOf="@+id/iv_close"
                 app:layout_constraintEnd_toStartOf="@+id/iv_cross_sign"
+                app:layout_constraintStart_toEndOf="@+id/iv_close"
                 app:layout_constraintTop_toTopOf="@+id/iv_close" />
 
             <ImageView
-                android:padding="@dimen/dimen_three"
                 android:id="@+id/iv_cross_sign"
                 android:layout_width="@dimen/dimen_twenty"
                 android:layout_height="@dimen/dimen_twenty"
                 android:layout_marginEnd="@dimen/dimen_ten"
+                android:padding="@dimen/dimen_three"
                 android:src="@drawable/ic_close_sign"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
 
