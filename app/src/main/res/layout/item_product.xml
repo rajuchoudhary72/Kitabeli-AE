@@ -82,22 +82,37 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_product_quantity"
-                tools:text="5 pcs" />
+                tools:text="5 pcs"
+                tools:visibility="gone" />
 
 
             <TextView
                 android:id="@+id/text_product_status"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dimen_five"
                 android:fontFamily="@font/inter_regular"
                 android:text="@string/menunggu_verifikasi"
                 android:textAppearance="?attr/textAppearanceBodyMedium"
                 android:textColor="@color/blue"
                 app:layout_constraintBottom_toBottomOf="@+id/text_product_quantity"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btnEdit"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_weight=".3"
                 app:layout_constraintStart_toEndOf="@+id/text_product_name"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/accepted" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEdit"
+                style="@style/Widget.Material3.Button.IconButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cornerRadius="100dp"
+                app:icon="@drawable/ic_edit"
+                app:iconTint="?attr/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
 

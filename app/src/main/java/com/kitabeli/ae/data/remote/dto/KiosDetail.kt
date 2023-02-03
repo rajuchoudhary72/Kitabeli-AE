@@ -1,5 +1,7 @@
 package com.kitabeli.ae.data.remote.dto
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -31,6 +33,7 @@ data class KiosDetail(
 }
 
 @Serializable
+@Parcelize
 data class StockOpNameItemDTOS(
     @SerialName("note")
     val note: String? = null,
@@ -48,4 +51,4 @@ data class StockOpNameItemDTOS(
     val stockOpNameId: Int? = null,
     @SerialName("stockOpnameItemId")
     val stockOpNameItemId: Int? = null
-)
+) : Parcelable

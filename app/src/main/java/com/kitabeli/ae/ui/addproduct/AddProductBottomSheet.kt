@@ -10,9 +10,11 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.github.dhaval2404.imagepicker.util.FileUriUtils
 import com.kitabeli.ae.R
+import com.kitabeli.ae.data.remote.dto.StockOpNameItemDTOS
 import com.kitabeli.ae.databinding.BottomSheetAddProductBinding
 import com.kitabeli.ae.ui.common.BaseDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -74,6 +76,14 @@ class AddProductBottomSheet :
             addProductViewModel = getViewModel()
         }
 
+        addProductViewModel.photoProof.observe(viewLifecycleOwner) { proof ->
+            Glide.with(binding.productImage)
+                .load(proof)
+                .placeholder(R.drawable.placeholder_add_photo)
+                .error(R.drawable.placeholder_add_photo)
+                .into(binding.productImage)
+        }
+
         addProductViewModel
             .products
             .observe(viewLifecycleOwner) { state ->
@@ -88,6 +98,7 @@ class AddProductBottomSheet :
                     val filteredSkuItems = skuItems.filter {
                         it.skuId !in selectedProductIds.map { id -> id }
                     }
+                    addProductViewModel.productName.value = addProductViewModel.productName.value
                     val adapter =
                         ArrayAdapter(
                             requireContext(),
@@ -146,10 +157,19 @@ class AddProductBottomSheet :
     companion object {
 
         const val STOCK_OP_NAME_ID = "stockOpNameId"
+        const val STOCK_PRODUCT = "stockProduct"
         const val KIOS_CODE = "kios_code"
-        fun getInstance(stockOpNameId: Int, kiosCode: String): AddProductBottomSheet {
+        fun getInstance(
+            stockOpNameId: Int,
+            kiosCode: String,
+            item: StockOpNameItemDTOS?
+        ): AddProductBottomSheet {
             return AddProductBottomSheet().apply {
-                arguments = bundleOf(STOCK_OP_NAME_ID to stockOpNameId, KIOS_CODE to kiosCode)
+                arguments = bundleOf(
+                    STOCK_OP_NAME_ID to stockOpNameId,
+                    KIOS_CODE to kiosCode,
+                    STOCK_PRODUCT to item
+                )
             }
         }
     }

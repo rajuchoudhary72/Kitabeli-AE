@@ -3,6 +3,7 @@ package com.kitabeli.ae.ui.kios
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +15,7 @@ import javax.inject.Inject
 class ProductAdapter @Inject constructor() :
     ListAdapter<StockOpNameItemDTOS, ProductAdapter.ProductViewHolder>(DIFF_CALL_BACK) {
 
+    var onClickEdit: ((StockOpNameItemDTOS) -> Unit)? = null
 
     class ProductViewHolder(val binding: ItemProductBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -22,8 +24,11 @@ class ProductAdapter @Inject constructor() :
           Menunggu verifikasi == QA_ASSIGNMENT_PENDING
           Terverifikasi   ===QA_VERIFIED
           Ditolak ===QA_REJECTED*/
-        fun bind(stockItem: StockOpNameItemDTOS) {
+        fun bind(stockItem: StockOpNameItemDTOS, onClickEdit: ((StockOpNameItemDTOS) -> Unit)?) {
             binding.item = stockItem
+            binding.btnEdit.setOnClickListener {
+                onClickEdit?.invoke(stockItem)
+            }
             when (stockItem.status) {
                 "INITIALIZED" -> {
                     binding.textProductStatus.setTextColor(
@@ -66,6 +71,7 @@ class ProductAdapter @Inject constructor() :
                 }
             }
 
+            binding.btnEdit.isVisible = true
 
         }
     }
@@ -81,7 +87,7 @@ class ProductAdapter @Inject constructor() :
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), onClickEdit)
     }
 
     companion object {

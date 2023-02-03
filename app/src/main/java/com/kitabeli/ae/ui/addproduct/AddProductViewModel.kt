@@ -1,10 +1,16 @@
 package com.kitabeli.ae.ui.addproduct
 
-import androidx.lifecycle.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.map
+import androidx.lifecycle.viewModelScope
 import com.kitabeli.ae.data.remote.dto.SkuDTO
+import com.kitabeli.ae.data.remote.dto.StockOpNameItemDTOS
 import com.kitabeli.ae.model.repository.KiosRepository
 import com.kitabeli.ae.ui.addproduct.AddProductBottomSheet.Companion.KIOS_CODE
 import com.kitabeli.ae.ui.addproduct.AddProductBottomSheet.Companion.STOCK_OP_NAME_ID
+import com.kitabeli.ae.ui.addproduct.AddProductBottomSheet.Companion.STOCK_PRODUCT
 import com.kitabeli.ae.ui.common.BaseViewModel
 import com.kitabeli.ae.utils.ext.combine
 import com.kitabeli.ae.utils.ext.requireValue
@@ -24,14 +30,19 @@ class AddProductViewModel @Inject constructor(
     private val kiosRepository: KiosRepository
 ) : BaseViewModel() {
 
+    private val selectedProduct = savedStateHandle.get<StockOpNameItemDTOS>(STOCK_PRODUCT)
+
     private val _stockOpNameId = savedStateHandle.getStateFlow(STOCK_OP_NAME_ID, 0)
     private val _kiosCode = savedStateHandle.getStateFlow(KIOS_CODE, "")
 
-    val productName = MutableLiveData("")
+    val productName = MutableLiveData(selectedProduct?.skuName ?: "")
 
     private val _products =
-        _kiosCode.flatMapLatest { kiosRepository.getSkuProducts(it) }.flowOn(Dispatchers.IO)
-            .toLoadingState().asLiveData()
+        _kiosCode
+            .flatMapLatest { kiosRepository.getSkuProducts(it) }
+            .flowOn(Dispatchers.IO)
+            .toLoadingState()
+            .asLiveData()
     val products = _products
 
     private val productSku = productName.map { productName ->
@@ -39,9 +50,9 @@ class AddProductViewModel @Inject constructor(
             ?: SkuDTO(skuId = -1, name = "")
     }
 
-    val stockCount = MutableLiveData("0")
+    val stockCount = MutableLiveData(selectedProduct?.stockCount?.toString() ?: "0")
 
-    private val photoProof = MutableLiveData("")
+    val photoProof = MutableLiveData(selectedProduct?.photoProof ?: "")
 
     val isAllDataFiled = combine(
         false,

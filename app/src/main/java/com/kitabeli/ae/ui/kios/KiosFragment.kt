@@ -10,6 +10,7 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kitabeli.ae.R
+import com.kitabeli.ae.data.remote.dto.StockOpNameItemDTOS
 import com.kitabeli.ae.databinding.FragmentKiosBinding
 import com.kitabeli.ae.ui.addproduct.AddProductBottomSheet
 import com.kitabeli.ae.ui.common.BaseFragment
@@ -62,6 +63,10 @@ class KiosFragment : BaseFragment<KiosViewModel>() {
             )
         )
 
+        productAdapter.onClickEdit = { item ->
+            addProduct(item)
+        }
+
         viewLifecycleOwner.lifecycleScope.launch {
             kiosViewModel
                 .kiosDetail
@@ -78,19 +83,10 @@ class KiosFragment : BaseFragment<KiosViewModel>() {
                 }
         }
 
+
+
         binding.floatingActionButton.setOnClickListener {
-            kiosViewModel.getKiosDetails()?.let { kios ->
-                AddProductBottomSheet
-                    .getInstance(
-                        kios.stockOnNameId!!,
-                        kios.kiosCode!!
-                    )
-                    .setProductAddListener(
-                        selectedIds = selectedProductIds,
-                        listener = { refreshKiosDetails() }
-                    )
-                    .show(childFragmentManager, "")
-            }
+            addProduct()
 
         }
 
@@ -113,6 +109,22 @@ class KiosFragment : BaseFragment<KiosViewModel>() {
             }
         }
 
+    }
+
+    private fun addProduct(item: StockOpNameItemDTOS? = null) {
+        kiosViewModel.getKiosDetails()?.let { kios ->
+            AddProductBottomSheet
+                .getInstance(
+                    kios.stockOnNameId!!,
+                    kios.kiosCode!!,
+                    item
+                )
+                .setProductAddListener(
+                    selectedIds = selectedProductIds,
+                    listener = { refreshKiosDetails() }
+                )
+                .show(childFragmentManager, "")
+        }
     }
 
     private fun refreshKiosDetails() {
