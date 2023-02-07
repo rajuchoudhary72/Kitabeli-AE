@@ -72,11 +72,12 @@ class KiosRepositoryImpl @Inject constructor(
         skuId: Int,
         skuName: String,
         stockCount: Int,
-        photoProof: String
+        photoProof: String,
+        stockOpNameItemId: Int
     ): Flow<KiosDto> {
         return kiosService
             .updateStockProduct(
-                stockOpnameItemId = stockOpNameId.toString(),
+                stockOpnameItemId = stockOpNameItemId.toString(),
                 AddStockProductRequestDto(
                     stockOpnameId = stockOpNameId,
                     photoProof = photoProof,

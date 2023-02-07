@@ -29,6 +29,7 @@ interface KiosRepository {
         skuName: String,
         stockCount: Int,
         photoProof: String,
+        stockOpNameItemId: Int,
     ): Flow<KiosDto>
 
     fun uploadProductImage(

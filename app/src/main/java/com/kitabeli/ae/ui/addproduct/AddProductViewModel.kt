@@ -123,6 +123,7 @@ class AddProductViewModel @Inject constructor(
         viewModelScope.launch {
             val skuItem = productSku.value
             kiosRepository.updateStockProduct(
+                stockOpNameItemId = selectedProduct?.stockOpNameItemId!!,
                 stockOpNameId = _stockOpNameId.value,
                 photoProof = photoProof.requireValue(),
                 stockCount = stockCount.requireValue().toInt(),
