@@ -3,7 +3,20 @@ package com.kitabeli.ae.data
 import android.content.Context
 import androidx.core.net.toUri
 import com.kitabeli.ae.data.local.SessionManager
-import com.kitabeli.ae.data.remote.dto.*
+import com.kitabeli.ae.data.remote.dto.AddStockProductRequestDto
+import com.kitabeli.ae.data.remote.dto.BtnStatusDto
+import com.kitabeli.ae.data.remote.dto.CancelReasonDto
+import com.kitabeli.ae.data.remote.dto.CancelReportRequestDto
+import com.kitabeli.ae.data.remote.dto.CompletePaymentRequestDto
+import com.kitabeli.ae.data.remote.dto.GenerateReportRequestDto
+import com.kitabeli.ae.data.remote.dto.InitializeStockRequestDto
+import com.kitabeli.ae.data.remote.dto.KiosData
+import com.kitabeli.ae.data.remote.dto.KiosDetail
+import com.kitabeli.ae.data.remote.dto.KiosDto
+import com.kitabeli.ae.data.remote.dto.MarkEligibleForQaRequestDto
+import com.kitabeli.ae.data.remote.dto.MarkEligibleForQaResponseDto
+import com.kitabeli.ae.data.remote.dto.Report
+import com.kitabeli.ae.data.remote.dto.SkuDTO
 import com.kitabeli.ae.data.remote.service.KiosService
 import com.kitabeli.ae.model.repository.KiosRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -43,6 +56,27 @@ class KiosRepositoryImpl @Inject constructor(
     ): Flow<KiosDto> {
         return kiosService
             .addStockProduct(
+                AddStockProductRequestDto(
+                    stockOpnameId = stockOpNameId,
+                    photoProof = photoProof,
+                    skuId = skuId,
+                    skuName = skuName,
+                    stockCount = stockCount
+                )
+            )
+            .map { it.payload!! }
+    }
+
+    override fun updateStockProduct(
+        stockOpNameId: Int,
+        skuId: Int,
+        skuName: String,
+        stockCount: Int,
+        photoProof: String
+    ): Flow<KiosDto> {
+        return kiosService
+            .updateStockProduct(
+                stockOpnameItemId = stockOpNameId.toString(),
                 AddStockProductRequestDto(
                     stockOpnameId = stockOpNameId,
                     photoProof = photoProof,

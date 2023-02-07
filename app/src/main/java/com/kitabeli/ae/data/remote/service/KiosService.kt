@@ -15,6 +15,12 @@ interface KiosService {
     @POST("api/v1/stock-opname/item/add")
     fun addStockProduct(@Body requestDto: AddStockProductRequestDto): Flow<BaseResponseDto<KiosDto>>
 
+    @PUT("api/v1/stock-opname/item/{stockOpnameItemId}")
+    fun updateStockProduct(
+        @Path("stockOpnameItemId") stockOpnameItemId: String,
+        @Body requestDto: AddStockProductRequestDto
+    ): Flow<BaseResponseDto<KiosDto>>
+
 
     @Multipart
     @POST("api/v1/stock-opname/item/img-proof/upload")

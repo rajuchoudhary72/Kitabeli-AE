@@ -32,6 +32,8 @@ class AddProductViewModel @Inject constructor(
 
     private val selectedProduct = savedStateHandle.get<StockOpNameItemDTOS>(STOCK_PRODUCT)
 
+    val canSelectProduct = selectedProduct == null
+
     private val _stockOpNameId = savedStateHandle.getStateFlow(STOCK_OP_NAME_ID, 0)
     private val _kiosCode = savedStateHandle.getStateFlow(KIOS_CODE, "")
 
@@ -100,6 +102,27 @@ class AddProductViewModel @Inject constructor(
         viewModelScope.launch {
             val skuItem = productSku.value
             kiosRepository.addStockProduct(
+                stockOpNameId = _stockOpNameId.value,
+                photoProof = photoProof.requireValue(),
+                stockCount = stockCount.requireValue().toInt(),
+                skuName = skuItem?.name ?: "",
+                skuId = skuItem?.skuId ?: 2
+            )
+                .flowOn(Dispatchers.IO)
+                .toLoadingState()
+                .collectLatest { response ->
+                    response.handleErrorAndLoadingState()
+                    response.getValueOrNull()?.let { photoUrl ->
+                        func()
+                    }
+                }
+        }
+    }
+
+    fun updateProduct(func: () -> Unit) {
+        viewModelScope.launch {
+            val skuItem = productSku.value
+            kiosRepository.updateStockProduct(
                 stockOpNameId = _stockOpNameId.value,
                 photoProof = photoProof.requireValue(),
                 stockCount = stockCount.requireValue().toInt(),

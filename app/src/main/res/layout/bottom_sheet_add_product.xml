@@ -56,6 +56,8 @@
                 android:layout_marginTop="40dp"
                 android:paddingStart="0dp"
                 android:paddingEnd="0dp"
+                android:clickable="@{addProductViewModel.canSelectProduct}"
+                android:enabled="@{addProductViewModel.canSelectProduct}"
                 app:endIconDrawable="@drawable/ic_arrow_down"
                 app:layout_constraintTop_toBottomOf="@+id/product_image">
 

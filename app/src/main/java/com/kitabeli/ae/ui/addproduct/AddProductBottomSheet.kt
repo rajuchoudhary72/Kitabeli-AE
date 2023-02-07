@@ -125,11 +125,21 @@ class AddProductBottomSheet :
         }
 
         binding.btnAdd.setOnClickListener {
-            addProductViewModel.addProduct {
-                showMessage(getString(R.string.added_successfully))
-                dismiss()
-                productAddListener?.invoke()
+
+            if (addProductViewModel.canSelectProduct) {
+                addProductViewModel.addProduct {
+                    showMessage(getString(R.string.added_successfully))
+                    dismiss()
+                    productAddListener?.invoke()
+                }
+            } else {
+                addProductViewModel.updateProduct {
+                    showMessage(getString(R.string.added_successfully))
+                    dismiss()
+                    productAddListener?.invoke()
+                }
             }
+
         }
 
         /*binding.products.setOnFocusChangeListener { view, b ->

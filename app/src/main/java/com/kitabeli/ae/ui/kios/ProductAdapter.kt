@@ -71,7 +71,8 @@ class ProductAdapter @Inject constructor() :
                 }
             }
 
-            binding.btnEdit.isVisible = true
+            binding.btnEdit.isVisible =
+                stockItem.status == "QA_ASSIGNED" || stockItem.status == "INITIALIZED"
 
         }
     }
