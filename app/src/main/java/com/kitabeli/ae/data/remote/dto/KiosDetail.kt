@@ -4,6 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import java.util.UUID
 
 
 @Serializable
@@ -27,7 +28,8 @@ data class KiosDetail(
     @SerialName("stockOpnameItemDTOS")
     val stockOpNameItemDTOS: List<StockOpNameItemDTOS>? = null,
     @SerialName("stockOpnameLocalDate")
-    val stockOpNameLocalDate: String? = null
+    val stockOpNameLocalDate: String? = null,
+    val randomValue: String = UUID.randomUUID().toString()
 ) {
     fun isStatusCompleted() = status == "COMPLETED"
 }

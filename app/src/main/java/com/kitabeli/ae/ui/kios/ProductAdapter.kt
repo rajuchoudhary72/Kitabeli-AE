@@ -15,7 +15,7 @@ import javax.inject.Inject
 class ProductAdapter @Inject constructor() :
     ListAdapter<StockOpNameItemDTOS, ProductAdapter.ProductViewHolder>(DIFF_CALL_BACK) {
 
-    var status: () -> String = { "INITIALIZED" }
+    var status: () -> String = { "" }
 
     var onClickEdit: ((StockOpNameItemDTOS) -> Unit)? = null
 
@@ -77,7 +77,7 @@ class ProductAdapter @Inject constructor() :
                 }
             }
 
-            binding.btnEdit.isVisible = status() == "QA_ASSIGNED" || status() == "INITIALIZED"
+            binding.btnEdit.isVisible = status() == "INITIALIZED"
 
         }
     }

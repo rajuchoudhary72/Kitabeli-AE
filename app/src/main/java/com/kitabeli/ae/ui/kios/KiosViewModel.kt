@@ -82,7 +82,10 @@ class KiosViewModel @Inject constructor(
 
                         is LoadState.Loaded -> {
                             loadingState.update { LoadingState.Loaded }
-                            _kiosDetail.update { state.value.first }
+                            _kiosDetail.update {
+                                // state.value.first?.copy(stockOpNameItemDTOS = state.value.first?.stockOpNameItemDTOS?.map { it.copy() })
+                                state.value.first
+                            }
                             _btnStatus.update { state.value.second }
                         }
                     }

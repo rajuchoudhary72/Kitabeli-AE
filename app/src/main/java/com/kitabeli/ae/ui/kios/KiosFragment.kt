@@ -72,10 +72,14 @@ class KiosFragment : BaseFragment<KiosViewModel>() {
                 .kiosDetail
                 .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)
                 .collectLatest { kiosDetails ->
+                    // val itemDTOS = kiosDetails?.stockOpNameItemDTOS?.map { it.copy() }
                     val itemDTOS = kiosDetails?.stockOpNameItemDTOS
                     val filteredProductList = itemDTOS?.filter { it.status != REJECTED_ITEM_STATUS }
                     productAdapter.status = { kiosDetails?.status ?: "" }
                     productAdapter.submitList(itemDTOS)
+                    productAdapter.submitList(itemDTOS) {
+                        productAdapter.notifyDataSetChanged()
+                    }
                     selectedProductIds = filteredProductList?.map { it.skuId ?: 0 }.orEmpty()
                     binding.kiosCode.text = kiosDetails?.kiosCode
                     /*   binding.floatingActionButton.isVisible =
@@ -88,7 +92,6 @@ class KiosFragment : BaseFragment<KiosViewModel>() {
 
         binding.floatingActionButton.setOnClickListener {
             addProduct()
-
         }
 
         binding.swipeRefreshLayout.setOnRefreshListener {
