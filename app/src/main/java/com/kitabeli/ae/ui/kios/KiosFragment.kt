@@ -74,12 +74,13 @@ class KiosFragment : BaseFragment<KiosViewModel>() {
                 .collectLatest { kiosDetails ->
                     val itemDTOS = kiosDetails?.stockOpNameItemDTOS
                     val filteredProductList = itemDTOS?.filter { it.status != REJECTED_ITEM_STATUS }
+                    productAdapter.status = { kiosDetails?.status ?: "" }
                     productAdapter.submitList(itemDTOS)
                     selectedProductIds = filteredProductList?.map { it.skuId ?: 0 }.orEmpty()
                     binding.kiosCode.text = kiosDetails?.kiosCode
                     /*   binding.floatingActionButton.isVisible =
                            kiosDetails?.isStatusCompleted()?.not() ?: true
-                       binding.btn.isEnabled = kiosDetails?.isStatusCompleted() ?: false*/
+                       binding.btn.isEnabled = kiosDetails?.isStatusCompleted() ?: false  */
                 }
         }
 
