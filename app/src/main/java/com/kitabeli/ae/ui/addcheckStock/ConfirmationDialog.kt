@@ -20,6 +20,7 @@ class ConfirmationDialog : DialogFragment(R.layout.dialog_confirmation) {
     private var onCancel: (() -> Unit)? = null
 
     private var title: String? = null
+    private var iconRes: Int? = null
     private var message: String? = null
     private var confirmButtonText: String? = null
     private var cancelButtonText: String? = null
@@ -36,6 +37,7 @@ class ConfirmationDialog : DialogFragment(R.layout.dialog_confirmation) {
     }
 
     fun setContent(
+        iconRes: Int? = null,
         title: String? = null,
         message: String? = null,
         confirmButtonText: String? = null,
@@ -43,6 +45,7 @@ class ConfirmationDialog : DialogFragment(R.layout.dialog_confirmation) {
         partialPaymentAmount: String? = null,
     ): ConfirmationDialog {
         this.title = title
+        this.iconRes = iconRes
         this.message = message
         this.confirmButtonText = confirmButtonText
         this.cancelButtonText = cancelButtonText
@@ -58,8 +61,14 @@ class ConfirmationDialog : DialogFragment(R.layout.dialog_confirmation) {
         _binding = DialogConfirmationBinding.bind(view)
 
         title?.let { binding.title.text = it }
+        iconRes?.let { binding.logo.setImageResource(it) }
         message?.let { binding.message.text = it }
         confirmButtonText?.let { binding.btnSudahTerima.text = it }
+        cancelButtonText?.let { binding.btnBelum.text = it }
+
+        if (cancelButtonText.isNullOrBlank()) {
+            binding.btnBelum.showHide(true)
+        }
 
         if (partialPaymentAmt.isNullOrBlank().not()) {
             binding.clPartialAmt.showGone(true)
@@ -68,10 +77,7 @@ class ConfirmationDialog : DialogFragment(R.layout.dialog_confirmation) {
             binding.clPartialAmt.showGone(false)
         }
 
-        if (cancelButtonText.isNullOrBlank()) {
-            binding.btnBelum.showHide(true)
-        }
-        cancelButtonText?.let { binding.btnBelum.text = it }
+
 
         binding.icClose.setOnClickListener {
             onCancel?.invoke()

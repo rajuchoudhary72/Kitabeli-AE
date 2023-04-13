@@ -32,6 +32,7 @@ import com.google.android.gms.location.LocationServices
 import com.kitabeli.ae.R
 import com.kitabeli.ae.data.remote.dto.PaymentDetailDto
 import com.kitabeli.ae.databinding.FragmentAddCheckStockBinding
+import com.kitabeli.ae.model.ErrorData
 import com.kitabeli.ae.ui.cashCollection.CancelCashCollectionBottomSheet
 import com.kitabeli.ae.ui.common.BaseFragment
 import com.kitabeli.ae.ui.login.midtrans.Midtrans
@@ -45,6 +46,7 @@ import kotlinx.coroutines.launch
 import java.io.File
 import java.util.*
 import javax.inject.Inject
+import kotlin.time.ExperimentalTime
 
 
 @AndroidEntryPoint
@@ -88,6 +90,7 @@ class AddCheckStockFragment : BaseFragment<AddCheckStockViewModel>() {
         )
     }
 
+    @OptIn(ExperimentalTime::class)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -220,9 +223,14 @@ class AddCheckStockFragment : BaseFragment<AddCheckStockViewModel>() {
 
         binding.btnPay.setOnClickListener {
             createReportFile()
-            mViewModel.submitReport(openOTP = {
-                goToMidtransPaymentScreen(it)
-            })
+            mViewModel.submitReport(
+                openOTP = {
+                    goToMidtransPaymentScreen(it)
+                },
+                openErrorDialog = {
+                    showCollectionIsLess20KError(it)
+                },
+            )
         }
 
         binding.btnResumePayment.setOnClickListener {
@@ -392,7 +400,7 @@ class AddCheckStockFragment : BaseFragment<AddCheckStockViewModel>() {
     private fun askForConfirmation() {
         ConfirmationDialog()
             .setContent(
-                "Apakah kamu sudah menerima uang hasil penjualan?",
+                title = "Apakah kamu sudah menerima uang hasil penjualan?",
                 message = "Wajib setor uang penjualan bila proses input selesai. Atau mengulang input data bila belum.",
                 confirmButtonText = "Sudah, Minta OTP",
                 cancelButtonText = "Belum"
@@ -400,9 +408,14 @@ class AddCheckStockFragment : BaseFragment<AddCheckStockViewModel>() {
             .setConfirmListener {
                 createReportFile()
                 mViewModel.partialAmountConfirmedByAE.value = true
-                mViewModel.submitReport(openOTP = {
-                    collectOTP()
-                })
+                mViewModel.submitReport(
+                    openOTP = {
+                        collectOTP()
+                    },
+                    openErrorDialog = {
+                        showCollectionIsLess20KError(it)
+                    },
+                )
             }.show(childFragmentManager, ConfirmationDialog::class.java.simpleName)
     }
 
@@ -598,13 +611,21 @@ class AddCheckStockFragment : BaseFragment<AddCheckStockViewModel>() {
     /*Kios ShutDown*/
     private fun checkForKiosShutdown() {
         createReportFile()
-        mViewModel.submitReport(openOTP = {
-            askForConfirmation()
-        }, openKiosShutDownDialog = {
-            openKiosShutDownDialog()
-        }, openPartialPaymentDialog = {
-            openPartialPaymentDialog(it)
-        })
+        mViewModel.submitReport(
+            openOTP = {
+                askForConfirmation()
+            },
+            openKiosShutDownDialog = {
+                openKiosShutDownDialog()
+            },
+            openPartialPaymentDialog = {
+                openPartialPaymentDialog(it)
+            },
+            openErrorDialog = {
+                showCollectionIsLess20KError(it)
+            },
+
+            )
     }
 
     private fun openPartialPaymentDialog(paymentDetailDto: PaymentDetailDto?) {
@@ -622,6 +643,27 @@ class AddCheckStockFragment : BaseFragment<AddCheckStockViewModel>() {
             }
 
         }.show(childFragmentManager, "KiosShutDown")
+    }
+
+    private fun showCollectionIsLess20KError(errorData: ErrorData) {
+        ConfirmationDialog().setContent(
+            iconRes = R.drawable.failed_transaction_tata,
+            title = errorData.header,
+            message = errorData.message,
+            confirmButtonText = "Kembali ke Kios",
+            cancelButtonText = "Bantuan"
+        )
+            .setConfirmListener {
+                findNavController().navigate(
+                    AddCheckStockFragmentDirections.actionAddCheckStockFragmentToKiosFragment(
+                        getViewModel().stockOpNameId
+                    )
+                )
+            }
+            .setCancelListener {
+                activity?.openWhatsAppSupport()
+            }
+            .show(childFragmentManager, "KiosShutDown")
     }
 
     @SuppressLint("SetTextI18n")
@@ -642,7 +684,6 @@ class AddCheckStockFragment : BaseFragment<AddCheckStockViewModel>() {
             title = "Tunggu Konfirmasi Pemilik Kios",
             message = "Pemilik kios akan memilih terlebih dahulu cara pembayarannya",
             confirmButtonText = "Refresh",
-            null
         ).setConfirmListener {
             checkForKiosShutdown()
         }.show(childFragmentManager, "KiosShutDown")

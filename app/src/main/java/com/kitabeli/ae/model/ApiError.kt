@@ -11,5 +11,13 @@ data class ApiError(
     @SerialName("message")
     val message: String,
     @SerialName("payload")
-    val payload: String?,
+    val payload: ErrorData?,
+)
+
+@Serializable
+data class ErrorData(
+    @SerialName("header")
+    val header: String?,
+    @SerialName("message")
+    val message: String,
 )

@@ -1,14 +1,20 @@
 package com.kitabeli.ae.ui.addcheckStock
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import com.kitabeli.ae.data.local.SessionManager
 import com.kitabeli.ae.data.remote.dto.PaymentDetailDto
 import com.kitabeli.ae.data.remote.dto.Report
 import com.kitabeli.ae.model.AppError
+import com.kitabeli.ae.model.ErrorData
 import com.kitabeli.ae.model.LoadState
 import com.kitabeli.ae.model.repository.KiosRepository
 import com.kitabeli.ae.ui.common.BaseViewModel
 import com.kitabeli.ae.utils.ext.toApiError
+import com.kitabeli.ae.utils.ext.toAppError
 import com.kitabeli.ae.utils.ext.toLoadingState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -42,8 +48,9 @@ class AddCheckStockViewModel @Inject constructor(
 
     private val _retry = MutableStateFlow(false)
 
-    private val stockOpNameId = savedStateHandle.get<Int>("stockOpNameId")
+    private val _stockOpNameId = savedStateHandle.get<Int>("stockOpNameId")
         ?: throw RuntimeException("stockOpNameId required, pass stockOpNameId in fragment arguments.")
+    val stockOpNameId = _stockOpNameId
     val tncAgree = MutableStateFlow(false)
     val statusMitraName = MutableStateFlow(true)
     val enteredMitraName = MutableStateFlow("")
@@ -144,7 +151,8 @@ class AddCheckStockViewModel @Inject constructor(
     fun submitReport(
         openOTP: ((String?) -> Unit)? = null,
         openKiosShutDownDialog: ((PaymentDetailDto?) -> Unit)? = null,
-        openPartialPaymentDialog: ((PaymentDetailDto?) -> Unit)? = null
+        openPartialPaymentDialog: ((PaymentDetailDto?) -> Unit)? = null,
+        openErrorDialog: ((ErrorData) -> Unit)? = null
     ) {
         viewModelScope.launch {
             delay(100)
@@ -163,7 +171,18 @@ class AddCheckStockViewModel @Inject constructor(
                 .flowOn(Dispatchers.IO)
                 .toLoadingState()
                 .collectLatest { state ->
+
+                    state.getAppErrorIfExists()?.toAppError()?.let { appError ->
+                        if (appError is AppError.ApiException.BadRequestException) {
+                            val apiError = appError.toApiError()
+
+                            if (apiError.code == "1.ID")
+                                apiError.payload?.let { openErrorDialog?.invoke(it) }
+                        }
+                    }
+
                     state.handleErrorAndLoadingState()
+
                     if (state is LoadState.Loaded) {
                         val data = state.value
                         data?.let { model ->
