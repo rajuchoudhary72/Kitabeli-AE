@@ -18,21 +18,62 @@
         android:id="@+id/iv_stok_kios"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="16dp"
         android:src="@drawable/ic_training_one"
-        app:layout_constraintBottom_toTopOf="@+id/iv_training_video"
+        app:layout_constraintBottom_toTopOf="@+id/cl_kiosk_shutdown"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_kiosk_shutdown"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/iv_stok_kios"
+        app:layout_constraintStart_toStartOf="@id/iv_stok_kios"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            app:cardBackgroundColor="@color/white_bg"
+            app:cardCornerRadius="8dp"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/dimen_twelve"
+                android:fontFamily="@font/inter_medium"
+                android:text="@string/pelayanan_untuk_kios"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_medium"
+                android:textStyle="bold" />
+
+        </androidx.cardview.widget.CardView>
+
+        <ImageView
+            android:id="@+id/iv_kiki"
+            android:layout_width="68dp"
+            android:layout_height="68dp"
+            android:layout_marginStart="@dimen/dimen_twelve"
+            android:elevation="5dp"
+            android:src="@drawable/ic_kiki_order_payment"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
         android:id="@+id/iv_training_video"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:src="@drawable/ic_training_two"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/cl_kiosk_shutdown" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -40,9 +81,9 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="15dp"
         android:fontFamily="@font/inter_medium"
-        android:text="Cek Stok Kios"
+        android:text="@string/cek_stok_kios"
         android:textColor="@color/black"
-        android:textSize="14sp"
+        android:textSize="@dimen/text_medium"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/iv_stok_kios"
         app:layout_constraintEnd_toEndOf="@+id/iv_stok_kios"
@@ -55,9 +96,9 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="15dp"
         android:fontFamily="@font/inter_medium"
-        android:text="Video Pelatihan"
+        android:text="@string/video_pelatihan"
         android:textColor="@color/black"
-        android:textSize="14sp"
+        android:textSize="@dimen/text_medium"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/iv_training_video"
         app:layout_constraintEnd_toEndOf="@+id/iv_training_video"

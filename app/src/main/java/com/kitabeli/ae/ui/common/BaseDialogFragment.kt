@@ -3,7 +3,6 @@ package com.kitabeli.ae.ui.common
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.DialogFragment
-import com.kitabeli.ae.R
 import com.kitabeli.ae.model.AppError
 import com.kitabeli.ae.utils.SingleLiveObserver
 import com.kitabeli.ae.utils.ext.stringRes
@@ -25,11 +24,11 @@ abstract class BaseDialogFragment<M : BaseViewModel>(layoutId: Int) : DialogFrag
                 when (appError) {
                     is AppError.ApiException.BadRequestException -> {
                         val apiError = appError.toApiError()
-                        showMessage(apiError.message ?: getString(R.string.error_unknown))
+                        showToast(apiError.message)
                     }
 
                     else -> {
-                        showMessage(getString(appError.stringRes()))
+                        showToast(getString(appError.stringRes()))
                     }
                 }
             }

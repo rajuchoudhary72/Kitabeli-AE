@@ -42,13 +42,26 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription" />
 
+        <TextView
+            android:id="@+id/tv_email_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:fontFamily="@font/inter_bold"
+            android:text="@string/email_label_text"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@id/guideline_left"
+            app:layout_constraintTop_toBottomOf="@id/logo" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_input_email"
             style="@style/Widget.Material3.TextInputEditText.FilledBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="4dp"
             android:paddingStart="0dp"
+            android:paddingTop="0dp"
             android:paddingEnd="0dp"
             app:boxBackgroundColor="@color/white"
             app:boxStrokeColor="@color/white"
@@ -57,7 +70,7 @@
             app:hintEnabled="false"
             app:layout_constraintEnd_toEndOf="@id/guideline_right"
             app:layout_constraintStart_toStartOf="@id/guideline_left"
-            app:layout_constraintTop_toBottomOf="@id/logo">
+            app:layout_constraintTop_toBottomOf="@id/tv_email_label">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -73,13 +86,26 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <TextView
+            android:id="@+id/tv_password_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:fontFamily="@font/inter_bold"
+            android:text="@string/password_label_text"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@id/guideline_left"
+            app:layout_constraintTop_toBottomOf="@id/text_input_email" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_input_password"
             style="@style/Widget.Material3.TextInputEditText.FilledBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:paddingStart="0dp"
+            android:paddingTop="0dp"
             android:paddingEnd="0dp"
             app:boxBackgroundColor="@color/white"
             app:boxStrokeColor="@color/white"
@@ -88,7 +114,7 @@
             app:hintEnabled="false"
             app:layout_constraintEnd_toEndOf="@id/guideline_right"
             app:layout_constraintStart_toStartOf="@id/guideline_left"
-            app:layout_constraintTop_toBottomOf="@id/text_input_email"
+            app:layout_constraintTop_toBottomOf="@id/tv_password_label"
             app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -97,14 +123,130 @@
                 android:drawableStart="@drawable/ic_key"
                 android:drawablePadding="10dp"
                 android:hint="@string/masukkan_password_kamu_di_sini"
+                android:imeOptions="actionDone"
                 android:inputType="textPassword"
                 android:singleLine="true"
                 android:text="@={loginViewModel.password}"
                 android:textSize="15sp" />
 
-
         </com.google.android.material.textfield.TextInputLayout>
 
+        <TextView
+            android:id="@+id/tv_role_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/inter_bold"
+            android:text="@string/login_as_text"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@id/guideline_left"
+            app:layout_constraintTop_toBottomOf="@id/text_input_password" />
+
+        <LinearLayout
+            android:id="@+id/ll_role"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/tv_role_label">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_ae_role"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:layout_weight="1"
+                android:onClick="@{v -> loginViewModel.onRoleCardClicked(true)}"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingVertical="8dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="0dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawablePadding="8dp"
+                        android:fontFamily="@font/inter_medium"
+                        android:text="@string/ae_kitabeli"
+                        android:textAppearance="?attr/textAppearanceTitleMedium"
+                        android:textSize="12sp"
+                        app:drawableStartCompat="@drawable/ic_briefcase" />
+
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:id="@+id/rb_ae"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="@{loginViewModel.isAERoleSelected()}"
+                        android:clickable="false"
+                        android:drawablePadding="0dp"
+                        android:focusable="false"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:scaleX="0.8"
+                        android:scaleY="0.8" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_ko_role"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_weight="1"
+                android:onClick="@{v -> loginViewModel.onRoleCardClicked(false)}"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingVertical="8dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="0dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawablePadding="8dp"
+                        android:fontFamily="@font/inter_medium"
+                        android:text="@string/kiosk_owner_text"
+                        android:textAppearance="?attr/textAppearanceTitleMedium"
+                        android:textSize="12sp"
+                        app:drawableStartCompat="@drawable/ic_user_circle" />
+
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:id="@+id/rb_ko"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="@{loginViewModel.isKORoleSelected()}"
+                        android:clickable="false"
+                        android:drawablePadding="0dp"
+                        android:focusable="false"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:scaleX="0.8"
+                        android:scaleY="0.8" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_masuk"
@@ -118,8 +260,22 @@
             android:text="@string/masuk"
             app:layout_constraintEnd_toEndOf="@id/guideline_right"
             app:layout_constraintStart_toStartOf="@id/guideline_left"
-            app:layout_constraintTop_toBottomOf="@id/text_input_password"
-            app:shapeAppearanceOverlay="?attr/shapeAppearanceCornerSmall" />
+            app:layout_constraintTop_toBottomOf="@id/ll_role"
+            app:shapeAppearanceOverlay="?attr/shapeAppearanceCornerSmall"
+            app:strokeColor="@color/white"
+            app:strokeWidth="1dp" />
+
+        <TextView
+            android:id="@+id/tv_version_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="v1.20.5" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

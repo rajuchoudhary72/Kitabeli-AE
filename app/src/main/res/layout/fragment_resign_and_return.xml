@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_10"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv_header"
+        android:layout_width="match_parent"
+        android:layout_height="267dp"
+        android:src="@drawable/ic_kiki_order_payment"
+        tools:ignore="ContentDescription" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_resign"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimen_sixteen"
+        android:layout_marginTop="@dimen/dimen_sixteen"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/corner_radius_8"
+        app:layout_constraintTop_toBottomOf="@id/iv_header"
+        app:strokeColor="@color/grey_40"
+        app:strokeWidth="@dimen/stroke_width">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_resign"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="@dimen/dimen_sixteen"
+                android:src="@drawable/ic_kiki_bebe_shopping_circle"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_resign"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_twenty"
+                android:fontFamily="@font/inter_bold"
+                android:text="@string/pengunduran_diri_kios"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_medium"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/iv_resign"
+                app:layout_constraintTop_toTopOf="@id/iv_resign" />
+
+            <TextView
+                android:id="@+id/tv_resign_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_twenty"
+                android:layout_marginTop="@dimen/dimen_eight"
+                android:fontFamily="@font/inter_regular"
+                android:text="@string/isi_jika_ada_kios_yang_ingin_berhenti"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_small"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/iv_resign"
+                app:layout_constraintTop_toBottomOf="@id/separator" />
+
+            <View
+                android:id="@+id/separator"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/stroke_width"
+                android:layout_marginTop="@dimen/dimen_eight"
+                android:layout_marginEnd="@dimen/dimen_eight"
+                android:background="@color/grey_30"
+                app:layout_constraintEnd_toStartOf="@id/cv_arrow"
+                app:layout_constraintStart_toStartOf="@id/tv_resign"
+                app:layout_constraintTop_toBottomOf="@id/tv_resign" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_arrow"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="13dp"
+                app:cardBackgroundColor="@color/orange50"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:strokeColor="@color/white"
+                app:strokeWidth="2dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/dimen_four"
+                    android:src="@drawable/ic_keyboard_arrow_right"
+                    tools:ignore="ContentDescription" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_return"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimen_sixteen"
+        android:layout_marginTop="@dimen/dimen_eight"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/corner_radius_8"
+        app:layout_constraintTop_toBottomOf="@id/iv_header"
+        app:strokeColor="@color/grey_40"
+        app:strokeWidth="@dimen/stroke_width">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_return"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="@dimen/dimen_sixteen"
+                android:src="@drawable/ic_kiki_bebe_shopping_circle"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_return"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_twenty"
+                android:fontFamily="@font/inter_bold"
+                android:text="@string/penarikan_barang_kios"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_medium"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/iv_return"
+                app:layout_constraintTop_toTopOf="@id/iv_return" />
+
+            <TextView
+                android:id="@+id/tv_return_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_twenty"
+                android:layout_marginTop="@dimen/dimen_eight"
+                android:fontFamily="@font/inter_regular"
+                android:text="@string/laporkan_kondisi_dan_jenis_barang"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_small"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/iv_return"
+                app:layout_constraintTop_toBottomOf="@id/separator_2" />
+
+            <View
+                android:id="@+id/separator_2"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/stroke_width"
+                android:layout_marginTop="@dimen/dimen_eight"
+                android:layout_marginEnd="@dimen/dimen_eight"
+                android:background="@color/grey_30"
+                app:layout_constraintEnd_toStartOf="@id/cv_arrow_2"
+                app:layout_constraintStart_toStartOf="@id/tv_return"
+                app:layout_constraintTop_toBottomOf="@id/tv_return" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_arrow_2"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="13dp"
+                app:cardBackgroundColor="@color/orange50"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:strokeColor="@color/white"
+                app:strokeWidth="2dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/dimen_four"
+                    android:src="@drawable/ic_keyboard_arrow_right"
+                    tools:ignore="ContentDescription" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_accept"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_sixteen"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:letterSpacing="0"
+            android:text="@string/tidak_ada_lanjut"
+            app:cornerRadius="@dimen/dimen_eight"
+            app:shapeAppearanceOverlay="?attr/shapeAppearanceCornerExtraSmall" />
+
+    </LinearLayout>
+
+</LinearLayout>

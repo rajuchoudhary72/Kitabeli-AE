@@ -58,7 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="10dp"
         android:layout_marginTop="20dp"
-        android:background="#F1F1F1"
+        android:background="@color/page_background"
         app:layout_constraintTop_toBottomOf="@+id/tv_video_desc"
         tools:layout_editor_absoluteX="38dp" />
 

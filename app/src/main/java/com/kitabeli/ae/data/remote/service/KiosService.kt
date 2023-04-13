@@ -1,5 +1,6 @@
 package com.kitabeli.ae.data.remote.service
 
+import com.kitabeli.ae.BuildConfig
 import com.kitabeli.ae.data.remote.dto.*
 import kotlinx.coroutines.flow.Flow
 import okhttp3.MultipartBody
@@ -11,7 +12,6 @@ interface KiosService {
     @POST("api/v1/stock-opname/initialize")
     fun initializeStock(@Body requestDto: InitializeStockRequestDto): Flow<BaseResponseDto<KiosDto>>
 
-
     @POST("api/v1/stock-opname/item/add")
     fun addStockProduct(@Body requestDto: AddStockProductRequestDto): Flow<BaseResponseDto<KiosDto>>
 
@@ -21,7 +21,6 @@ interface KiosService {
         @Body requestDto: AddStockProductRequestDto
     ): Flow<BaseResponseDto<KiosDto>>
 
-
     @Multipart
     @POST("api/v1/stock-opname/item/img-proof/upload")
     fun uploadProductImage(
@@ -30,7 +29,7 @@ interface KiosService {
     ): Flow<BaseResponseDto<String>>
 
 
-    @POST("api/v1/stock-opname/report")
+    @POST("api/v2/stock-opname/report")
     fun generateReport(@Body requestDto: GenerateReportRequestDto): Flow<BaseResponseDto<Report>>
 
     @Multipart
@@ -40,12 +39,16 @@ interface KiosService {
         @Part("totalAmountToBePaid") totalAmountToBePaid: RequestBody,
         @Part("aeId") aeId: RequestBody,
         @Part kiosOwnerSignURLFile: MultipartBody.Part,
-        @Part aeSignURLFile: MultipartBody.Part,
+        @Part aeSignURLFile: MultipartBody.Part?,
         @Part reportFile: MultipartBody.Part,
         @Part("KiosOwnerSignedBy") KiosOwnerSignedBy: RequestBody,
-    ): Flow<BaseResponseDto<Report>>
+        @Part("role") role: RequestBody,
+        @Part("partialAmountConfirmedByAE") partialAmountConfirmedByAE: RequestBody,
+        @Part("latitude") latitude: RequestBody? = null,
+        @Part("longitude") longitude: RequestBody? = null,
+    ): Flow<BaseResponseDto<PaymentDetailDto>>
 
-    @POST("api/v1/stock-opname/report/complete-payment")
+    @POST("api/v2/stock-opname/report/complete-payment")
     fun completePayment(@Body requestDto: CompletePaymentRequestDto): Flow<BaseResponseDto<Report>>
 
     @GET("api/v1/stock-opname/{stockOpNameId}")
@@ -72,4 +75,46 @@ interface KiosService {
 
     @GET("api/v1/stock-opname/report/cancel-reason")
     fun getCancelReasons(): Flow<BaseResponseDto<List<CancelReasonDto>>>
+
+    @POST("api/v1/stock-opname/report/payment/details")
+    fun getPaymentDetails(
+        @Body request: MarkEligibleForQaRequestDto
+    ): Flow<BaseResponseDto<PaymentDetailDto>>
+
+    @GET("${BuildConfig.BASE_KIOSK_PATH}api/v1/kiosk-form/RESIGN-FORM")
+    fun getKioskResignForm(): Flow<BaseResponseDto<KioskResignFormDto>>
+
+    @POST("${BuildConfig.BASE_KIOSK_PATH}api/v1/kiosk-form/submit-response")
+    fun submitKioskResignForm(
+        @Body request: SubmitKioskResignFormRequestDto
+    ): Flow<BaseResponseDto<KioskResignOtpDto>>
+
+    @POST("${BuildConfig.BASE_KIOSK_PATH}api/v1/kiosk-form/verify-form")
+    fun verifyKioskResignForm(
+        @Body request: VerifyKioskResignFormRequestDto
+    ): Flow<BaseResponseDto<KioskResignOtpDto>>
+
+    @GET("${BuildConfig.BASE_KIOSK_PATH}api/v1/kiosk")
+    fun getKioskDetail(
+        @Query("kioskCode") kioskCode: String?
+    ): Flow<BaseResponseDto<KioskDetailDto>>
+
+    @POST("${BuildConfig.BASE_KIOSK_PATH}api/v1/kiosk-form/otp/update-read")
+    fun resendKioskResignOTP(
+        @Body request: ResendKioskResignOtpRequestDto
+    ): Flow<BaseResponseDto<KioskResignOtpDto>>
+
+    @GET("${BuildConfig.BASE_PO_URL}api/v1/purchase-order/transfer-stock/get-stock-transfer-items")
+    fun getStockWithdrawalList(
+        @Query("transactionId") transactionId: String
+    ): Flow<BaseResponseDto<StockWithdrawalDto>>
+
+    @Multipart
+    @POST("${BuildConfig.DRIVER_BASE_URL}api/v1/shipments/ae/complete-shipment")
+    fun submitStockWithdrawalOTP(
+        @Part("aeEmail") stockOPNameReportId: RequestBody,
+        @Part("stockTransferId") totalAmountToBePaid: RequestBody,
+        @Part("otp") KiosOwnerSignedBy: RequestBody,
+        @Part deliveryProof: MultipartBody.Part
+    ): Flow<StockWithdrawalOTPDto>
 }

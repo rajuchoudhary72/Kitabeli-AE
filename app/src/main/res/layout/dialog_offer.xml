@@ -54,10 +54,25 @@
                 android:gravity="center"
                 android:text="Off Platform Sale = 5000"
                 android:textAppearance="?attr/textAppearanceTitleMedium"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/title" />
+
+            <TextView
+                android:id="@+id/title3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/screen_margin"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="40dp"
+                android:fontFamily="@font/inter_bold"
+                android:gravity="center"
+                android:text="Incentive = 5000"
+                android:textAppearance="?attr/textAppearanceTitleMedium"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/title2" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

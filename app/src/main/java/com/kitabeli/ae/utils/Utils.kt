@@ -1,6 +1,8 @@
 package com.kitabeli.ae.utils
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.pm.PackageManager
 import java.text.ParseException
 import java.text.SimpleDateFormat
 
@@ -20,4 +22,16 @@ fun getAbbreviatedFromDateTime(dateTime: String, dateFormat: String, field: Stri
     }
 
     return null
+}
+
+fun Activity.getVersionInfo(): String? {
+    try {
+        val pInfo = this.packageManager?.getPackageInfo(
+            this.packageName, 0
+        )
+        return pInfo?.versionName
+    } catch (e: PackageManager.NameNotFoundException) {
+        e.printStackTrace()
+    }
+    return ""
 }

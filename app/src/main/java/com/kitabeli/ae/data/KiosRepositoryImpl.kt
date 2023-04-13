@@ -3,20 +3,7 @@ package com.kitabeli.ae.data
 import android.content.Context
 import androidx.core.net.toUri
 import com.kitabeli.ae.data.local.SessionManager
-import com.kitabeli.ae.data.remote.dto.AddStockProductRequestDto
-import com.kitabeli.ae.data.remote.dto.BtnStatusDto
-import com.kitabeli.ae.data.remote.dto.CancelReasonDto
-import com.kitabeli.ae.data.remote.dto.CancelReportRequestDto
-import com.kitabeli.ae.data.remote.dto.CompletePaymentRequestDto
-import com.kitabeli.ae.data.remote.dto.GenerateReportRequestDto
-import com.kitabeli.ae.data.remote.dto.InitializeStockRequestDto
-import com.kitabeli.ae.data.remote.dto.KiosData
-import com.kitabeli.ae.data.remote.dto.KiosDetail
-import com.kitabeli.ae.data.remote.dto.KiosDto
-import com.kitabeli.ae.data.remote.dto.MarkEligibleForQaRequestDto
-import com.kitabeli.ae.data.remote.dto.MarkEligibleForQaResponseDto
-import com.kitabeli.ae.data.remote.dto.Report
-import com.kitabeli.ae.data.remote.dto.SkuDTO
+import com.kitabeli.ae.data.remote.dto.*
 import com.kitabeli.ae.data.remote.service.KiosService
 import com.kitabeli.ae.model.repository.KiosRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -41,7 +28,8 @@ class KiosRepositoryImpl @Inject constructor(
             .initializeStock(
                 InitializeStockRequestDto(
                     kiosCode = kiosCode,
-                    aeId = sessionManager.getAeId().first().toString()
+                    aeId = sessionManager.getAeId().first(),
+                    role = sessionManager.getUserRole().first()
                 )
             )
             .map { it.payload!! }
@@ -107,9 +95,15 @@ class KiosRepositoryImpl @Inject constructor(
         ).map { it.payload!! }
     }
 
-    override fun generateReport(stockOpNameId: Int): Flow<Report?> {
+    override suspend fun generateReport(stockOpNameId: Int): Flow<Report?> {
         return kiosService
-            .generateReport(GenerateReportRequestDto(stockOpNameId = stockOpNameId))
+            .generateReport(
+                GenerateReportRequestDto(
+                    stockOpNameId = stockOpNameId,
+                    role = sessionManager.getUserRole().first(),
+                    email = sessionManager.getUserEmail().first()
+                )
+            )
             .map { it.payload }
     }
 
@@ -117,11 +111,13 @@ class KiosRepositoryImpl @Inject constructor(
         stockOPNameReportId: Int,
         totalAmountToBePaid: String,
         kiosOwnerSignURLFile: File,
-        aeSignURLFile: File,
+        aeSignURLFile: File?,
         reportFile: File,
-        KiosOwnerSignedBy: String
-    ): Flow<Report?> {
-
+        KiosOwnerSignedBy: String,
+        partialAmountConfirmedByAE: Boolean?,
+        latitude: Double?,
+        longitude: Double?,
+    ): Flow<PaymentDetailDto?> {
 
         val requestKiosOwnerSignURLFile =
             File(kiosOwnerSignURLFile.path).asRequestBody(
@@ -134,7 +130,6 @@ class KiosRepositoryImpl @Inject constructor(
             requestKiosOwnerSignURLFile
         )
 
-
         val requestReportFile =
             File(reportFile.path).asRequestBody(
                 context.contentResolver.getType(reportFile.toUri())
@@ -146,27 +141,33 @@ class KiosRepositoryImpl @Inject constructor(
             requestReportFile
         )
 
-
-        val requestAeSignURLFile =
-            File(aeSignURLFile.path).asRequestBody(
-                context.contentResolver.getType(aeSignURLFile.toUri())
-                    ?.toMediaTypeOrNull()
+        var aeSignURLFilePart: MultipartBody.Part? = null
+        if (aeSignURLFile != null) {
+            val requestAeSignURLFile =
+                File(aeSignURLFile.path).asRequestBody(
+                    context.contentResolver.getType(aeSignURLFile.toUri())
+                        ?.toMediaTypeOrNull()
+                )
+            aeSignURLFilePart = MultipartBody.Part.createFormData(
+                "aeSignURLFile",
+                File(aeSignURLFile.path).name,
+                requestAeSignURLFile
             )
-        val aeSignURLFilePart: MultipartBody.Part = MultipartBody.Part.createFormData(
-            "aeSignURLFile",
-            File(aeSignURLFile.path).name,
-            requestAeSignURLFile
-        )
-
+        }
 
         return kiosService.confirmReport(
             stockOPNameReportId = stockOPNameReportId.toString().toRequestBody(MultipartBody.FORM),
-            totalAmountToBePaid = totalAmountToBePaid.toString().toRequestBody(MultipartBody.FORM),
+            totalAmountToBePaid = totalAmountToBePaid.toRequestBody(MultipartBody.FORM),
             aeId = sessionManager.getAeId().first().toString().toRequestBody(MultipartBody.FORM),
             kiosOwnerSignURLFile = kiosOwnerSignURLFilePart,
             aeSignURLFile = aeSignURLFilePart,
             reportFile = reportFilePart,
             KiosOwnerSignedBy = KiosOwnerSignedBy.toRequestBody(MultipartBody.FORM),
+            role = sessionManager.getUserRole().first().toRequestBody(MultipartBody.FORM),
+            partialAmountConfirmedByAE = partialAmountConfirmedByAE.toString()
+                .toRequestBody(MultipartBody.FORM),
+            latitude = latitude?.toString()?.toRequestBody(MultipartBody.FORM),
+            longitude = longitude?.toString()?.toRequestBody(MultipartBody.FORM)
         ).map { it.payload }
     }
 
@@ -178,7 +179,8 @@ class KiosRepositoryImpl @Inject constructor(
         val requestBody = CancelReportRequestDto(
             stockOPNameReportId = stockOPNameReportId,
             cancelReason = cancelReason,
-            note = note
+            note = note,
+            role = sessionManager.getUserRole().first()
         )
         return kiosService.cancelReport(requestBody).map {
             it.message == "Success"
@@ -222,6 +224,103 @@ class KiosRepositoryImpl @Inject constructor(
             )
             .map {
                 it.payload
+            }
+    }
+
+    override fun getPaymentDetails(stockOpNameId: Int): Flow<PaymentDetailDto?> {
+        return kiosService
+            .getPaymentDetails(MarkEligibleForQaRequestDto(stockOpNameId))
+            .map { it.payload }
+    }
+
+    override fun getKioskResignForm(): Flow<KioskResignFormDto?> {
+        return kiosService.getKioskResignForm().map { it.payload }
+    }
+
+    override fun resendKioskResignOtp(
+        formId: Int,
+        kioskCode: String
+    ): Flow<KioskResignOtpDto?> {
+        val request = ResendKioskResignOtpRequestDto(
+            kioskCode = kioskCode,
+            formId = formId,
+            isRead = "false"
+        )
+        return kiosService.resendKioskResignOTP(request).map { it.payload }
+    }
+
+    override suspend fun submitKioskResignForm(
+        formId: Int,
+        kioskCode: String,
+        responses: Map<String, List<ResignOption>>,
+    ): Flow<KioskResignOtpDto?> {
+        val request = SubmitKioskResignFormRequestDto(
+            formId = formId,
+            aeId = sessionManager.getAeId().first(),
+            kioskCode = kioskCode,
+            responses = responses
+        )
+        return kiosService.submitKioskResignForm(request).map { it.payload }
+    }
+
+    override fun verifyKioskResignOTP(
+        kioskCode: String?,
+        otp: String?,
+        formId: Int?
+    ): Flow<KioskResignOtpDto?> {
+        return kiosService
+            .verifyKioskResignForm(
+                VerifyKioskResignFormRequestDto(
+                    kioskCode = kioskCode.orEmpty(),
+                    otp = otp.orEmpty(),
+                    formId = formId ?: 0
+                )
+            )
+            .map {
+                it.payload
+            }
+    }
+
+    override fun getKioskDetail(kioskCode: String?): Flow<KioskDetailDto?> {
+        return kiosService.getKioskDetail(kioskCode).map { it.payload }
+    }
+
+    override fun getStockWithdrawalItems(stockTransferId: String): Flow<StockWithdrawalDto?> {
+        return kiosService
+            .getStockWithdrawalList(stockTransferId)
+            .map {
+                it.payload
+            }
+    }
+
+    override fun submitStockWithdrawalOTP(
+        aeEmail: String,
+        stockTransferId: String,
+        deliveryProof: File,
+        otp: String,
+    ): Flow<StockWithdrawalOTPDto?> {
+
+        val dp =
+            File(deliveryProof.path).asRequestBody(
+                context.contentResolver.getType(deliveryProof.toUri())
+                    ?.toMediaTypeOrNull()
+            )
+
+        val deliveryProofPart: MultipartBody.Part = MultipartBody.Part.createFormData(
+            "deliveryProof",
+            File(deliveryProof.path).name,
+            dp
+        )
+
+        return kiosService
+            .submitStockWithdrawalOTP(
+                aeEmail.toRequestBody(MultipartBody.FORM),
+                stockTransferId.toRequestBody(MultipartBody.FORM),
+                otp.toRequestBody(MultipartBody.FORM),
+                deliveryProofPart
+            )
+            .map {
+                it
             }
     }
 }

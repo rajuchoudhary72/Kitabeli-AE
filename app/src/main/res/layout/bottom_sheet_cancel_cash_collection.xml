@@ -22,7 +22,7 @@
         tools:ignore="ContentDescription" />
 
     <TextView
-        android:id="@+id/tv_item_name"
+        android:id="@+id/tv_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="17dp"
@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@id/tv_item_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
         tools:itemCount="3"
         tools:listitem="@layout/item_cancel_cash_collection" />
 

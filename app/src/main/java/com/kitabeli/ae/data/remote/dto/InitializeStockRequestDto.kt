@@ -9,5 +9,7 @@ data class InitializeStockRequestDto(
     @SerialName("kiosCode")
     val kiosCode: String,
     @SerialName("aeId")
-    val aeId: String
+    val aeId: Int,
+    @SerialName("role")
+    val role: String
 )

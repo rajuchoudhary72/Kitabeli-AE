@@ -48,9 +48,10 @@ class OfferDialog : BaseDialogFragment<OfferViewModel>(R.layout.dialog_offer) {
         }
 
         binding.title.text =
-            "On Platform Sale = Rp ${arguments?.getString(onPlatformSalesAmountKey)}"
+            "On Platform Sale = Rp${arguments?.getString(onPlatformSalesAmountKey)}"
         binding.title2.text =
-            "Off Platform Sale = Rp ${arguments?.getString(offPlatformSalesAmountKey)}"
+            "Off Platform Sale = Rp${arguments?.getString(offPlatformSalesAmountKey)}"
+        binding.title3.text = "Incentive = Rp${arguments?.getString(incentiveAmountKey)}"
 
 
     }
@@ -69,14 +70,17 @@ class OfferDialog : BaseDialogFragment<OfferViewModel>(R.layout.dialog_offer) {
     companion object {
         private const val onPlatformSalesAmountKey = "onPlatformSalesAmount"
         private const val offPlatformSalesAmountKey = "offPlatformSalesAmount"
+        private const val incentiveAmountKey = "incentiveAmount"
         fun getInstance(
             onPlatformSalesAmount: String,
             offPlatformSalesAmount: String,
+            incentiveAmount: String,
         ): OfferDialog {
             return OfferDialog().apply {
                 arguments = bundleOf(
                     onPlatformSalesAmountKey to onPlatformSalesAmount,
-                    offPlatformSalesAmountKey to offPlatformSalesAmount
+                    offPlatformSalesAmountKey to offPlatformSalesAmount,
+                    incentiveAmountKey to incentiveAmount,
                 )
             }
         }

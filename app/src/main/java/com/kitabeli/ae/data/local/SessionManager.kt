@@ -9,5 +9,9 @@ interface SessionManager {
     suspend fun fetchAuthToken(): String?
     fun isUserSessionAvailable(): Flow<Boolean>
     fun getAeId(): Flow<Int>
+    fun getUserEmail(): Flow<String>
+    fun isKioskOwner(): Flow<Boolean>
+    fun getKioskCode(): Flow<String>
+    fun getUserRole(): Flow<String>
     suspend fun clearSession()
 }

@@ -11,6 +11,7 @@ sealed interface UiState {
     ) : UiState
 
     data class Success(
+        val shouldShowBankAlert: Boolean? = null,
         val report: Report?
     ) : UiState
 

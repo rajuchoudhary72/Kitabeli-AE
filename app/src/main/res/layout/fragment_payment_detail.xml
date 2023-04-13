@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/page_background"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        style="@style/AppToolBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@color/white"
+        app:contentInsetStartWithNavigation="0dp"
+        app:navigationIcon="@drawable/ic_navigation_back_arrow"
+        app:title="Cara Membayar"
+        app:titleTextAppearance="@style/TextAppearance.KitabeliAE.Toolbar">
+
+        <TextView
+            android:id="@+id/btn_help"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="16dp"
+            android:drawablePadding="4dp"
+            android:fontFamily="@font/inter_semi_bold"
+            android:gravity="center_vertical"
+            android:text="@string/help"
+            android:textColor="@color/orange50"
+            app:drawableStartCompat="@drawable/ic_chat_dotted" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/ll_commission_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/trans_red"
+                android:gravity="top"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="16dp"
+                    android:src="@drawable/ic_exclamation_circle"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/tv_commission_info"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/inter_regular"
+                    android:gravity="center_vertical"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="16dp"
+                    android:text="@string/do_payment_before_text"
+                    android:textColor="@color/text_red"
+                    android:textSize="@dimen/text_small" />
+
+                <TextView
+                    android:id="@+id/tv_timer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_bold"
+                    android:padding="20dp"
+                    tools:text="@string/timer_placeholder"
+                    android:textColor="@color/text_red"
+                    android:textSize="@dimen/text_xlarge" />
+
+            </LinearLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:paddingHorizontal="16dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="0dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="2dp">
+
+                    <TextView
+                        android:id="@+id/tv_invoice_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/inter_regular"
+                        tools:text="@string/invoice_id_placeholder"
+                        android:textSize="@dimen/text_small"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/view_separator_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@color/divider"
+                        app:layout_constraintTop_toBottomOf="@id/tv_invoice_id" />
+
+                    <TextView
+                        android:id="@+id/tv_invoice_date_range"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:fontFamily="@font/inter_semi_bold"
+                        tools:text="@string/date_range_placeholder"
+                        android:textSize="@dimen/text_medium"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_invoice_id"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tv_invoice_id" />
+
+                    <TextView
+                        android:id="@+id/tv_show_detail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="19dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="16dp"
+                        android:fontFamily="@font/inter_bold"
+                        android:gravity="center_vertical"
+                        android:text="@string/detail_pembayaran"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_medium"
+                        app:layout_constraintTop_toBottomOf="@id/view_separator_1" />
+
+                    <TextView
+                        android:id="@+id/tv_sale_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="24dp"
+                        android:fontFamily="@font/inter_regular"
+                        android:text="@string/penjualan_text"
+                        android:textSize="@dimen/text_medium"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_show_detail" />
+
+                    <TextView
+                        android:id="@+id/tv_sale_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:fontFamily="@font/inter_semi_bold"
+                        tools:text="@string/sale_amount_placeholder"
+                        android:textColor="@color/orange50"
+                        android:textSize="@dimen/text_medium"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_show_detail" />
+
+                    <View
+                        android:id="@+id/view_separator_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@color/divider"
+                        app:layout_constraintTop_toBottomOf="@id/tv_sale_amount" />
+
+                    <TextView
+                        android:id="@+id/tv_commission_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="@font/inter_regular"
+                        android:text="@string/incentive"
+                        android:textSize="@dimen/text_medium"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/view_separator_2" />
+
+                    <TextView
+                        android:id="@+id/tv_commission_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="24dp"
+                        android:fontFamily="@font/inter_semi_bold"
+                        tools:text="@string/incentive_placeholder"
+                        android:textColor="@color/blue_50"
+                        android:textSize="@dimen/text_medium"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/view_separator_2" />
+
+                    <View
+                        android:id="@+id/view_separator_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@color/divider"
+                        app:layout_constraintTop_toBottomOf="@id/tv_commission_amount" />
+
+                    <View
+                        android:id="@+id/view_commission_bg"
+                        android:layout_width="match_parent"
+                        android:layout_height="29dp"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@color/grey_10"
+                        android:visibility="gone"
+                        app:layout_constraintTop_toBottomOf="@id/view_separator_3" />
+
+                    <TextView
+                        android:id="@+id/tv_commission_how_to"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:drawablePadding="6dp"
+                        android:fontFamily="@font/inter_regular"
+                        android:gravity="center"
+                        android:text="@string/pelajari_cara_perhitungan_komisi"
+                        android:textColor="@color/orange50"
+                        android:textSize="@dimen/text_small"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/view_commission_bg"
+                        app:drawableStartCompat="@drawable/ic_light_bulb"
+                        app:drawableTint="@color/orange50" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        app:cardBackgroundColor="@color/orange20"
+                        app:cardCornerRadius="6dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/view_commission_bg"
+                        app:strokeWidth="0dp">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="8dp"
+                            android:layout_marginVertical="12dp">
+
+                            <TextView
+                                android:id="@+id/tv_invoice_amount_label"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/inter_semi_bold"
+                                android:text="@string/total_tagihan"
+                                android:textSize="@dimen/text_medium"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/tv_invoice_amount_desc"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:fontFamily="@font/inter_regular"
+                                android:text="@string/penjualan_komisi"
+                                android:textSize="@dimen/text_small"
+                                app:layout_constraintTop_toBottomOf="@id/tv_invoice_amount_label" />
+
+                            <TextView
+                                android:id="@+id/tv_invoice_amount_value"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/inter_bold"
+                                tools:text="@string/incentive_placeholder"
+                                android:textSize="@dimen/text_medium"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:paddingHorizontal="16dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_payment_type_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="19dp"
+                        android:fontFamily="@font/inter_semi_bold"
+                        android:text="@string/metode_pembayaran"
+                        android:textSize="@dimen/text_medium" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_biller_code"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/ic_icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:src="@drawable/ic_online_payment"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:id="@+id/tv_bank_name_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="9dp"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="@font/inter_regular"
+                            android:text="@string/kode_bank"
+                            android:textSize="@dimen/text_small"
+                            app:layout_constraintStart_toEndOf="@id/ic_icon"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tv_biller_code"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="9dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="16dp"
+                            android:fontFamily="@font/inter_bold"
+                            android:textSize="@dimen/text_medium"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/ic_icon"
+                            app:layout_constraintTop_toBottomOf="@id/tv_bank_name_2" />
+
+                        <TextView
+                            android:id="@+id/tv_copy_bill"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="28dp"
+                            android:fontFamily="@font/inter_bold"
+                            android:text="@string/copy"
+                            android:textColor="@color/orange50"
+                            android:textSize="@dimen/text_medium"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View
+                        android:id="@+id/view_payment_separator_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginHorizontal="16dp"
+                        android:background="@color/divider" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/ic_icon_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:src="@drawable/ic_online_payment"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:id="@+id/tv_bank_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="9dp"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="@font/inter_regular"
+                            android:text="@string/bank"
+                            android:textSize="@dimen/text_small"
+                            app:layout_constraintStart_toEndOf="@id/ic_icon_2"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tv_va_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="9dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="16dp"
+                            android:fontFamily="@font/inter_bold"
+                            android:textSize="@dimen/text_medium"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/ic_icon_2"
+                            app:layout_constraintTop_toBottomOf="@id/tv_bank_name" />
+
+                        <TextView
+                            android:id="@+id/tv_copy"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="28dp"
+                            android:fontFamily="@font/inter_bold"
+                            android:text="@string/copy"
+                            android:textColor="@color/orange50"
+                            android:textSize="@dimen/text_medium"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_footer"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@color/white">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_back"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginVertical="24dp"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/kembali"
+                    app:cornerRadius="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="?attr/shapeAppearanceCornerExtraSmall"
+                    app:strokeColor="?attr/colorPrimary" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

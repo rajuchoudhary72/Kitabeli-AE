@@ -10,7 +10,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.kitabeli.ae.R
 import com.kitabeli.ae.data.remote.dto.KiosDto
@@ -18,6 +17,7 @@ import com.kitabeli.ae.data.remote.dto.KiosItem
 import com.kitabeli.ae.databinding.FragmentHomeBinding
 import com.kitabeli.ae.ui.MainActivity
 import com.kitabeli.ae.ui.common.BaseFragment
+import com.kitabeli.ae.utils.ext.showLogoutDialog
 import com.rubensousa.decorator.LinearMarginDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -71,15 +71,24 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
             )
         )
         kiosAdapter.onClickItem = { kios ->
-            if (kios.status == "REPORT_GENERATED") {
+            if (kios.status == "REPORT_GENERATED" ||
+                kios.status == "PARTIAL_PAYMENT_PENDING"
+            ) {
                 findNavController().navigate(
                     HomeFragmentDirections.actionHomeFragmentToAddCheckStockFragment(
-                        kios.stockOpnameId
+                        kios.stockOpnameId,
+                        kios.status == "PARTIAL_PAYMENT_PENDING"
                     )
                 )
             } else {
                 navigateToKios(kios.stockOpnameId)
             }
+        }
+
+        kiosAdapter.onShowDetailClick = {
+            findNavController().navigate(
+                HomeFragmentDirections.actionToStockWithdrawal(stockTransferId = it)
+            )
         }
         homeViewModel.kiosData.observe(viewLifecycleOwner) { data ->
             data?.items?.let {
@@ -139,19 +148,13 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
     }
 
     private fun logout() {
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle(getString(R.string.logout_))
-            .setMessage(getString(R.string.logout_msg))
-            .setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.bg_dialog))
-            .setPositiveButton(getString(R.string.logout_)) { _, _ ->
-                homeViewModel.logout {
-                    findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToLoginFragment())
-                }
+        requireContext().showLogoutDialog {
+            homeViewModel.logout {
+                findNavController().navigate(
+                    HomeFragmentDirections.actionHomeFragmentToLoginFragment()
+                )
             }
-            .setNegativeButton(getString(R.string.cancel)) { _, _ ->
-
-            }
-            .show()
+        }
     }
 
     private fun navigateToKios(stockOpnameId: Int) {
@@ -200,7 +203,7 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
             }
         }
 
-    fun openCameraWithScanner() {
-        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToScanqrFragment())
+    private fun openCameraWithScanner() {
+        findNavController().navigate(R.id.scanQRFragment)
     }
 }

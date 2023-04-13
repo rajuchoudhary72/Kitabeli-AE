@@ -9,6 +9,7 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.common.util.concurrent.ListenableFuture
@@ -17,6 +18,8 @@ import com.kitabeli.ae.data.remote.dto.KiosDto
 import com.kitabeli.ae.databinding.FragmentScanqrBinding
 import com.kitabeli.ae.ui.common.BaseFragment
 import com.kitabeli.ae.ui.home.HomeViewModel
+import com.kitabeli.ae.ui.post_login.PostLoginFragment.Companion.KIOSK_CODE_ARG
+import com.kitabeli.ae.ui.post_login.PostLoginFragment.Companion.KIOSK_CODE_REQUEST_KEY
 import dagger.hilt.android.AndroidEntryPoint
 import maulik.barcodescanner.analyzer.MLKitBarcodeAnalyzer
 import maulik.barcodescanner.analyzer.ScanningResultListener
@@ -35,6 +38,13 @@ class ScanQrFragment : BaseFragment<HomeViewModel>() {
     private lateinit var cameraExecutor: ExecutorService
     private val homeViewModel: HomeViewModel by viewModels()
     private val binding get() = _binding!!
+
+    private var shouldInitializeStockOp = true
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        shouldInitializeStockOp = arguments?.getBoolean("INIT_STOCK_OP") ?: true
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -119,11 +129,20 @@ class ScanQrFragment : BaseFragment<HomeViewModel>() {
                     cameraProvider?.unbindAll()
                     if (result.contains("kioskId")) {
                         val qrCodeValue = result.split("kioskId")[1].replace("=", "")
-                        homeViewModel.initializeStock(qrCodeValue) { kios: KiosDto ->
-                            findNavController().navigate(
-                                R.id.homeFragment,
-                                bundleOf("qrcodevalue" to qrCodeValue)
+                        if (shouldInitializeStockOp) {
+                            homeViewModel.initializeStock(qrCodeValue) { kios: KiosDto ->
+                                findNavController().popBackStack(R.id.fragment_post_login, false)
+                                findNavController().navigate(
+                                    R.id.homeFragment,
+                                    bundleOf("qrcodevalue" to qrCodeValue)
+                                )
+                            }
+                        } else {
+                            setFragmentResult(
+                                KIOSK_CODE_REQUEST_KEY,
+                                bundleOf(KIOSK_CODE_ARG to qrCodeValue)
                             )
+                            findNavController().popBackStack()
                         }
                     } else {
                         showMessage(getString(R.string.error_unknown))

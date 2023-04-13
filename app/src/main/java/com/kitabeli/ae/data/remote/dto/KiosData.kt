@@ -30,10 +30,30 @@ data class KiosItem(
     val qaAssignedId: Int? = null,
     @SerialName("status")
     val status: String? = null,
+    @SerialName("kiosStatusStr")
+    val kiosStatusStr: String? = null,
     @SerialName("stockOpnameId")
     val stockOpnameId: Int,
     @SerialName("stockOpnameItemDTOS")
     val stockOpnameItemDTOS: List<StockOpNameItemDTOS>? = null,
     @SerialName("stockOpnameLocalDate")
     val stockOpnameLocalDate: String? = null,
+    @SerialName("pendingAmount")
+    val pendingAmount: String? = null,
+    @SerialName("kiosStatusListDTO")
+    val kiosStatusListDTO: List<KiosStatusListDTO>? = null,
+    @SerialName("isReturnStockTransferCompleted")
+    val isReturnStockTransferCompleted: Boolean? = null,
+    @SerialName("stockTransferId")
+    val stockTransferId: String? = null
+
+
+)
+
+@Serializable
+data class KiosStatusListDTO(
+    @SerialName("messageInfo")
+    val messageInfo: String? = null,
+    @SerialName("messageType")
+    val messageType: String? = null,
 )

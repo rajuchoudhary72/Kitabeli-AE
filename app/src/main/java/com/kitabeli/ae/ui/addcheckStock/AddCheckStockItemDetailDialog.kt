@@ -20,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class AddCheckStockItemDetailDialog : DialogFragment(R.layout.bottom_sheet_add_product) {
+class AddCheckStockItemDetailDialog : DialogFragment(R.layout.dialog_add_check_stock_item_detail) {
     private var _binding: DialogAddCheckStockItemDetailBinding? = null
     private val binding get() = _binding!!
 

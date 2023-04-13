@@ -1,14 +1,14 @@
 package com.kitabeli.ae.ui.addcheckStock
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.kitabeli.ae.data.local.SessionManager
+import com.kitabeli.ae.data.remote.dto.PaymentDetailDto
 import com.kitabeli.ae.data.remote.dto.Report
 import com.kitabeli.ae.model.AppError
 import com.kitabeli.ae.model.LoadState
 import com.kitabeli.ae.model.repository.KiosRepository
 import com.kitabeli.ae.ui.common.BaseViewModel
+import com.kitabeli.ae.utils.ext.toApiError
 import com.kitabeli.ae.utils.ext.toLoadingState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -30,8 +30,15 @@ import javax.inject.Inject
 @HiltViewModel
 class AddCheckStockViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val kiosRepository: KiosRepository
+    private val kiosRepository: KiosRepository,
+    private val sessionManager: SessionManager,
 ) : BaseViewModel() {
+
+    private val _isKioskOwner = sessionManager.isKioskOwner()
+    val isKioskOwner = _isKioskOwner
+
+    private val _kioskCode = sessionManager.getKioskCode()
+    val kioskCode = _kioskCode
 
     private val _retry = MutableStateFlow(false)
 
@@ -39,7 +46,14 @@ class AddCheckStockViewModel @Inject constructor(
         ?: throw RuntimeException("stockOpNameId required, pass stockOpNameId in fragment arguments.")
     val tncAgree = MutableStateFlow(false)
     val statusMitraName = MutableStateFlow(true)
-    val enterdMitraname = MutableStateFlow("")
+    val enteredMitraName = MutableStateFlow("")
+    val isKioskOwnerUser = MutableStateFlow(false)
+    val showResumePaymentBtn = MutableStateFlow(false)
+    val agreementText = MutableStateFlow("")
+    val showPaymentDialog = MutableLiveData(false)
+    val partialAmountConfirmedByAE = MutableLiveData(false)
+    val latitude: MutableLiveData<Double?> = MutableLiveData(null)
+    val longitude: MutableLiveData<Double?> = MutableLiveData(null)
 
     private val _report = _retry
         .flatMapLatest {
@@ -48,7 +62,7 @@ class AddCheckStockViewModel @Inject constructor(
 
     val uiState = combine(
         flow = _report,
-        flow2 = tncAgree
+        flow2 = tncAgree,
     ) { report: LoadState<Report?>, _ ->
         when (report) {
             LoadState.Loading -> {
@@ -56,7 +70,15 @@ class AddCheckStockViewModel @Inject constructor(
             }
 
             is LoadState.Error -> {
-                UiState.Error(report.getAppErrorIfExists())
+                val appError = report.getAppErrorIfExists()
+                if (getErrorMessage(appError) == NO_BANK_ACCOUNT_ERROR) {
+                    UiState.Success(
+                        report = null,
+                        shouldShowBankAlert = true
+                    )
+                } else {
+                    UiState.Error(appError)
+                }
             }
 
             is LoadState.Loaded -> {
@@ -88,7 +110,6 @@ class AddCheckStockViewModel @Inject constructor(
         uiState.map { if (it is UiState.Success) it.report?.kioskDTO?.mitraName ?: "" else "" }
             .asLiveData()
 
-
     val isLoading = uiState.map { it is UiState.Loading }.asLiveData()
 
     val error: LiveData<AppError?> =
@@ -108,7 +129,6 @@ class AddCheckStockViewModel @Inject constructor(
         _retry.update { it.not() }
     }
 
-
     fun setMitraSignature(file: File) {
         _mirtaSignature.update { file }
     }
@@ -121,24 +141,62 @@ class AddCheckStockViewModel @Inject constructor(
         _reportFile.update { file }
     }
 
-    fun submitReport(func: () -> Unit) {
+    fun submitReport(
+        openOTP: ((String?) -> Unit)? = null,
+        openKiosShutDownDialog: ((PaymentDetailDto?) -> Unit)? = null,
+        openPartialPaymentDialog: ((PaymentDetailDto?) -> Unit)? = null
+    ) {
         viewModelScope.launch {
             delay(100)
             val report = (uiState.value as UiState.Success).report!!
             kiosRepository.confirmReport(
                 stockOPNameReportId = report.id,
                 totalAmountToBePaid = report.totalAmountToBePaid!!,
-                aeSignURLFile = aeSignature.value!!,
+                aeSignURLFile = aeSignature.value,
                 kiosOwnerSignURLFile = mirtaSignature.value!!,
                 reportFile = reportFile.value!!,
-                KiosOwnerSignedBy = enterdMitraname.value
+                KiosOwnerSignedBy = enteredMitraName.value,
+                partialAmountConfirmedByAE = partialAmountConfirmedByAE.value,
+                latitude = latitude.value,
+                longitude = longitude.value
             )
                 .flowOn(Dispatchers.IO)
                 .toLoadingState()
                 .collectLatest { state ->
                     state.handleErrorAndLoadingState()
                     if (state is LoadState.Loaded) {
-                        func.invoke()
+                        val data = state.value
+                        data?.let { model ->
+                            if (partialAmountConfirmedByAE.value == true) {
+                                openOTP?.invoke(model.token)
+                            } else {
+                                if (model.is_kiosk_shutdown == true && model.orderAmount == null && (model.payment_amount_type == null || model.payment_amount_type == "PARTIAL_PAYMENT")) {
+                                    openKiosShutDownDialog?.invoke(model)
+                                } else if (model.is_kiosk_shutdown == true && model.payment_amount_type == "PARTIAL_PAYMENT") {
+                                    openPartialPaymentDialog?.invoke(model)
+                                } else {
+                                    openOTP?.invoke(model.token)
+                                }
+                            }
+
+                        }
+                    }
+                }
+        }
+    }
+
+    fun getPaymentDetails(func: (PaymentDetailDto?) -> Unit) {
+        viewModelScope.launch {
+            delay(100)
+            kiosRepository.getPaymentDetails(
+                stockOpNameId = stockOpNameId,
+            )
+                .flowOn(Dispatchers.IO)
+                .toLoadingState()
+                .collectLatest { state ->
+                    state.handleErrorAndLoadingState()
+                    if (state is LoadState.Loaded) {
+                        func.invoke(state.value)
                     }
                 }
         }
@@ -197,6 +255,37 @@ class AddCheckStockViewModel @Inject constructor(
         started = SharingStarted.WhileSubscribed(5_000),
         initialValue = false
     ).asLiveData()
+
+    val isPayButtonEnabled = combine(
+        flow = tncAgree,
+        flow2 = mirtaSignature,
+        flow3 = statusMitraName
+    ) { tncAgree, mirtaSignature, statusMitraName ->
+        tncAgree && statusMitraName && mirtaSignature != null
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = false
+    ).asLiveData()
+
+    private fun getErrorMessage(appError: AppError?): String {
+        if (appError is AppError.ApiException.BadRequestException) {
+            val apiError = appError.toApiError()
+            return apiError.message
+        }
+        return ""
+    }
+
+    fun logout(func: () -> Unit) {
+        viewModelScope.launch {
+            sessionManager.clearSession()
+            func()
+        }
+    }
+
+    companion object {
+        private const val NO_BANK_ACCOUNT_ERROR = "NO_BANK_ACCOUNT"
+    }
 }
 
 

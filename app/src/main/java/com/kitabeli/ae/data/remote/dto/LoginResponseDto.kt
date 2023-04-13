@@ -9,11 +9,15 @@ data class LoginResponseDto(
     @SerialName("email")
     val email: String,
     @SerialName("aeId")
-    val aeId: Int,
+    val aeId: Int? = null,
+    @SerialName("kiosCode")
+    val kioskCode: String? = null,
+    @SerialName("role")
+    val role: String,
     @SerialName("jwtToken")
     val jwtToken: String,
-    @SerialName("phone")
-    val phone: String,
+    /*@SerialName("phone")
+    val phone: String? = null,*/
     @SerialName("success")
     val success: Boolean
 )

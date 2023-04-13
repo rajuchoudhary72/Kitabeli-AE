@@ -26,6 +26,18 @@ data class Report(
     val onPlatformSalesAmount: String? = null,
     @SerialName("offPlatformSalesAmount")
     val offPlatformSalesAmount: String? = null,
+    @SerialName("incentiveAmount")
+    val incentiveAmount: String? = null,
+    @SerialName("partialAmountConfirmedByAE")
+    val partialAmountConfirmedByAE: Boolean? = false,
+    @SerialName("isKioskShutdown")
+    val isKioskShutdown: Boolean? = false,
+    @SerialName("totalPartialPaidAmount")
+    val totalPartialPaidAmount: String? = null,
+    @SerialName("totalPartialPendingAmount")
+    val totalPartialPendingAmount: String? = null,
+    @SerialName("stockTransferId")
+    val stockTransferId: String? = null
 )
 
 @Serializable

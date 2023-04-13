@@ -75,7 +75,6 @@ class AddProductBottomSheet :
             lifecycleOwner = viewLifecycleOwner
             addProductViewModel = getViewModel()
         }
-
         addProductViewModel.photoProof.observe(viewLifecycleOwner) { proof ->
             Glide.with(binding.productImage)
                 .load(proof)
@@ -125,7 +124,6 @@ class AddProductBottomSheet :
         }
 
         binding.btnAdd.setOnClickListener {
-
             if (addProductViewModel.canSelectProduct) {
                 addProductViewModel.addProduct {
                     showMessage(getString(R.string.added_successfully))
@@ -139,7 +137,6 @@ class AddProductBottomSheet :
                     productAddListener?.invoke()
                 }
             }
-
         }
 
         /*binding.products.setOnFocusChangeListener { view, b ->

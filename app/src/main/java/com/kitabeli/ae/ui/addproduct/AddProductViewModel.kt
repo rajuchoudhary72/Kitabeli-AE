@@ -1,10 +1,6 @@
 package com.kitabeli.ae.ui.addproduct
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.map
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.kitabeli.ae.data.remote.dto.SkuDTO
 import com.kitabeli.ae.data.remote.dto.StockOpNameItemDTOS
 import com.kitabeli.ae.model.repository.KiosRepository
@@ -29,11 +25,8 @@ class AddProductViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val kiosRepository: KiosRepository
 ) : BaseViewModel() {
-
     private val selectedProduct = savedStateHandle.get<StockOpNameItemDTOS>(STOCK_PRODUCT)
-
     val canSelectProduct = selectedProduct == null
-
     private val _stockOpNameId = savedStateHandle.getStateFlow(STOCK_OP_NAME_ID, 0)
     private val _kiosCode = savedStateHandle.getStateFlow(KIOS_CODE, "")
 
@@ -140,6 +133,4 @@ class AddProductViewModel @Inject constructor(
                 }
         }
     }
-
-
 }

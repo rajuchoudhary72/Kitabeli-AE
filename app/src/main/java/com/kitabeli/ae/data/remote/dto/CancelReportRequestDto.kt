@@ -12,4 +12,6 @@ data class CancelReportRequestDto(
     val cancelReason: String? = null,
     @SerialName("note")
     val note: String? = null,
+    @SerialName("role")
+    val role: String? = null,
 )

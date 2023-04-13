@@ -1,10 +1,10 @@
 package com.kitabeli.ae.ui.cashCollection
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import com.kitabeli.ae.data.local.SessionManager
+import com.kitabeli.ae.data.remote.dto.CancelReasonDto
 import com.kitabeli.ae.model.LoadState
 import com.kitabeli.ae.model.repository.KiosRepository
 import com.kitabeli.ae.ui.common.BaseViewModel
@@ -18,9 +18,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CancelCashCollectionViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle,
-    private val kiosRepository: KiosRepository
+    private val kiosRepository: KiosRepository,
+    private val sessionManager: SessionManager
 ) : BaseViewModel() {
+
+    private val _isKioskOwner = sessionManager.isKioskOwner()
+    val isKioskOwner = _isKioskOwner
 
     private val _cancelReason: MutableLiveData<UiState> = MutableLiveData()
     val cancelReason: LiveData<UiState> = _cancelReason
@@ -30,23 +33,36 @@ class CancelCashCollectionViewModel @Inject constructor(
             .flowOn(Dispatchers.IO)
             .toLoadingState()
             .collectLatest { response ->
-                //response.handleErrorAndLoadingState()
                 if (response is LoadState.Loaded) {
-                    response.value?.forEach {
-                        Log.e("RESPONSEEEEE", it.name ?: "testt")
+                    var reasonList = response.value
+                    isKioskOwner.collectLatest { isKioskOwner ->
+                        if (isKioskOwner) {
+                            reasonList = getReasonListForKioskOwner(response.value)
+                        }
+                        _cancelReason.postValue(UiState.Success(cancelReason = reasonList))
                     }
-                    _cancelReason.postValue(UiState.Success(cancelReason = response.value))
                 } else {
                     _cancelReason.postValue(UiState.Error("Failed"))
                 }
             }
-        /*_cancelReason.postValue(UiState.Loading)
-        Log.e("ERORRRR", "ASDASDASDASD")
-        val data = kiosRepository.getCancelReasons().asLiveData().value
-        if (data != null) {
-            _cancelReason.postValue(UiState.Success(cancelReason = data))
-        } else {
-            _cancelReason.postValue(UiState.Error("Failed"))
-        }*/
+    }
+
+    private fun getReasonListForKioskOwner(response: List<CancelReasonDto>?): List<CancelReasonDto> {
+        val noMoneyOption = response?.find {
+            it.name == NO_MONEY
+        } ?: CancelReasonDto()
+        noMoneyOption.label = "Saya belum ada uang"
+        val disagreeOption = response?.find {
+            it.name == DISAGREE
+        } ?: CancelReasonDto()
+        disagreeOption.label = "Nominal penarikan tidak sesuai"
+        val otherOption = response?.find { it.name == OTHERS }!!
+        return listOf(noMoneyOption, disagreeOption, otherOption)
+    }
+
+    companion object {
+        const val NO_MONEY = "KIOSK_OWNER_HAS_NO_MONEY"
+        const val DISAGREE = "KIOSK_OWNER_DISAGREE"
+        const val OTHERS = "OTHERS"
     }
 }

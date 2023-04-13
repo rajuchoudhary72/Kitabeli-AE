@@ -6,4 +6,16 @@
         </key>
         <value>false</value>
     </entry>
+    <entry>
+        <key>
+            ae_min_app_version
+        </key>
+        <value>1.3</value>
+    </entry>
+    <entry>
+        <key>
+            ae_latest_app_version
+        </key>
+        <value>1.3</value>
+    </entry>
 </defaultsMap>

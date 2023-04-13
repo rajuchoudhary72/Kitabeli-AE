@@ -30,7 +30,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:title="@string/tambah_cek_stok"
-                app:titleTextAppearance="@style/TextAppearance.KitabeliAE.Toolbar" />
+                app:titleTextAppearance="@style/TextAppearance.KitabeliAE.Toolbar">
+
+                <TextView
+                    android:id="@+id/btn_help"
+                    isVisible="@{addCheckStockViewModel.isKioskOwnerUser}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="16dp"
+                    android:drawablePadding="4dp"
+                    android:fontFamily="@font/inter_semi_bold"
+                    android:gravity="center_vertical"
+                    android:text="Bantuan"
+                    android:textColor="@color/orange50"
+                    app:drawableStartCompat="@drawable/ic_chat_dotted" />
+
+            </com.google.android.material.appbar.MaterialToolbar>
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -83,18 +99,56 @@
                             app:layout_constraintVertical_bias="1.0"
                             tools:layout_editor_absoluteX="0dp" />
 
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/cl_partial_payment_info"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#E6EFFB"
+                            android:padding="10dp"
+                            android:visibility="gone"
+
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <ImageView
+                                android:id="@+id/imageView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="20dp"
+                                android:src="@drawable/ic_info_blue"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:fontFamily="@font/inter_semi_bold"
+                                android:text="Kios melakukan pembayaran sebagian. Perhatikan kembali nominal yang perlu ditarik"
+                                android:textAppearance="?attr/textAppearanceCaption"
+                                android:textColor="#0B4390"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/imageView"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
                         <TextView
                             android:id="@+id/title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="1.5dp"
+                            android:layout_marginTop="10dp"
                             android:fontFamily="@font/inter_semi_bold"
-                            android:paddingTop="@dimen/screen_margin"
                             android:text="@string/dokumen_cek_stok_barang"
                             android:textAppearance="?attr/textAppearanceTitleLarge"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toBottomOf="@+id/cl_partial_payment_info" />
 
 
                         <TextView
@@ -155,19 +209,118 @@
                             app:layout_constraintBottom_toBottomOf="@+id/linear_edit_name"
                             app:layout_constraintTop_toTopOf="@+id/nominal_perlu_ditarik" />
 
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/cl_pp_payment_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:background="@color/white"
+                            android:visibility="gone"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/recycler_view">
+
+                            <TextView
+                                android:id="@+id/textView2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="@font/inter_semi_bold"
+                                android:text="Nominal Penarikan"
+                                android:textAppearance="?attr/textAppearanceTitleMedium"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/textView3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="20dp"
+                                android:fontFamily="@font/inter_regular"
+                                android:text="Total penarikan penuh"
+                                android:textAppearance="?attr/textAppearanceTitleSmall"
+                                app:layout_constraintStart_toStartOf="@+id/textView2"
+                                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+                            <TextView
+                                android:id="@+id/pp_total_amt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="20dp"
+                                android:fontFamily="@font/inter_regular"
+                                android:textAppearance="?attr/textAppearanceTitleSmall"
+                                app:layout_constraintBottom_toBottomOf="@+id/textView3"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="@+id/textView3"
+                                tools:text="Rp259.7000" />
+
+                            <View
+                                android:id="@+id/v1"
+                                android:layout_width="match_parent"
+                                android:layout_height="10dp"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginEnd="20dp"
+                                android:background="@drawable/dotted_lines"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+
+                            <TextView
+                                android:id="@+id/tv_pp_paid_amt_label"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="@font/inter_regular"
+                                android:text="Sudah dibayar kios"
+                                android:textAppearance="?attr/textAppearanceTitleSmall"
+                                app:layout_constraintStart_toStartOf="@+id/textView2"
+                                app:layout_constraintTop_toBottomOf="@+id/v1" />
+
+                            <TextView
+                                android:id="@+id/pp_paid_amt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="20dp"
+                                android:fontFamily="@font/inter_regular"
+                                android:textAppearance="?attr/textAppearanceTitleSmall"
+                                app:layout_constraintBottom_toBottomOf="@+id/tv_pp_paid_amt_label"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="@+id/tv_pp_paid_amt_label"
+                                tools:text="Rp259.7000" />
+
+                            <View
+                                android:id="@+id/v2"
+                                android:layout_width="match_parent"
+                                android:layout_height="10dp"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginEnd="20dp"
+                                android:background="@drawable/dotted_lines"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/tv_pp_paid_amt_label" />
+
+
+
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
                         <TextView
                             android:id="@+id/nominal_perlu_ditarik"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/screen_margin"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginTop="0dp"
                             android:fontFamily="@font/inter_semi_bold"
                             android:paddingVertical="@dimen/screen_margin"
                             android:text="@string/nominal_perlu_ditarik"
                             android:textAppearance="?attr/textAppearanceTitleMedium"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/recycler_view" />
+                            app:layout_constraintTop_toBottomOf="@+id/cl_pp_payment_view" />
 
                         <ImageView
                             android:id="@+id/img_offer"
@@ -186,9 +339,11 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:layout_marginEnd="@dimen/screen_margin"
-                            android:background="@drawable/bg_price"
+                            android:background="#FFF5F0"
                             android:fontFamily="@font/inter_semi_bold"
                             android:gravity="center"
+                            android:paddingHorizontal="20dp"
+                            android:paddingVertical="10dp"
                             android:textAppearance="?attr/textAppearanceTitleMedium"
                             app:layout_constraintBaseline_toBaselineOf="@+id/nominal_perlu_ditarik"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -201,13 +356,15 @@
                             android:layout_marginHorizontal="@dimen/screen_margin"
                             android:checked="@={addCheckStockViewModel.tncAgree}"
                             android:fontFamily="@font/inter_regular"
+                            android:gravity="top"
                             android:paddingStart="10dp"
-                            android:text="@string/dengan_ini_saya_menyatakan_sudah_menarik_dan_menerima_uang_sejumlah_di_atas_dari_kios_ini"
+                            android:text="@{addCheckStockViewModel.agreementText}"
                             android:textAppearance="?attr/textAppearanceBodyMedium"
                             app:layout_constraintTop_toBottomOf="@+id/nominal_perlu_ditarik" />
 
                         <View
                             android:id="@+id/separator"
+                            isVisible="@{!addCheckStockViewModel.isKioskOwnerUser}"
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:layout_marginHorizontal="16dp"
@@ -217,6 +374,7 @@
 
                         <com.google.android.material.checkbox.MaterialCheckBox
                             android:id="@+id/checkbox_edit_name"
+                            isVisible="@{!addCheckStockViewModel.isKioskOwnerUser}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="@dimen/screen_margin"
@@ -252,6 +410,7 @@
 
                         <com.google.android.material.card.MaterialCardView
                             android:id="@+id/sign_ae"
+                            isVisible="@{!addCheckStockViewModel.isKioskOwnerUser}"
                             android:layout_width="0dp"
                             android:layout_height="120dp"
                             android:layout_marginStart="10dp"
@@ -377,6 +536,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="16dp"
+                        isVisible="@{!addCheckStockViewModel.showResumePaymentBtn}"
                         android:orientation="horizontal">
 
                         <com.google.android.material.button.MaterialButton
@@ -392,7 +552,7 @@
                             android:insetBottom="0dp"
                             android:letterSpacing="0"
                             android:paddingHorizontal="2dp"
-                            android:text="@string/batalkan_penagihan"
+                            android:text="Batalkan"
                             android:textAllCaps="false"
                             android:textColor="@color/orange50"
                             android:textSize="@dimen/text_medium"
@@ -402,6 +562,7 @@
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btn"
+                            isVisible="@{!addCheckStockViewModel.isKioskOwnerUser}"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="4dp"
@@ -411,11 +572,41 @@
                             android:insetTop="0dp"
                             android:insetBottom="0dp"
                             android:letterSpacing="0"
-                            android:text="@string/minta_otp"
+                            android:text="@string/lanjut"
+                            app:cornerRadius="8dp"
+                            app:shapeAppearanceOverlay="?attr/shapeAppearanceCornerExtraSmall" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_pay"
+                            isVisible="@{addCheckStockViewModel.isKioskOwnerUser}"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginBottom="4dp"
+                            android:layout_weight="1"
+                            android:enabled="@{addCheckStockViewModel.isPayButtonEnabled()}"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:letterSpacing="0"
+                            android:text="Bayar Sekarang"
                             app:cornerRadius="8dp"
                             app:shapeAppearanceOverlay="?attr/shapeAppearanceCornerExtraSmall" />
 
                     </LinearLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_resume_payment"
+                        isVisible="@{addCheckStockViewModel.showResumePaymentBtn}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:enabled="@{addCheckStockViewModel.isPayButtonEnabled()}"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:letterSpacing="0"
+                        android:text="Lanjutkan Pembayaran"
+                        app:cornerRadius="8dp"
+                        app:shapeAppearanceOverlay="?attr/shapeAppearanceCornerExtraSmall" />
 
                 </FrameLayout>
 

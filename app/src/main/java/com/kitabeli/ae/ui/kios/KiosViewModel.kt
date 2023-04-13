@@ -3,6 +3,7 @@ package com.kitabeli.ae.ui.kios
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.kitabeli.ae.data.local.SessionManager
 import com.kitabeli.ae.data.remote.dto.BtnStatusDto
 import com.kitabeli.ae.data.remote.dto.KiosDetail
 import com.kitabeli.ae.model.LoadState
@@ -24,8 +25,12 @@ import javax.inject.Inject
 @HiltViewModel
 class KiosViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val kiosRepository: KiosRepository
+    private val kiosRepository: KiosRepository,
+    private val sessionManager: SessionManager
 ) : BaseViewModel() {
+
+    private val _isKioskOwner = sessionManager.isKioskOwner()
+    val isKioskOwner = _isKioskOwner
 
     private val _stockOpNameId = savedStateHandle.get<Int>("stockOpNameId")
         ?: throw RuntimeException("stockOpNameId required, Please pass stockOpNameId in fragment arguments.")
@@ -38,6 +43,7 @@ class KiosViewModel @Inject constructor(
     val btnStatus = _btnStatus.asLiveData()
 
     val loadingState = MutableStateFlow<LoadingState>(LoadingState.Loading)
+    val isKioskOwnerUser = MutableStateFlow(false)
 
     val isStockItemRejected =
         combine(
@@ -82,7 +88,10 @@ class KiosViewModel @Inject constructor(
 
                         is LoadState.Loaded -> {
                             loadingState.update { LoadingState.Loaded }
-                            _kiosDetail.update { state.value.first }
+                            _kiosDetail.update {
+                                // state.value.first?.copy(stockOpNameItemDTOS = state.value.first?.stockOpNameItemDTOS?.map { it.copy() })
+                                state.value.first
+                            }
                             _btnStatus.update { state.value.second }
                         }
                     }
@@ -95,8 +104,8 @@ class KiosViewModel @Inject constructor(
         fetchKissDetails()
     }
 
-
     fun getKiosDetails(): KiosDetail? = _kiosDetail.value
+
     fun markEligibleForQa() {
         viewModelScope.launch {
             kiosRepository
@@ -110,6 +119,12 @@ class KiosViewModel @Inject constructor(
                     }
                 }
         }
+    }
 
+    fun logout(func: () -> Unit) {
+        viewModelScope.launch {
+            sessionManager.clearSession()
+            func()
+        }
     }
 }

@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <color name="orange60">#EC5D13</color>
-    <color name="orange50">#FF5F0B</color>
     <color name="orange10">#1AEC5D13</color>
+    <color name="orange20">#FFDFCE</color>
+    <color name="orange50">#FF5F0B</color>
+    <color name="orange60">#EC5D13</color>
     <color name="black">#1e1e1e</color>
     <color name="black20">#707070</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="white_bg">#FFF5F0</color>
 
+    <color name="page_background">#F1F1F1</color>
 
     <color name="green" tools:ignore="MissingDefaultResource">#0DC836</color>
     <color name="blue">#0058D0</color>
@@ -17,21 +20,38 @@
     <color name="trans_red">#fff4f4</color>
     <color name="yellow">#FFD706</color>
 
-
     <color name="green_10">#1A0DC836</color>
+    <color name="green_50">#0DC836</color>
+
     <color name="blue_10">#1A0058D0</color>
+    <color name="blue_10_new">#E6EFFB</color>
+    <color name="blue_50">#0058D0</color>
     <color name="dark_blue_10">#1A02357A</color>
+
     <color name="grey_10">#1A979797</color>
     <color name="grey_20">#EDEDED</color>
     <color name="grey_30">#DADADA</color>
     <color name="grey_40">#C1C1C1</color>
+    <color name="grey_50">#979797</color>
     <color name="grey_60">#7A7A7A</color>
+
     <color name="red_10">#1AE53535</color>
+    <color name="red_50">#E53535</color>
+
     <color name="yellow_10">#1AFFD706</color>
 
     <color name="barcode_reticle_background">#99000000</color>
     <color name="barcode_reticle_stroke">#ffffff</color>
 
     <color name="divider">#e8e8e8</color>
+
+
+    <color name="home_blue_bg">#E6EFFB</color>
+    <color name="home_green_bg">#E7FAEB</color>
+    <color name="home_red_bg">#FFF4F4</color>
+    <color name="home_blue_text">#0058D0</color>
+    <color name="home_green_text">#0DC836</color>
+    <color name="home_red_text">#E53535</color>
+
 
 </resources>

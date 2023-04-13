@@ -11,6 +11,7 @@
 
     <string name="email_validation_message">email anda salah.</string>
     <string name="password_validation_message">tolong masukkan password anda.</string>
+    <string name="role_validation_message">harap pilih role anda.</string>
 
 
     <string name="cari_produk">Cari Produk</string>
@@ -30,7 +31,8 @@
     <string name="status">STATUS</string>
     <string name="tabel_stok">Tabel Stok</string>
     <string name="nominal_perlu_ditarik">Nominal perlu ditarik</string>
-    <string name="dengan_ini_saya_menyatakan_sudah_menarik_dan_menerima_uang_sejumlah_di_atas_dari_kios_ini">Dengan ini saya menyatakan sudah menarik dan menerima uang sejumlah di atas dari kios ini</string>
+    <string name="ae_agreement_text">Dengan ini saya menyatakan sudah menarik dan menerima uang sejumlah di atas dari kios ini</string>
+    <string name="ko_agreement_text">Dengan klik “Bayar Sekarang” saya telah menyetujui tagihan yang dikirimkan oleh tim KitaBeli dan bersedia membayar secara penuh.</string>
     <string name="pemilik_kios">Pemilik kios diwakilkan dalam penarikan uang ini</string>
     <string name="pemilik_kios_selected_subtitle">(Perwakilan Pemilik Kios)</string>
     <string name="pemilik_kios_subtitle">(Pemilik Kios)</string>
@@ -80,4 +82,84 @@
     <string name="batalkan_penagihan">Batalkan Penagihan</string>
     <string name="accepted">Sudah Terima</string>
     <string name="not_yet">Belum</string>
+    <string name="bank_account_alert_title">Pemilik Kios Belum Memiliki Akun Bank</string>
+    <string name="bank_account_alert_desc">Untuk melanjutkan proses penarikan, bantu pemilik kios menambahkan akun banknya sekarang.</string>
+    <string name="stock_op_how_to"><font fgcolor="#1E1E1E">Proses validasi jumlah barang yang terjual di Kiosmu agar kamu dapat membayar tagihan Kios dan </font><font fgcolor="#FF5F0B">mendapatkan komisi.</font></string>
+    <string name="stock_op_max_trf"><font fgcolor="#1E1E1E">Transfer pembayaran </font><b><font fgcolor="#FF5F0B">maks. 1 jam</font></b><font fgcolor="#1E1E1E">\nsejak mendapatkan tagihan.</font></string>
+    <string name="check_stock_dialog_title_text">Apakah Kamu Yakin Stok Sudah Sesuai Semua?</string>
+    <string name="check_stock_dialog_desc_text">Jika stok tidak sesuai maka validasi akan gagal dan kamu harus input kembali dari awal.</string>
+    <string name="ya_yakin">Ya, Yakin</string>
+    <string name="belum_cek_kembali">Belum, Cek Kembali</string>
+    <string name="email_label_text">Email *</string>
+    <string name="password_label_text">Password *</string>
+    <string name="login_as_text">Masuk Sebagai (Pilih Salah Satu) *</string>
+    <string name="kiosk_owner_text">Pemilik Kios</string>
+    <string name="help">Bantuan</string>
+    <string name="do_payment_before_text">Lakukan pembayaran sebelum:</string>
+    <string name="timer_placeholder">60:00</string>
+    <string name="invoice_id_placeholder">ID: 123123</string>
+    <string name="date_range_placeholder">19 - 25 Nov 2022</string>
+    <string name="detail_pembayaran">Detail Pembayaran</string>
+    <string name="penjualan_text">Penjualan</string>
+    <string name="sale_amount_placeholder">Rp265.000</string>
+    <string name="incentive">Komisi</string>
+    <string name="incentive_placeholder">Rp0</string>
+    <string name="pelajari_cara_perhitungan_komisi">Pelajari cara perhitungan komisi</string>
+    <string name="total_tagihan">Total Tagihan</string>
+    <string name="penjualan_komisi">(Penjualan - Komisi)</string>
+    <string name="metode_pembayaran">Metode Pembayaran</string>
+    <string name="kode_bank">Kode Bank</string>
+    <string name="copy">Salin</string>
+    <string name="bank">Bank</string>
+    <string name="kembali">Kembali</string>
+    <string name="on_boarding_text">Masukkan daftar barang yang\nada di Kiosmu.</string>
+    <string name="apa_itu_cek_stok_barang">Apa itu Cek Stok Barang?</string>
+    <string name="check_stock_time_info">Cek stok hanya bisa dilakukan\nSenin-Jumat pukul 09.00-18.00 WIB</string>
+    <string name="gimana_caranya">Gimana Caranya?</string>
+    <string name="putar_video">Putar Video</string>
+    <string name="konfirmasi_semua_pesanan_npelanggan">Konfirmasi semua pesanan\npelanggan.</string>
+    <string name="ambil_foto_masing_masing">Ambil foto masing-masing jenis\nbarang yang tersedia di Kiosmu.</string>
+    <string name="ajukan_verifikasi">Ajukan verifikasi dan bayar sesuai\njumlah tagihan yang tertera.</string>
+    <string name="batalkan">Batalkan</string>
+    <string name="mulai">Mulai</string>
+    <string name="pelayanan_untuk_kios">Pelayanan Untuk Kios</string>
+    <string name="cek_stok_kios">Cek Stok Kios</string>
+    <string name="video_pelatihan">Video Pelatihan</string>
+    <string name="pengunduran_diri_kios">Pengunduran Diri Kios</string>
+    <string name="isi_jika_ada_kios_yang_ingin_berhenti">Isi jika ada kios yang ingin berhenti</string>
+    <string name="penarikan_barang_kios">Penarikan Barang Kios</string>
+    <string name="laporkan_kondisi_dan_jenis_barang">Laporkan kondisi dan jenis barang</string>
+    <string name="tidak_ada_lanjut">Tidak Ada, Lanjut</string>
+    <string name="confirm_resign_title">Apakah betul pemilik kios ingin mengundurkan diri?</string>
+    <string name="confirm_resign_desc">Jawaban kamu akan langsung masuk ke sistem dan tidak bisa diulang kembali</string>
+    <string name="betul">Betul</string>
+    <string name="tidak">Tidak</string>
+    <string name="item_return_title">Penarikan Stok Bermasalah</string>
+    <string name="nama_produk_label"><font fgcolor="#1E1E1E">Nama Produk</font><font fgcolor="#E53535">*</font></string>
+    <string name="reason_label"><font fgcolor="#1E1E1E">Alasan</font><font fgcolor="#E53535">*</font></string>
+    <string name="expired_label"><font fgcolor="#1E1E1E">Tanggal Kedaluwarsa</font><font fgcolor="#E53535">*</font></string>
+    <string name="qty_label"><font fgcolor="#1E1E1E">Jumlah</font><font fgcolor="#E53535">*</font></string>
+    <string name="jumlah_barang">Jumlah Barang</string>
+    <string name="alasan">Alasan</string>
+    <string name="tanggal_kedaluwarsa">Tanggal Kedaluwarsa</string>
+    <string name="hapus">Hapus</string>
+    <string name="edit">Edit</string>
+    <string name="konfirmasi_ko">Konfirmasi Pemilik Kios</string>
+    <string name="ask_kiosk_otp_desc">Minta kode OTP yang dikirimkan ke pemilik kios untuk konfirmasi</string>
+    <string name="lanjut">Lanjut</string>
+    <string name="does_inputted_stock_correct">Apakah stok yang diinput sudah benar?</string>
+    <string name="does_inputted_stock_correct_desc">Stok yang kamu isi akan langsung masuk ke sistem dan tidak bisa diulang kembali</string>
+    <string name="success_resend_otp">OTP Berhasil dikirim ulang</string>
+    <string name="produk_harus_diisi">Produk harus diisi</string>
+    <string name="alasan_harus_diisi">Alasan harus diisi</string>
+    <string name="tanggal_harus_diisi">Tanggal harus diisi</string>
+    <string name="jumlah_harus_diisi">Jumlah harus diisi</string>
+    <string name="pilih_alasan">Pilih Alasan</string>
+    <string name="pilih">Pilih</string>
+    <string name="pilih_tanggal">Pilih Tanggal</string>
+    <string name="detail_stok">Detail Stok</string>
+    <string name="return_request_success_msg">Request Penarikan Barang Kios berhasil dibuat.</string>
+    <string name="resign_request_success_msg">Request Pengunduran Diri Kios berhasil dibuat.</string>
+    <string name="stock_withdrawal_title">Penarikan Stok Kios</string>
+    <string name="selanjutnya">Selanjutnya</string>
 </resources>

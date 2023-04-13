@@ -14,14 +14,9 @@ class AuthenticationRepositoryImpl @Inject constructor(
     @ApplicationContext val context: Context,
     private val userService: UserService,
 ) : AuthenticationRepository {
-    override fun login(email: String, password: String): Flow<LoginResponseDto> {
-        return userService.login(
-            LoginRequestDto(
-                email, password
-            )
-        )
-            .map {
-                it.payload!!
-            }
+    override fun login(email: String, password: String, role: String): Flow<LoginResponseDto> {
+        return userService.login(LoginRequestDto(email, password, role)).map {
+            it.payload!!
+        }
     }
 }

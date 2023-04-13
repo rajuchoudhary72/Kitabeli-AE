@@ -1,13 +1,6 @@
 package com.kitabeli.ae.model.repository
 
-import com.kitabeli.ae.data.remote.dto.BtnStatusDto
-import com.kitabeli.ae.data.remote.dto.CancelReasonDto
-import com.kitabeli.ae.data.remote.dto.KiosData
-import com.kitabeli.ae.data.remote.dto.KiosDetail
-import com.kitabeli.ae.data.remote.dto.KiosDto
-import com.kitabeli.ae.data.remote.dto.MarkEligibleForQaResponseDto
-import com.kitabeli.ae.data.remote.dto.Report
-import com.kitabeli.ae.data.remote.dto.SkuDTO
+import com.kitabeli.ae.data.remote.dto.*
 import kotlinx.coroutines.flow.Flow
 import java.io.File
 
@@ -21,7 +14,6 @@ interface KiosRepository {
         stockCount: Int,
         photoProof: String,
     ): Flow<KiosDto>
-
 
     fun updateStockProduct(
         stockOpNameId: Int,
@@ -37,7 +29,7 @@ interface KiosRepository {
         imageFile: File
     ): Flow<String>
 
-    fun generateReport(
+    suspend fun generateReport(
         stockOpNameId: Int,
     ): Flow<Report?>
 
@@ -45,10 +37,13 @@ interface KiosRepository {
         stockOPNameReportId: Int,
         totalAmountToBePaid: String,
         kiosOwnerSignURLFile: File,
-        aeSignURLFile: File,
+        aeSignURLFile: File?,
         reportFile: File,
         KiosOwnerSignedBy: String,
-    ): Flow<Report?>
+        partialAmountConfirmedByAE: Boolean? = null,
+        latitude: Double? = null,
+        longitude: Double? = null
+    ): Flow<PaymentDetailDto?>
 
     suspend fun cancelReport(
         stockOPNameReportId: Int,
@@ -75,5 +70,38 @@ interface KiosRepository {
     ): Flow<List<SkuDTO>?>
 
     suspend fun getKiosData(): Flow<KiosData>
+
     fun verifyOtp(stockOPNameReportId: Int, otp: String): Flow<Report?>
+
+    fun getPaymentDetails(stockOpNameId: Int): Flow<PaymentDetailDto?>
+
+    fun getKioskResignForm(): Flow<KioskResignFormDto?>
+
+    fun resendKioskResignOtp(
+        formId: Int,
+        kioskCode: String,
+    ): Flow<KioskResignOtpDto?>
+
+    suspend fun submitKioskResignForm(
+        formId: Int,
+        kioskCode: String,
+        responses: Map<String, List<ResignOption>>,
+    ): Flow<KioskResignOtpDto?>
+
+    fun verifyKioskResignOTP(
+        kioskCode: String?,
+        otp: String?,
+        formId: Int?
+    ): Flow<KioskResignOtpDto?>
+
+    fun getKioskDetail(kioskCode: String?): Flow<KioskDetailDto?>
+
+    fun getStockWithdrawalItems(stockTransferId: String): Flow<StockWithdrawalDto?>
+
+    fun submitStockWithdrawalOTP(
+        aeEmail: String,
+        stockTransferId: String,
+        deliveryProof: File,
+        otp: String,
+    ): Flow<StockWithdrawalOTPDto?>
 }

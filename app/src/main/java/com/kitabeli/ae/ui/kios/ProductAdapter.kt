@@ -14,9 +14,8 @@ import javax.inject.Inject
 
 class ProductAdapter @Inject constructor() :
     ListAdapter<StockOpNameItemDTOS, ProductAdapter.ProductViewHolder>(DIFF_CALL_BACK) {
-
+    var status: () -> String = { "" }
     var onClickEdit: ((StockOpNameItemDTOS) -> Unit)? = null
-
     class ProductViewHolder(val binding: ItemProductBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -24,7 +23,11 @@ class ProductAdapter @Inject constructor() :
           Menunggu verifikasi == QA_ASSIGNMENT_PENDING
           Terverifikasi   ===QA_VERIFIED
           Ditolak ===QA_REJECTED*/
-        fun bind(stockItem: StockOpNameItemDTOS, onClickEdit: ((StockOpNameItemDTOS) -> Unit)?) {
+        fun bind(
+            stockItem: StockOpNameItemDTOS,
+            onClickEdit: ((StockOpNameItemDTOS) -> Unit)?,
+            status: () -> String
+        ) {
             binding.item = stockItem
             binding.btnEdit.setOnClickListener {
                 onClickEdit?.invoke(stockItem)
@@ -70,9 +73,8 @@ class ProductAdapter @Inject constructor() :
                     binding.textProductStatus.text = "Ditolak"
                 }
             }
-
-            binding.btnEdit.isVisible =
-                stockItem.status == "QA_ASSIGNED" || stockItem.status == "INITIALIZED"
+            //     binding.btnEdit.isVisible = stockItem.status == "INITIALIZED"
+            binding.btnEdit.isVisible = status() == "INITIALIZED"
 
         }
     }
@@ -88,7 +90,7 @@ class ProductAdapter @Inject constructor() :
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        holder.bind(getItem(position), onClickEdit)
+        holder.bind(getItem(position), onClickEdit, status)
     }
 
     companion object {

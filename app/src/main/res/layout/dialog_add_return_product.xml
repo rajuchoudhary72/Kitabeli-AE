@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="40dp">
+
+        <ImageView
+            android:id="@+id/ic_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/screen_margin"
+            android:background="?selectableItemBackgroundBorderless"
+            android:padding="8dp"
+            android:src="@drawable/round_close_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tv_product_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/screen_margin"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/inter_semi_bold"
+            android:text="@string/nama_produk_label"
+            android:textAppearance="?attr/textAppearanceTitleMedium"
+            android:textSize="@dimen/text_small"
+            app:layout_constraintTop_toBottomOf="@id/ic_close" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_product_name"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/screen_margin"
+            android:layout_marginTop="4dp"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
+            app:endIconDrawable="@drawable/ic_arrow_down"
+            app:hintEnabled="false"
+            app:layout_constraintTop_toBottomOf="@+id/tv_product_label"
+            app:startIconDrawable="@drawable/ic_search">
+
+            <AutoCompleteTextView
+                android:id="@+id/et_products"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:dropDownHeight="200dp"
+                android:fontFamily="@font/inter_regular"
+                android:hint="@string/cari_produk"
+                android:inputType="text"
+                android:singleLine="true"
+                android:textSize="14sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tv_reason_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/screen_margin"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/inter_semi_bold"
+            android:text="@string/reason_label"
+            android:textAppearance="?attr/textAppearanceTitleMedium"
+            android:textSize="@dimen/text_small"
+            app:layout_constraintTop_toBottomOf="@id/text_product_name" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_reason_name"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/screen_margin"
+            android:layout_marginTop="4dp"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
+            app:endIconDrawable="@drawable/ic_arrow_down"
+            app:hintEnabled="false"
+            app:layout_constraintTop_toBottomOf="@+id/tv_reason_label"
+            app:startIconDrawable="@drawable/ic_document_text">
+
+            <AutoCompleteTextView
+                android:id="@+id/et_reasons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:cursorVisible="false"
+                android:dropDownHeight="200dp"
+                android:focusable="false"
+                android:fontFamily="@font/inter_regular"
+                android:hint="@string/pilih_alasan"
+                android:inputType="text"
+                android:singleLine="true"
+                android:textSize="14sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tv_expired_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/screen_margin"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/inter_semi_bold"
+            android:text="@string/expired_label"
+            android:textAppearance="?attr/textAppearanceTitleMedium"
+            android:textSize="@dimen/text_small"
+            app:layout_constraintTop_toBottomOf="@id/text_reason_name" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_expired_date"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/screen_margin"
+            android:layout_marginTop="4dp"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
+            app:endIconDrawable="@drawable/ic_arrow_down"
+            app:hintEnabled="false"
+            app:layout_constraintTop_toBottomOf="@+id/tv_expired_label"
+            app:startIconDrawable="@drawable/ic_calendar">
+
+            <AutoCompleteTextView
+                android:id="@+id/et_expired_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:dropDownHeight="200dp"
+                android:focusable="false"
+                android:fontFamily="@font/inter_regular"
+                android:hint="@string/pilih_tanggal"
+                android:inputType="text"
+                android:singleLine="true"
+                android:textSize="14sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tv_qty_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/screen_margin"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/inter_semi_bold"
+            android:text="@string/qty_label"
+            android:textAppearance="?attr/textAppearanceTitleMedium"
+            android:textSize="@dimen/text_small"
+            app:layout_constraintTop_toBottomOf="@id/text_expired_date" />
+
+        <ImageButton
+            android:id="@+id/btnPlus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_dialog"
+            android:backgroundTint="@color/white"
+            android:elevation="6dp"
+            android:padding="15dp"
+            android:src="@drawable/baseline_add_24"
+            app:layout_constraintBottom_toBottomOf="@+id/text_product_quantity"
+            app:layout_constraintEnd_toEndOf="@+id/text_product_name"
+            app:layout_constraintTop_toTopOf="@+id/text_product_quantity"
+            app:shapeAppearanceOverlay="?attr/shapeAppearanceCornerExtraLarge"
+            tools:ignore="ContentDescription" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_product_quantity"
+            style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/screen_margin"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
+            app:layout_constraintEnd_toStartOf="@+id/btnPlus"
+            app:layout_constraintStart_toEndOf="@+id/btnMinus"
+            app:layout_constraintTop_toBottomOf="@+id/tv_qty_label">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_qty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:digits="0123456789"
+                android:gravity="center"
+                android:inputType="number"
+                android:singleLine="true" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageButton
+            android:id="@+id/btnMinus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_dialog"
+            android:backgroundTint="@color/white"
+            android:elevation="6dp"
+            android:padding="15dp"
+            android:src="@drawable/baseline_horizontal_rule_24"
+            app:layout_constraintBottom_toBottomOf="@+id/text_product_quantity"
+            app:layout_constraintStart_toStartOf="@+id/text_product_name"
+            app:layout_constraintTop_toTopOf="@+id/text_product_quantity"
+            app:shapeAppearanceOverlay="?attr/shapeAppearanceCornerExtraLarge"
+            tools:ignore="ContentDescription" />
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/screen_margin"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="@string/simpan"
+            android:textColor="@color/white"
+            app:backgroundTint="@color/orange50"
+            app:cornerRadius="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/text_product_quantity"
+            app:shapeAppearanceOverlay="?attr/shapeAppearanceCornerExtraSmall" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</RelativeLayout>
+

@@ -15,7 +15,7 @@ sealed class AppError : RuntimeException {
         class BadRequestException(cause: Throwable?) : AppError(cause)
         class UpgradeProfileException(cause: Throwable?) : AppError(cause)
     }
-
+/*unknown  error*/
     sealed class ExternalIntegrationError(cause: Throwable?) : AppError(cause) {
         class NoCalendarIntegrationFoundException(cause: Throwable?) :
             ExternalIntegrationError(cause)

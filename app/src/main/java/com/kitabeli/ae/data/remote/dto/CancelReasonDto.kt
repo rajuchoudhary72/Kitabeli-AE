@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class CancelReasonDto(
     @SerialName("label")
-    val label: String?,
+    var label: String? = null,
     @SerialName("name")
-    val name: String?
+    val name: String? = null
 )

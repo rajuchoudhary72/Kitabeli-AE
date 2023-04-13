@@ -13,7 +13,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp">
 
             <ImageView
                 android:id="@+id/ic_close"
@@ -85,10 +86,23 @@
                 android:layout_margin="@dimen/screen_margin"
                 android:enabled="false"
                 android:text="@string/sudah_terima"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/otp_view"
+                app:shapeAppearanceOverlay="?attr/shapeAppearanceCornerExtraSmall" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_resend_otp"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/screen_margin"
+                android:enabled="true"
+                android:text="Minta Ulang OTP"
+                android:textColor="@color/orange50"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintTop_toBottomOf="@+id/otp_view"
+                app:layout_constraintTop_toBottomOf="@+id/btn_sudah_terima"
                 app:shapeAppearanceOverlay="?attr/shapeAppearanceCornerExtraSmall" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

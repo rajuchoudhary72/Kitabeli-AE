@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        style="@style/AppToolBar"
+        android:layout_marginTop="20dp"
+        app:title="Mulai Cek Stok"
+        app:titleTextAppearance="@style/TextAppearance.KitabeliAE.Toolbar">
+
+        <TextView
+            android:id="@+id/btn_help"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="@dimen/dimen_sixteen"
+            android:drawablePadding="@dimen/dimen_four"
+            android:fontFamily="@font/inter_semi_bold"
+            android:gravity="center_vertical"
+            android:text="@string/help"
+            android:textColor="@color/orange50"
+            app:drawableStartCompat="@drawable/ic_chat_dotted" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/ll_header"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="148dp"
+                    android:layout_height="120dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="24dp"
+                    android:src="@drawable/ic_kiki_bebe_shopping_circle"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_eight"
+                    android:fontFamily="@font/inter_bold"
+                    android:gravity="center"
+                    android:text="@string/apa_itu_cek_stok_barang"
+                    android:textColor="@color/orange60"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dimen_thirty"
+                    android:layout_marginTop="@dimen/dimen_eight"
+                    android:layout_marginBottom="@dimen/dimen_four"
+                    android:fontFamily="@font/inter_medium"
+                    android:gravity="center_horizontal"
+                    android:text="@string/stock_op_how_to"
+                    android:textSize="14sp" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="32dp"
+                    android:layout_marginTop="@dimen/dimen_four"
+                    android:layout_marginBottom="@dimen/dimen_sixteen"
+                    app:cardBackgroundColor="@color/blue_10_new"
+                    app:cardCornerRadius="@dimen/dimen_four"
+                    app:strokeColor="@color/blue_10_new"
+                    app:strokeWidth="1dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter_regular"
+                        android:gravity="center_horizontal"
+                        android:paddingHorizontal="@dimen/dimen_thirty"
+                        android:paddingVertical="@dimen/dimen_four"
+                        android:text="@string/check_stock_time_info"
+                        android:textColor="@color/blue_50"
+                        android:textSize="12sp" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view_separator"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_eight"
+                android:background="@color/divider"
+                app:layout_constraintTop_toBottomOf="@id/ll_header" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/dimen_sixteen"
+                app:layout_constraintTop_toBottomOf="@id/view_separator">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_sixteen"
+                    android:layout_marginTop="6dp"
+                    android:fontFamily="@font/inter_bold"
+                    android:text="@string/gimana_caranya"
+                    android:textColor="@color/orange60"
+                    android:textSize="14sp"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_play_video"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="11dp"
+                    android:background="@drawable/rounded_button"
+                    android:backgroundTint="@color/orange50"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="7dp"
+                        android:layout_marginStart="@dimen/dimen_four"
+                        android:layout_marginEnd="@dimen/dimen_ten"
+                        android:fontFamily="@font/inter_semi_bold"
+                        android:text="@string/putar_video"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_small"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/iv_play"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/iv_play"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dimen_four"
+                        android:src="@drawable/ic_play_circle"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="ContentDescription" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cv_cart"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="@dimen/dimen_ten"
+                    app:cardCornerRadius="24dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cl_play_video"
+                    app:strokeColor="@color/grey_20"
+                    app:strokeWidth="1.5dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_shopping_cart"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="ContentDescription" />
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/dimen_ten"
+                            android:layout_marginEnd="@dimen/dimen_eight"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="7.5dp"
+                            app:cardElevation="0dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:strokeColor="@color/white"
+                            app:strokeWidth="1dp">
+
+                            <ImageView
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:src="@drawable/ic_baseline_check_circle"
+                                app:tint="@color/green_50"
+                                tools:ignore="ContentDescription" />
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:fontFamily="@font/inter_regular"
+                    android:text="@string/konfirmasi_semua_pesanan_npelanggan"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@id/cv_cart"
+                    app:layout_constraintStart_toEndOf="@id/cv_cart"
+                    app:layout_constraintTop_toTopOf="@id/cv_cart" />
+
+                <View
+                    android:id="@+id/vertical_line_1"
+                    android:layout_width="1.5dp"
+                    android:layout_height="17dp"
+                    android:background="@color/grey_20"
+                    app:layout_constraintEnd_toEndOf="@id/cv_cart"
+                    app:layout_constraintStart_toStartOf="@id/cv_cart"
+                    app:layout_constraintTop_toBottomOf="@id/cv_cart" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cv_clipboard"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:cardCornerRadius="24dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintStart_toStartOf="@id/cv_cart"
+                    app:layout_constraintTop_toBottomOf="@id/vertical_line_1"
+                    app:strokeColor="@color/grey_20"
+                    app:strokeWidth="1.5dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_clipboard_list"
+                        tools:ignore="ContentDescription" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:fontFamily="@font/inter_regular"
+                    android:text="@string/on_boarding_text"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@id/cv_clipboard"
+                    app:layout_constraintStart_toEndOf="@id/cv_clipboard"
+                    app:layout_constraintTop_toTopOf="@id/cv_clipboard" />
+
+                <View
+                    android:id="@+id/vertical_line_2"
+                    android:layout_width="1.5dp"
+                    android:layout_height="17dp"
+                    android:background="@color/grey_20"
+                    app:layout_constraintEnd_toEndOf="@id/cv_clipboard"
+                    app:layout_constraintStart_toStartOf="@id/cv_clipboard"
+                    app:layout_constraintTop_toBottomOf="@id/cv_clipboard" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cv_camera"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:cardCornerRadius="24dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintStart_toStartOf="@id/cv_cart"
+                    app:layout_constraintTop_toBottomOf="@id/vertical_line_2"
+                    app:strokeColor="@color/grey_20"
+                    app:strokeWidth="1.5dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_camera"
+                        tools:ignore="ContentDescription" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:fontFamily="@font/inter_regular"
+                    android:text="@string/ambil_foto_masing_masing"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@id/cv_camera"
+                    app:layout_constraintStart_toEndOf="@id/cv_camera"
+                    app:layout_constraintTop_toTopOf="@id/cv_camera" />
+
+                <View
+                    android:id="@+id/vertical_line_3"
+                    android:layout_width="1.5dp"
+                    android:layout_height="17dp"
+                    android:background="@color/grey_20"
+                    app:layout_constraintEnd_toEndOf="@id/cv_camera"
+                    app:layout_constraintStart_toStartOf="@id/cv_camera"
+                    app:layout_constraintTop_toBottomOf="@id/cv_camera" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cv_clipboard_check"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:cardCornerRadius="24dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintStart_toStartOf="@id/cv_cart"
+                    app:layout_constraintTop_toBottomOf="@id/vertical_line_3"
+                    app:strokeColor="@color/grey_20"
+                    app:strokeWidth="1.5dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_clipboard_check"
+                        tools:ignore="ContentDescription" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:fontFamily="@font/inter_regular"
+                    android:text="@string/ajukan_verifikasi"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@id/cv_clipboard_check"
+                    app:layout_constraintStart_toEndOf="@id/cv_clipboard_check"
+                    app:layout_constraintTop_toTopOf="@id/cv_clipboard_check" />
+
+                <View
+                    android:id="@+id/vertical_line_4"
+                    android:layout_width="1.5dp"
+                    android:layout_height="17dp"
+                    android:background="@color/grey_20"
+                    app:layout_constraintEnd_toEndOf="@id/cv_clipboard_check"
+                    app:layout_constraintStart_toStartOf="@id/cv_clipboard_check"
+                    app:layout_constraintTop_toBottomOf="@id/cv_clipboard_check" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cv_money"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="@dimen/dimen_sixteen"
+                    app:cardCornerRadius="24dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintBottom_toTopOf="@+id/bottom_separator"
+                    app:layout_constraintStart_toStartOf="@id/cv_cart"
+                    app:layout_constraintTop_toBottomOf="@id/vertical_line_4"
+                    app:strokeColor="@color/grey_20"
+                    app:strokeWidth="1.5dp">
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_thirty"
+                        android:layout_height="@dimen/dimen_thirty"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_cash_small"
+                        app:tint="@color/black"
+                        tools:ignore="ContentDescription" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:fontFamily="@font/inter_regular"
+                    android:text="@string/stock_op_max_trf"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@id/cv_money"
+                    app:layout_constraintStart_toEndOf="@id/cv_money"
+                    app:layout_constraintTop_toTopOf="@id/cv_money" />
+
+                <View
+                    android:id="@+id/bottom_separator"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_eight"
+                    android:background="@color/divider"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/dimen_sixteen"
+        android:paddingVertical="24dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_cancel"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dimen_four"
+            android:layout_marginBottom="@dimen/dimen_four"
+            android:layout_weight="1"
+            android:backgroundTint="@color/white"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:letterSpacing="0"
+            android:paddingHorizontal="2dp"
+            android:text="@string/batalkan"
+            android:textAllCaps="false"
+            android:textColor="@color/orange50"
+            android:textSize="@dimen/text_medium"
+            app:cornerRadius="@dimen/dimen_eight"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_accept"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/orange50"
+            app:strokeWidth="1.5dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_accept"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_four"
+            android:layout_marginBottom="@dimen/dimen_four"
+            android:layout_weight="1"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:letterSpacing="0"
+            android:text="@string/mulai"
+            app:cornerRadius="@dimen/dimen_eight"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_cancel"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="?attr/shapeAppearanceCornerExtraSmall" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

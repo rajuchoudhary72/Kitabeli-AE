@@ -15,38 +15,166 @@
         app:contentPadding="10dp"
         app:strokeColor="#FFC3A3">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/status_image"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_watch"
-                tools:ignore="ContentDescription" />
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/text_name"
-                android:layout_width="0dp"
+                <ImageView
+                    android:id="@+id/status_image"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_watch"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/text_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/inter_semi_bold"
+                    android:textAppearance="?attr/textAppearanceTitleMedium"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/status_image"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Kios 1" />
+
+                <TextView
+                    android:id="@+id/tv_pp_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/rounded_button"
+                    android:backgroundTint="#E6EFFB"
+                    android:padding="3dp"
+                    android:text="Kios Membayar Sebagian"
+                    android:textColor="#0058D0"
+                    android:textSize="10sp"
+                    android:visibility="visible"
+                    app:layout_constraintStart_toStartOf="@+id/text_name"
+                    app:layout_constraintTop_toBottomOf="@+id/text_name" />
+
+
+                <TextView
+                    android:id="@+id/tv_pp_info_two"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/rounded_button"
+                    android:backgroundTint="#E6EFFB"
+                    android:gravity="start"
+                    android:padding="3dp"
+                    android:text="Stok Sedang Diantar"
+                    android:textColor="#0058D0"
+                    android:textSize="10sp"
+                    android:visibility="visible"
+                    app:layout_constraintStart_toEndOf="@+id/tv_pp_info"
+                    app:layout_constraintTop_toTopOf="@+id/tv_pp_info" />
+
+                <TextView
+                    android:id="@+id/text_data"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_light"
+                    android:textAppearance="?attr/textAppearanceCaption"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.5"
+                    tools:text="18 Jan 2022" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_partial_payment"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/screen_margin"
-                android:layout_weight="1"
-                android:fontFamily="@font/inter_semi_bold"
-                android:textAppearance="?attr/textAppearanceTitleMedium"
-                tools:text="Kios 1" />
+                android:layout_marginTop="20dp"
+                android:visibility="visible"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
-            <TextView
-                android:id="@+id/text_data"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/inter_light"
-                android:textAppearance="?attr/textAppearanceCaption"
-                tools:text="18 Jan 2022" />
+                <View
+                    android:id="@+id/view3"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:background="#E8E8E8"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_show_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/rounded_button"
+                    android:fontFamily="@font/inter_semi_bold"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Lihat Detail Pengantaran"
+                    android:textAppearance="?attr/textAppearanceTitleMedium"
+                    android:textColor="#FF5F0B"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_show_pending_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/view3">
+
+                    <TextView
+                        android:id="@+id/textView6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter_semi_bold"
+                        android:text="Sisa yang perlu ditarik"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.5" />
+
+
+                    <TextView
+                        android:id="@+id/price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="#FFF5F0"
+                        android:fontFamily="@font/inter_semi_bold"
+                        android:gravity="center"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="5dp"
+                        android:textAppearance="?attr/textAppearanceTitleMedium"
+                        android:textSize="16sp"
+
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Rp 2.000.000" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
 </layout>

@@ -5,6 +5,7 @@ import com.kitabeli.ae.BuildConfig
 import com.kitabeli.ae.data.remote.AuthTokenInterceptor
 import com.kitabeli.ae.data.remote.NetworkConnectionInterceptor
 import com.kitabeli.ae.data.remote.service.KiosService
+import com.kitabeli.ae.data.remote.service.ReplenishmentService
 import com.kitabeli.ae.data.remote.service.UserService
 import com.kitabeli.ae.utils.retrofit.FlowCallAdapterFactory
 import dagger.Module
@@ -60,7 +61,6 @@ class NetworkModule {
 
     @Singleton
     @Provides
-
     fun provideRetrofitClient(
         okHttpClient: OkHttpClient,
         json: Json,
@@ -95,4 +95,11 @@ class NetworkModule {
         return retrofit.create(KiosService::class.java)
     }
 
+    @Singleton
+    @Provides
+    fun provideReplenishmentService(
+        retrofit: Retrofit,
+    ): ReplenishmentService {
+        return retrofit.create(ReplenishmentService::class.java)
+    }
 }

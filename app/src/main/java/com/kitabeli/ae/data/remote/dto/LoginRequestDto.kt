@@ -9,5 +9,7 @@ data class LoginRequestDto(
     @SerialName("email")
     val email: String,
     @SerialName("password")
-    val password: String
+    val password: String,
+    @SerialName("role")
+    val role: String
 )

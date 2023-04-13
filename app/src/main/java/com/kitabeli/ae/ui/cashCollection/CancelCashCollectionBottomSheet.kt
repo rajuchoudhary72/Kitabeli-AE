@@ -9,10 +9,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kitabeli.ae.R
 import com.kitabeli.ae.databinding.BottomSheetCancelCashCollectionBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class CancelCashCollectionBottomSheet :
@@ -102,6 +107,20 @@ class CancelCashCollectionBottomSheet :
                 is UiState.Success -> {
                     adapter.submitList(result.cancelReason)
                 }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel
+                    .isKioskOwner
+                    .collectLatest { isKioskOwner ->
+                        val titleText = when {
+                            isKioskOwner -> "Pilih Alasan"
+                            else -> "Mengapa Belum Terima Uangnya?"
+                        }
+                        binding.tvTitle.text = titleText
+                    }
             }
         }
     }
