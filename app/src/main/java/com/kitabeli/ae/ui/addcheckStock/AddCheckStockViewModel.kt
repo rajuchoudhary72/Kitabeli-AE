@@ -176,12 +176,17 @@ class AddCheckStockViewModel @Inject constructor(
                         if (appError is AppError.ApiException.BadRequestException) {
                             val apiError = appError.toApiError()
 
-                            if (apiError.code == "1.ID")
+                            if (apiError.code == "1.ID") {
                                 apiError.payload?.let { openErrorDialog?.invoke(it) }
+                            } else {
+                                onError(appError)
+                            }
+                        } else {
+                            onError(appError)
                         }
                     }
 
-                    state.handleErrorAndLoadingState()
+                    showLoading(state.isLoading)
 
                     if (state is LoadState.Loaded) {
                         val data = state.value
