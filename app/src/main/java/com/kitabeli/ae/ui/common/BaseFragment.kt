@@ -1,10 +1,12 @@
 package com.kitabeli.ae.ui.common
 
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.kitabeli.ae.R
 import com.kitabeli.ae.model.AppError
+import com.kitabeli.ae.utils.Constants
 import com.kitabeli.ae.utils.SingleLiveObserver
 import com.kitabeli.ae.utils.ext.stringRes
 import com.kitabeli.ae.utils.ext.toApiError
@@ -78,5 +80,17 @@ abstract class BaseFragment<M : BaseViewModel> : Fragment() {
 
     fun showToast(message: String?) {
         getBaseActivity().showToast(message)
+    }
+
+    fun hasMitraInstalled(): Boolean {
+        return try {
+            activity?.packageManager?.getPackageInfo(
+                Constants.MITRA_APP_APPLICATION_ID,
+                PackageManager.GET_ACTIVITIES
+            )
+            true
+        } catch (e: PackageManager.NameNotFoundException) {
+            false
+        }
     }
 }

@@ -654,16 +654,26 @@ class AddCheckStockFragment : BaseFragment<AddCheckStockViewModel>() {
             cancelButtonText = "Bantuan"
         )
             .setConfirmListener {
-                findNavController().navigate(
-                    AddCheckStockFragmentDirections.actionAddCheckStockFragmentToKiosFragment(
-                        getViewModel().stockOpNameId
-                    )
-                )
+                launchMitraApp()
             }
             .setCancelListener {
                 activity?.openWhatsAppSupport()
             }
             .show(childFragmentManager, "KiosShutDown")
+    }
+
+    private fun launchMitraApp() {
+        try {
+            val intent = Intent("id.kitabeli.mitra.aeLogin")
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
+        } catch (_: Exception) {
+            showMitraAppNotFoundDialog()
+        }
+    }
+
+    private fun showMitraAppNotFoundDialog() {
+        showToast("Mitra app not installed in your device, please install Mitra app.")
     }
 
     @SuppressLint("SetTextI18n")
