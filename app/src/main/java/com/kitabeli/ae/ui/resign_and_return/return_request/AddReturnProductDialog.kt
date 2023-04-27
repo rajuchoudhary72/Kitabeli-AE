@@ -107,6 +107,9 @@ class AddReturnProductDialog : BaseDialogFragment<ResignAndReturnViewModel>(R.la
     }
 
     private fun initView() = with(binding) {
+        textProductName.isEnabled = selectedProduct == null
+        textProductName.isClickable = selectedProduct == null
+
         tvExpiredLabel.showGone(false)
         textExpiredDate.showGone(false)
 
@@ -224,12 +227,12 @@ class AddReturnProductDialog : BaseDialogFragment<ResignAndReturnViewModel>(R.la
                 it.label == etReasons.text.toString()
             }
             if (selectedProduct != null) {
-                mViewModel.updateReturnRequestProduct(refillRequestId) {
+                mViewModel.updateReturnRequestProduct(kioskCode) {
                     dismiss()
                     onProductAdded?.invoke()
                 }
             } else {
-                mViewModel.addReturnRequestProduct(refillRequestId) {
+                mViewModel.addReturnRequestProduct(kioskCode) {
                     dismiss()
                     onProductAdded?.invoke()
                 }
@@ -295,7 +298,7 @@ class AddReturnProductDialog : BaseDialogFragment<ResignAndReturnViewModel>(R.la
         }
         mViewModel.refillRequest.observe(viewLifecycleOwner) { result: RefillRequestDto? ->
             if (result != null) {
-                mViewModel.addReturnRequestProduct(result.id) {
+                mViewModel.addReturnRequestProduct(kioskCode) {
                     dismiss()
                     onProductAdded?.invoke()
                 }

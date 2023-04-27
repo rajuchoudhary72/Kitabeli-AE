@@ -2,7 +2,9 @@ package com.kitabeli.ae.ui.addcheckStock
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import com.kitabeli.ae.data.local.SessionManager
 import com.kitabeli.ae.data.remote.dto.Report
+import com.kitabeli.ae.data.remote.dto.VerifyReturnRequestOtpDto
 import com.kitabeli.ae.model.LoadState
 import com.kitabeli.ae.model.repository.KiosRepository
 import com.kitabeli.ae.model.repository.ReplenishmentRepository
@@ -12,6 +14,7 @@ import com.kitabeli.ae.utils.ext.toLoadingState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -20,7 +23,8 @@ import javax.inject.Inject
 class OtpViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val kiosRepository: KiosRepository,
-    private val replenishmentRepository: ReplenishmentRepository
+    private val replenishmentRepository: ReplenishmentRepository,
+    private val sessionManager: SessionManager
 ) : BaseViewModel() {
 
     private val stockOPNameReportId = savedStateHandle.get<Int>(STOCK_OP_REPORT_ID)
@@ -68,14 +72,18 @@ class OtpViewModel @Inject constructor(
     }
 
     fun verifyReturnRequestOtp(
-        stockTransferId: String?,
+        kioskCode: String?,
         otp: String?,
         func: () -> Unit
     ) {
         viewModelScope.launch {
             replenishmentRepository.verifyStockReturnRequestOtp(
-                stockTransferId = stockTransferId,
-                otp = otp,
+                VerifyReturnRequestOtpDto(
+                    aeId = sessionManager.getAeId().first().toString(),
+                    aeEmail = sessionManager.getUserEmail().first().toString(),
+                    otp = otp,
+                    kioskCode = kioskCode
+                )
             )
                 .flowOn(Dispatchers.IO)
                 .toLoadingState()

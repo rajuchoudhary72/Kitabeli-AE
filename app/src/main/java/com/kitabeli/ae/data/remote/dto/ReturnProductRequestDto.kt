@@ -14,3 +14,27 @@ data class ReturnProductRequestDto(
     @SerialName("requestQuantity")
     val requestQuantity: Int? = null,
 )
+
+@Serializable
+data class AddReplenishmentProductRequest(
+    @SerialName("aeId")
+    val aeId: String?,
+    @SerialName("kioskCode")
+    val kioskCode: String?,
+    @SerialName("returnItemDTO")
+    val returnItemDTO: ReturnItemDTO?
+)
+
+@Serializable
+data class ReturnItemDTO(
+    @SerialName("details")
+    val details: String?,
+    @SerialName("itemId")
+    val itemId: Int?,
+    @SerialName("itemName")
+    val itemName: String?,
+    @SerialName("reason")
+    val reason: String?,
+    @SerialName("requestQuantity")
+    val requestQuantity: String?
+)

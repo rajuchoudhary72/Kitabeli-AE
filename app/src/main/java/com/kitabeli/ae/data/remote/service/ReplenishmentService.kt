@@ -10,28 +10,28 @@ interface ReplenishmentService {
     @GET("${BuildConfig.BASE_REPLENISHMENT_URL}api/v1/refill-request/reason")
     fun getReturnReasonList(): Flow<BaseResponseDto<List<ReturnReasonDto>>>
 
-    @GET("${BuildConfig.BASE_REPLENISHMENT_URL}api/v1/refill-request/{refillRequestId}")
+    @GET("${BuildConfig.BASE_REPLENISHMENT_URL}api/v1/replenishment/ae/refill-request")
     fun getReturnItemList(
-        @Path("refillRequestId") refillRequestId: Long?
+        @Query("aeId") aeId: String,
+        @Query("kioskCode") kioskCode: String,
     ): Flow<BaseResponseDto<List<ReturnProductDto>>>
 
-    @POST("${BuildConfig.BASE_REPLENISHMENT_URL}api/v1/refill-request/{refillRequestId}/item")
+    @POST("${BuildConfig.BASE_REPLENISHMENT_URL}api/v1/replenishment/ae/refill-request/item")
     fun addReturnProduct(
-        @Path("refillRequestId") refillRequestId: Long?,
-        @Body request: AddReturnProductRequestDto
+        @Body request: AddReplenishmentProductRequest
     ): Flow<BaseResponseDto<String>>
 
-    @PUT("${BuildConfig.BASE_REPLENISHMENT_URL}api/v1/refill-request/{refillRequestId}/item/{itemId}")
+    @PUT("${BuildConfig.BASE_REPLENISHMENT_URL}api/v1/replenishment/ae/refill-request/item/{itemId}")
     fun updateReturnProduct(
-        @Path("refillRequestId") refillRequestId: Long?,
         @Path("itemId") itemId: Long?,
-        @Body request: AddReturnProductRequestDto
+        @Body request: AddReplenishmentProductRequest
     ): Flow<BaseResponseDto<List<ReturnProductDto>>>
 
-    @DELETE("${BuildConfig.BASE_REPLENISHMENT_URL}api/v1/refill-request/{refillRequestId}/item/{itemId}")
+    @DELETE("${BuildConfig.BASE_REPLENISHMENT_URL}api/v1/replenishment/ae/refill-request/item/{itemId}")
     fun deleteReturnProduct(
-        @Path("refillRequestId") refillRequestId: Long?,
         @Path("itemId") itemId: Long?,
+        @Query("aeId") aeId: String,
+        @Query("kioskCode") kioskCode: String,
     ): Flow<BaseResponseDto<List<ReturnProductDto>>>
 
     @POST("${BuildConfig.BASE_REPLENISHMENT_URL}api/v1/replenishment/refill-request/create")
@@ -45,7 +45,7 @@ interface ReplenishmentService {
         @Query("requester") requester: String
     ): Flow<BaseResponseDto<RefillRequestDto>>
 
-    @POST("${BuildConfig.BASE_PO_URL}api/v1/purchase-order/transfer-stock/kios/confirm-return")
+    @POST("${BuildConfig.BASE_PO_URL}api/v1/replenishment/ae/refill-request/verify-otp")
     fun verifyStockReturnRequestOtp(
         @Body request: VerifyReturnRequestOtpDto
     ): Flow<BaseResponseDto<String>>

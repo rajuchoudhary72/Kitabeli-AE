@@ -3,7 +3,14 @@ package com.kitabeli.ae.ui.resign_and_return
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.kitabeli.ae.data.remote.dto.*
+import com.kitabeli.ae.data.local.SessionManager
+import com.kitabeli.ae.data.remote.dto.AddReplenishmentProductRequest
+import com.kitabeli.ae.data.remote.dto.RefillRequestDto
+import com.kitabeli.ae.data.remote.dto.ResignOption
+import com.kitabeli.ae.data.remote.dto.ReturnItemDTO
+import com.kitabeli.ae.data.remote.dto.ReturnProductDto
+import com.kitabeli.ae.data.remote.dto.ReturnReasonDto
+import com.kitabeli.ae.data.remote.dto.SkuDTO
 import com.kitabeli.ae.model.LoadState
 import com.kitabeli.ae.model.repository.KiosRepository
 import com.kitabeli.ae.model.repository.ReplenishmentRepository
@@ -13,16 +20,19 @@ import com.kitabeli.ae.utils.ext.toLoadingState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
 class ResignAndReturnViewModel @Inject constructor(
     private val kioskRepository: KiosRepository,
     private val replenishmentRepository: ReplenishmentRepository,
+    private val sessionManager: SessionManager
 ) : BaseViewModel() {
 
     private val _resignForm: MutableLiveData<UiState> = MutableLiveData()
@@ -146,8 +156,13 @@ class ResignAndReturnViewModel @Inject constructor(
             }
     }
 
-    fun getReturnRequestItemList(refillRequestId: Long?) = viewModelScope.launch {
-        replenishmentRepository.getReturnItemList(refillRequestId)
+    fun getReturnRequestItemList(
+        kioskCode: String
+    ) = viewModelScope.launch {
+        replenishmentRepository.getReturnItemList(
+            sessionManager.getAeId().first().toString(),
+            kioskCode
+        )
             .flowOn(Dispatchers.IO)
             .toLoadingState()
             .collectLatest { response ->
@@ -161,28 +176,30 @@ class ResignAndReturnViewModel @Inject constructor(
     }
 
     fun addReturnRequestProduct(
-        refillRequestId: Long?,
+        kioskCode: String,
         onSuccess: () -> Unit
     ) = viewModelScope.launch {
-        val request = AddReturnProductRequestDto(
-            returnItemDTO = listOf(
-                ReturnProductRequestDto(
-                    itemId = selectedProduct?.skuId?.toLong(),
-                    requestQuantity = stockQty,
-                    reason = selectedReason?.name,
-                    details = when {
-                        selectedReason?.name == EXPIRED_ITEM && selectedExpiryDate != null -> {
-                            dateFormatter.format(selectedExpiryDate!!)
-                        }
-                        else -> null
+        val request = AddReplenishmentProductRequest(
+            aeId = sessionManager.getAeId().first().toString(),
+            kioskCode = kioskCode,
+            returnItemDTO = ReturnItemDTO(
+                itemId = selectedProduct?.skuId,
+                itemName = selectedProduct?.name,
+                requestQuantity = stockQty.toString(),
+                reason = selectedReason?.name,
+                details = when {
+                    selectedReason?.name == EXPIRED_ITEM && selectedExpiryDate != null -> {
+                        dateFormatter.format(selectedExpiryDate!!)
                     }
-                )
+
+                    else -> null
+                }
             )
         )
-        replenishmentRepository.addReturnProduct(refillRequestId, request)
+        replenishmentRepository.addReturnProduct(request)
             .flowOn(Dispatchers.IO)
             .toLoadingState()
-            .collectLatest { response ->
+            .collectLatest { response: LoadState<String?> ->
                 response.handleErrorAndLoadingState()
                 if (response is LoadState.Loaded) {
                     onSuccess.invoke()
@@ -191,26 +208,27 @@ class ResignAndReturnViewModel @Inject constructor(
     }
 
     fun updateReturnRequestProduct(
-        refillRequestId: Long?,
+        kioskCode: String,
         onSuccess: () -> Unit
     ) = viewModelScope.launch {
-        val request = AddReturnProductRequestDto(
-            returnItemDTO = listOf(
-                ReturnProductRequestDto(
-                    itemId = selectedProduct?.skuId?.toLong(),
-                    requestQuantity = stockQty,
-                    reason = selectedReason?.name,
-                    details = when {
-                        selectedReason?.name == EXPIRED_ITEM && selectedExpiryDate != null -> {
-                            dateFormatter.format(selectedExpiryDate!!)
-                        }
-                        else -> null
+        val request = AddReplenishmentProductRequest(
+            aeId = sessionManager.getAeId().first().toString(),
+            kioskCode = kioskCode,
+            returnItemDTO = ReturnItemDTO(
+                itemId = selectedProduct?.skuId,
+                itemName = selectedProduct?.name,
+                requestQuantity = stockQty.toString(),
+                reason = selectedReason?.name,
+                details = when {
+                    selectedReason?.name == EXPIRED_ITEM && selectedExpiryDate != null -> {
+                        dateFormatter.format(selectedExpiryDate!!)
                     }
-                )
+
+                    else -> null
+                }
             )
         )
         replenishmentRepository.updateReturnProduct(
-            refillRequestId = refillRequestId,
             itemId = selectedProduct?.skuId?.toLong(),
             request = request
         )
@@ -225,13 +243,14 @@ class ResignAndReturnViewModel @Inject constructor(
     }
 
     fun deleteReturnRequestProduct(
-        refillRequestId: Long?,
         itemId: Long?,
+        kioskCode: String,
         onSuccess: () -> Unit
     ) = viewModelScope.launch {
         replenishmentRepository.deleteReturnProduct(
-            refillRequestId = refillRequestId,
-            itemId = itemId
+            itemId = itemId,
+            aeId = sessionManager.getAeId().first().toString(),
+            kioskCode = kioskCode
         )
             .flowOn(Dispatchers.IO)
             .toLoadingState()

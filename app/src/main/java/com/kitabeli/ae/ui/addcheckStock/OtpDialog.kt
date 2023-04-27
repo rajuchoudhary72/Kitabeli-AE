@@ -1,6 +1,5 @@
 package com.kitabeli.ae.ui.addcheckStock
 
-import `in`.aabhasjindal.otptextview.OTPListener
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
@@ -14,6 +13,7 @@ import com.kitabeli.ae.databinding.DialogOtpBinding
 import com.kitabeli.ae.ui.common.BaseDialogFragment
 import com.kitabeli.ae.utils.showGone
 import dagger.hilt.android.AndroidEntryPoint
+import `in`.aabhasjindal.otptextview.OTPListener
 
 @AndroidEntryPoint
 class OtpDialog : BaseDialogFragment<OtpViewModel>(R.layout.dialog_otp) {
@@ -122,7 +122,7 @@ class OtpDialog : BaseDialogFragment<OtpViewModel>(R.layout.dialog_otp) {
                     }
                     OtpType.RETURN_REQUEST -> {
                         otpViewModel.verifyReturnRequestOtp(
-                            stockTransferId = stockTransferId,
+                            kioskCode = kioskCode,
                             otp = otp,
                         ) {
                             onOtpSuccessListener?.invoke(otp)

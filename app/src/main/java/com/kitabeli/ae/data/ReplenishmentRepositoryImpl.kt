@@ -2,7 +2,12 @@ package com.kitabeli.ae.data
 
 import android.content.Context
 import com.kitabeli.ae.data.local.SessionManager
-import com.kitabeli.ae.data.remote.dto.*
+import com.kitabeli.ae.data.remote.dto.AddReplenishmentProductRequest
+import com.kitabeli.ae.data.remote.dto.CreateRefillRequestDto
+import com.kitabeli.ae.data.remote.dto.RefillRequestDto
+import com.kitabeli.ae.data.remote.dto.ReturnProductDto
+import com.kitabeli.ae.data.remote.dto.ReturnReasonDto
+import com.kitabeli.ae.data.remote.dto.VerifyReturnRequestOtpDto
 import com.kitabeli.ae.data.remote.service.ReplenishmentService
 import com.kitabeli.ae.model.repository.ReplenishmentRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -20,36 +25,39 @@ class ReplenishmentRepositoryImpl @Inject constructor(
         return replenishmentService.getReturnReasonList().map { it.payload }
     }
 
-    override fun getReturnItemList(refillRequestId: Long?): Flow<List<ReturnProductDto>?> {
-        return replenishmentService.getReturnItemList(refillRequestId).map { it.payload }
+    override fun getReturnItemList(
+        aeId: String,
+        kioskCode: String
+    ): Flow<List<ReturnProductDto>?> {
+        return replenishmentService.getReturnItemList(aeId, kioskCode).map { it.payload }
     }
 
     override fun addReturnProduct(
-        refillRequestId: Long?,
-        request: AddReturnProductRequestDto
+        request: AddReplenishmentProductRequest
     ): Flow<String?> {
-        return replenishmentService.addReturnProduct(refillRequestId, request).map { it.payload }
+        return replenishmentService.addReturnProduct(request).map { it.payload }
     }
 
     override fun updateReturnProduct(
-        refillRequestId: Long?,
+
         itemId: Long?,
-        request: AddReturnProductRequestDto
+        request: AddReplenishmentProductRequest
     ): Flow<List<ReturnProductDto>?> {
         return replenishmentService.updateReturnProduct(
-            refillRequestId = refillRequestId,
             itemId = itemId,
             request = request
         ).map { it.payload }
     }
 
     override fun deleteReturnProduct(
-        refillRequestId: Long?,
-        itemId: Long?
+        itemId: Long?,
+        aeId: String,
+        kioskCode: String,
     ): Flow<List<ReturnProductDto>?> {
         return replenishmentService.deleteReturnProduct(
-            refillRequestId = refillRequestId,
-            itemId = itemId
+            itemId = itemId,
+            aeId = aeId,
+            kioskCode = kioskCode
         ).map { it.payload }
     }
 
@@ -75,10 +83,8 @@ class ReplenishmentRepositoryImpl @Inject constructor(
     }
 
     override fun verifyStockReturnRequestOtp(
-        stockTransferId: String?,
-        otp: String?
+        request: VerifyReturnRequestOtpDto
     ): Flow<String?> {
-        val request = VerifyReturnRequestOtpDto(stockTransferId = stockTransferId, otp = otp)
         return replenishmentService.verifyStockReturnRequestOtp(request).map { it.payload }
     }
 

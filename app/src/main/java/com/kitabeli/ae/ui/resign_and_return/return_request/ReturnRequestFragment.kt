@@ -18,7 +18,8 @@ import com.kitabeli.ae.ui.resign_and_return.ResignAndReturnViewModel
 import com.kitabeli.ae.ui.resign_and_return.return_request.ReturnRequestProductAdapter.Companion.EXPIRED_ITEM
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 @AndroidEntryPoint
 class ReturnRequestFragment : BaseFragment<ResignAndReturnViewModel>() {
@@ -32,10 +33,10 @@ class ReturnRequestFragment : BaseFragment<ResignAndReturnViewModel>() {
         ReturnRequestProductAdapter(
             onDeleteButtonClick = { product ->
                 mViewModel.deleteReturnRequestProduct(
-                    refillRequestId = refillRequestId,
                     itemId = product.itemId,
+                    kioskCode = kioskCode,
                     onSuccess = {
-                        mViewModel.getReturnRequestItemList(refillRequestId)
+                        mViewModel.getReturnRequestItemList(kioskCode)
                     }
                 )
             },
@@ -108,7 +109,7 @@ class ReturnRequestFragment : BaseFragment<ResignAndReturnViewModel>() {
         mViewModel.refillRequest.observe(viewLifecycleOwner) { result: RefillRequestDto? ->
             result?.id?.let {
                 refillRequestId = it
-                mViewModel.getReturnRequestItemList(refillRequestId)
+                mViewModel.getReturnRequestItemList(kioskCode)
             }
         }
     }
@@ -130,7 +131,7 @@ class ReturnRequestFragment : BaseFragment<ResignAndReturnViewModel>() {
                 }.orEmpty()
             )
             .setOnProductAddedListener {
-                mViewModel.getReturnRequestItemList(refillRequestId)
+                mViewModel.getReturnRequestItemList(kioskCode)
             }
             .show(childFragmentManager, AddReturnProductDialog::class.java.simpleName)
     }
