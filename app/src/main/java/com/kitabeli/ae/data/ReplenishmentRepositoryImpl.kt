@@ -102,7 +102,7 @@ class ReplenishmentRepositoryImpl @Inject constructor(
     override fun verifyStockReturnRequestOtp(
         request: VerifyReturnRequestOtpDto
     ): Flow<String?> {
-        return replenishmentService.verifyStockReturnRequestOtp(request).map { it.payload }
+        return replenishmentService.verifyStockReturnRequestOtp(request).map { it.message }
     }
 
     companion object {

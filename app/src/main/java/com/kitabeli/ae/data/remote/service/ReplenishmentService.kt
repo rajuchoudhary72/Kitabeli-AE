@@ -48,5 +48,5 @@ interface ReplenishmentService {
     @POST("${BuildConfig.BASE_REPLENISHMENT_URL}api/v1/replenishment/ae/refill-request/verify-otp")
     fun verifyStockReturnRequestOtp(
         @Body request: VerifyReturnRequestOtpDto
-    ): Flow<BaseResponseDto<String>>
+    ): Flow<BaseResponseDto<ReturnProductResponseDto>>
 }
