@@ -152,7 +152,11 @@ class ReturnRequestFragment : BaseFragment<ResignAndReturnViewModel>() {
     }
 
     private fun showOtpDialog(stockTrfId: String?) {
-        OtpDialog.getInstance(otpType = OtpDialog.OtpType.RETURN_REQUEST, stockTrfId = stockTrfId)
+        OtpDialog.getInstance(
+            otpType = OtpDialog.OtpType.RETURN_REQUEST,
+            stockTrfId = stockTrfId,
+            kioskCode = kioskCode
+        )
             .setOnOtpSuccessListener {
                 showMessage(getString(R.string.return_request_success_msg))
                 findNavController().popBackStack(R.id.fragment_post_login, false)

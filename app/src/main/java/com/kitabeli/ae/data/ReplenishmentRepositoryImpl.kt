@@ -29,36 +29,53 @@ class ReplenishmentRepositoryImpl @Inject constructor(
         aeId: String,
         kioskCode: String
     ): Flow<List<ReturnProductDto>?> {
-        return replenishmentService.getReturnItemList(aeId, kioskCode).map { it.payload }
+        return replenishmentService.getReturnItemList(aeId, kioskCode).map { model ->
+            model.payload?.refillRequestItemDTOS?.map { item ->
+                ReturnProductDto(
+                    id = item.itemId,
+                    itemId = item.itemId,
+                    itemName = item.itemName,
+                    requestQuantity = item.requestQuantity,
+                    refillQuantity = item.refillQuantity,
+                    status = item.status,
+                    approvedQuantity = item.approvedQuantity,
+                    reason = item.reason,
+                    reasonLabel = item.reasonLabel,
+                    createdAt = model.payload.createdAt,
+                    updatedAt = model.payload.updatedAt,
+                    details = item.details,
+                )
+            }
+        }
     }
 
     override fun addReturnProduct(
         request: AddReplenishmentProductRequest
     ): Flow<String?> {
-        return replenishmentService.addReturnProduct(request).map { it.payload }
+        return replenishmentService.addReturnProduct(request).map { it.message }
     }
 
     override fun updateReturnProduct(
 
         itemId: Long?,
         request: AddReplenishmentProductRequest
-    ): Flow<List<ReturnProductDto>?> {
+    ): Flow<String> {
         return replenishmentService.updateReturnProduct(
             itemId = itemId,
             request = request
-        ).map { it.payload }
+        ).map { it.message }
     }
 
     override fun deleteReturnProduct(
         itemId: Long?,
         aeId: String,
         kioskCode: String,
-    ): Flow<List<ReturnProductDto>?> {
+    ): Flow<String> {
         return replenishmentService.deleteReturnProduct(
             itemId = itemId,
             aeId = aeId,
             kioskCode = kioskCode
-        ).map { it.payload }
+        ).map { it.message }
     }
 
     override suspend fun createRefillRequest(

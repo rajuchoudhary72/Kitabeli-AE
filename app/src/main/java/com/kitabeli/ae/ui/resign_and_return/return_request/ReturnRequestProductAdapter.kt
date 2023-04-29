@@ -68,7 +68,7 @@ class ReturnRequestProductAdapter(
             oldItem: ReturnProductDto,
             newItem: ReturnProductDto
         ): Boolean =
-            oldItem.id == newItem.id
+            oldItem.itemId == newItem.itemId
 
         override fun areContentsTheSame(
             oldItem: ReturnProductDto, newItem: ReturnProductDto

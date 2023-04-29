@@ -22,13 +22,13 @@ interface ReplenishmentRepository {
     fun updateReturnProduct(
         itemId: Long?,
         request: AddReplenishmentProductRequest
-    ): Flow<List<ReturnProductDto>?>
+    ): Flow<String>
 
     fun deleteReturnProduct(
         itemId: Long?,
         aeId: String,
         kioskCode: String,
-    ): Flow<List<ReturnProductDto>?>
+    ): Flow<String>
 
     suspend fun createRefillRequest(
         kioskCode: String
