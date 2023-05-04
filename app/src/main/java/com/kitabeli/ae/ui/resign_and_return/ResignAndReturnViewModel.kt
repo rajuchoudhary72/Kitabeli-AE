@@ -263,10 +263,13 @@ class ResignAndReturnViewModel @Inject constructor(
     }
 
     fun createStockReturnRequest(
-        refillRequestId: Long?,
+        kioskCode: String,
         onSuccess: (String) -> Unit
     ) = viewModelScope.launch {
-        replenishmentRepository.createStockReturnRequest(refillRequestId)
+        replenishmentRepository.createStockReturnRequest(
+            aeId = sessionManager.getAeId().first().toString(),
+            kioskCode = kioskCode
+        )
             .flowOn(Dispatchers.IO)
             .toLoadingState()
             .collectLatest { response ->

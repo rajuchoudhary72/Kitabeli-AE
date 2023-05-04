@@ -144,7 +144,7 @@ class ReturnRequestFragment : BaseFragment<ResignAndReturnViewModel>() {
                 confirmButtonText = getString(R.string.betul),
                 cancelButtonText = getString(R.string.tidak)
             ).setConfirmListener {
-                mViewModel.createStockReturnRequest(refillRequestId) { stockTrfId ->
+                mViewModel.createStockReturnRequest(kioskCode) { stockTrfId ->
                     showOtpDialog(stockTrfId)
                 }
             }.show(childFragmentManager, ConfirmationDialog::class.java.simpleName)

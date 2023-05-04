@@ -39,10 +39,9 @@ interface ReplenishmentService {
         @Body request: CreateRefillRequestDto
     ): Flow<BaseResponseDto<RefillRequestDto>>
 
-    @POST("${BuildConfig.BASE_REPLENISHMENT_URL}api/v1/replenishment/refill-request/stock-request/{refillRequestId}")
+    @POST("${BuildConfig.BASE_REPLENISHMENT_URL}api/v1/replenishment/ae/refill-request/generate-otp")
     fun createStockReturnRequest(
-        @Path("refillRequestId") refillRequestId: Long?,
-        @Query("requester") requester: String
+        @Body request: GenerateReturnOTPRequest
     ): Flow<BaseResponseDto<RefillRequestDto>>
 
     @POST("${BuildConfig.BASE_REPLENISHMENT_URL}api/v1/replenishment/ae/refill-request/verify-otp")

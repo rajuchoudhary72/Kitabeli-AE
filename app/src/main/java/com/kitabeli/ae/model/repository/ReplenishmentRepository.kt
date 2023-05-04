@@ -35,7 +35,8 @@ interface ReplenishmentRepository {
     ): Flow<RefillRequestDto?>
 
     suspend fun createStockReturnRequest(
-        refillRequestId: Long?
+        aeId: String,
+        kioskCode: String
     ): Flow<RefillRequestDto?>
 
     fun verifyStockReturnRequestOtp(

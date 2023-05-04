@@ -4,6 +4,7 @@ import android.content.Context
 import com.kitabeli.ae.data.local.SessionManager
 import com.kitabeli.ae.data.remote.dto.AddReplenishmentProductRequest
 import com.kitabeli.ae.data.remote.dto.CreateRefillRequestDto
+import com.kitabeli.ae.data.remote.dto.GenerateReturnOTPRequest
 import com.kitabeli.ae.data.remote.dto.RefillRequestDto
 import com.kitabeli.ae.data.remote.dto.ReturnProductDto
 import com.kitabeli.ae.data.remote.dto.ReturnReasonDto
@@ -91,11 +92,11 @@ class ReplenishmentRepositoryImpl @Inject constructor(
     }
 
     override suspend fun createStockReturnRequest(
-        refillRequestId: Long?
+        aeId: String,
+        kioskCode: String
     ): Flow<RefillRequestDto?> {
         return replenishmentService.createStockReturnRequest(
-            refillRequestId = refillRequestId,
-            requester = sessionManager.getUserEmail().first()
+            GenerateReturnOTPRequest(aeId, kioskCode)
         ).map { it.payload }
     }
 
