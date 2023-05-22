@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import com.kitabeli.ae.databinding.FragmentKiosBinding
 import com.kitabeli.ae.databinding.FragmentMaintanenceBinding
+import com.kitabeli.ae.ui.common.BaseFragment
 
 class MaintenanceFragment : Fragment() {
 

@@ -18,6 +18,7 @@ import com.kitabeli.ae.data.remote.dto.KiosDto
 import com.kitabeli.ae.databinding.FragmentScanqrBinding
 import com.kitabeli.ae.ui.common.BaseFragment
 import com.kitabeli.ae.ui.home.HomeViewModel
+import com.kitabeli.ae.ui.post_login.PostLoginFragment
 import com.kitabeli.ae.ui.post_login.PostLoginFragment.Companion.KIOSK_CODE_ARG
 import com.kitabeli.ae.ui.post_login.PostLoginFragment.Companion.KIOSK_CODE_REQUEST_KEY
 import dagger.hilt.android.AndroidEntryPoint

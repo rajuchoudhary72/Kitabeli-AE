@@ -15,5 +15,4 @@ object Constants {
 
     const val MITRA_APP_APPLICATION_ID = "id.kitabeli.mitra"
     const val MITRA_INTENT_ACTION = "id.kitabeli.mitra.mitraLogin"
-
 }

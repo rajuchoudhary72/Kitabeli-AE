@@ -2,9 +2,11 @@ package com.kitabeli.ae.ui.stock_withdrawal
 
 import androidx.lifecycle.viewModelScope
 import com.kitabeli.ae.data.local.SessionManager
+import com.kitabeli.ae.data.remote.dto.PaymentDetailDto
 import com.kitabeli.ae.data.remote.dto.StockWithdrawalDto
 import com.kitabeli.ae.data.remote.dto.StockWithdrawalOTPDto
 import com.kitabeli.ae.model.LoadState
+import com.kitabeli.ae.model.repository.AuthenticationRepository
 import com.kitabeli.ae.model.repository.KiosRepository
 import com.kitabeli.ae.ui.common.BaseViewModel
 import com.kitabeli.ae.utils.ext.toLoadingState

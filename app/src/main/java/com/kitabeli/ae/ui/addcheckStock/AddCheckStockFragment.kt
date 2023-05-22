@@ -223,6 +223,9 @@ class AddCheckStockFragment : BaseFragment<AddCheckStockViewModel>() {
 
         binding.btnPay.setOnClickListener {
             createReportFile()
+            /* mViewModel.submitReport(openOTP = {
+                 goToMidtransPaymentScreen(it)
+             })*/
             mViewModel.submitReport(
                 openOTP = {
                     goToMidtransPaymentScreen(it)
@@ -408,6 +411,9 @@ class AddCheckStockFragment : BaseFragment<AddCheckStockViewModel>() {
             .setConfirmListener {
                 createReportFile()
                 mViewModel.partialAmountConfirmedByAE.value = true
+                /*  mViewModel.submitReport(openOTP = {
+                      collectOTP()
+                  })*/
                 mViewModel.submitReport(
                     openOTP = {
                         collectOTP()
@@ -611,6 +617,13 @@ class AddCheckStockFragment : BaseFragment<AddCheckStockViewModel>() {
     /*Kios ShutDown*/
     private fun checkForKiosShutdown() {
         createReportFile()
+        /*  mViewModel.submitReport(openOTP = {
+              askForConfirmation()
+          }, openKiosShutDownDialog = {
+              openKiosShutDownDialog()
+          }, openPartialPaymentDialog = {
+              openPartialPaymentDialog(it)
+          })*/
         mViewModel.submitReport(
             openOTP = {
                 askForConfirmation()
@@ -668,7 +681,13 @@ class AddCheckStockFragment : BaseFragment<AddCheckStockViewModel>() {
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
         } catch (_: Exception) {
-            showMitraAppNotFoundDialog()
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://play.google.com/store/apps/details?id=id.kitabeli.mitra")
+                )
+            )
+            //  showMitraAppNotFoundDialog()
         }
     }
 

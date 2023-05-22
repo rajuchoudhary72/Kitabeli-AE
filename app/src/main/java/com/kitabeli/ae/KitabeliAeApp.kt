@@ -1,9 +1,14 @@
 package com.kitabeli.ae
 
 import android.app.Application
+import android.util.Log
+import android.widget.Toast
 import com.google.firebase.FirebaseApp
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
+import com.google.firebase.remoteconfig.ktx.remoteConfig
+import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 import com.kitabeli.ae.di.appInitializers.AppInitializers
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject

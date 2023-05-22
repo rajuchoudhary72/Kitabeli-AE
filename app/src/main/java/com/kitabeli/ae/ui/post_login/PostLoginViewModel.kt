@@ -3,6 +3,7 @@ package com.kitabeli.ae.ui.post_login
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.kitabeli.ae.data.local.SessionManager
 import com.kitabeli.ae.data.remote.dto.KioskDetailDto
 import com.kitabeli.ae.model.LoadState
 import com.kitabeli.ae.model.repository.KiosRepository

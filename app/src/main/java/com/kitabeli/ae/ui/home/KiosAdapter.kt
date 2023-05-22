@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.camera.core.impl.utils.ContextUtil.getApplicationContext
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -13,6 +14,7 @@ import com.kitabeli.ae.data.remote.dto.KiosItem
 import com.kitabeli.ae.data.remote.dto.KiosStatusListDTO
 import com.kitabeli.ae.databinding.ItemKiosBinding
 import com.kitabeli.ae.utils.showGone
+import com.kitabeli.ae.utils.showHide
 import javax.inject.Inject
 
 class KiosAdapter @Inject constructor() :

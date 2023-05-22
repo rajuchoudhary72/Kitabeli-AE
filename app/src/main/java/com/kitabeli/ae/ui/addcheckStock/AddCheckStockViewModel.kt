@@ -171,7 +171,6 @@ class AddCheckStockViewModel @Inject constructor(
                 .flowOn(Dispatchers.IO)
                 .toLoadingState()
                 .collectLatest { state ->
-
                     state.getAppErrorIfExists()?.toAppError()?.let { appError ->
                         if (appError is AppError.ApiException.BadRequestException) {
                             val apiError = appError.toApiError()
@@ -187,7 +186,6 @@ class AddCheckStockViewModel @Inject constructor(
                     }
 
                     showLoading(state.isLoading)
-
                     if (state is LoadState.Loaded) {
                         val data = state.value
                         data?.let { model ->

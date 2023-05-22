@@ -113,14 +113,12 @@
             app:launchSingleTop="true"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
-
         <action
             android:id="@+id/action_addCheckStockFragment_to_kiosFragment"
             app:destination="@id/kiosFragment"
             app:launchSingleTop="true"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
-
         <action
             android:id="@+id/action_addCheckStockFragment_to_loginFragment"
             app:destination="@id/loginFragment"

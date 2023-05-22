@@ -114,7 +114,7 @@
     <string name="kembali">Kembali</string>
     <string name="on_boarding_text">Masukkan daftar barang yang\nada di Kiosmu.</string>
     <string name="apa_itu_cek_stok_barang">Apa itu Cek Stok Barang?</string>
-    <string name="check_stock_time_info">Cek stok hanya bisa dilakukan\nSenin-Jumat pukul 09.00-19.00 WIB</string>
+    <string name="check_stock_time_info">Cek stok hanya bisa dilakukan\nSenin -Sabtu pukul 09.00-19.00 WIB</string>
     <string name="gimana_caranya">Gimana Caranya?</string>
     <string name="putar_video">Putar Video</string>
     <string name="konfirmasi_semua_pesanan_npelanggan">Konfirmasi semua pesanan\npelanggan.</string>

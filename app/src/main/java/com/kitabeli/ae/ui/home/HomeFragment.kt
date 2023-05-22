@@ -10,12 +10,14 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.kitabeli.ae.R
 import com.kitabeli.ae.data.remote.dto.KiosDto
 import com.kitabeli.ae.data.remote.dto.KiosItem
 import com.kitabeli.ae.databinding.FragmentHomeBinding
 import com.kitabeli.ae.ui.MainActivity
+import com.kitabeli.ae.ui.addcheckStock.AddCheckStockFragmentDirections
 import com.kitabeli.ae.ui.common.BaseFragment
 import com.kitabeli.ae.utils.ext.showLogoutDialog
 import com.rubensousa.decorator.LinearMarginDecoration

@@ -1,6 +1,7 @@
 package com.kitabeli.ae.ui.login.midtrans
 
 import android.content.Context
+import android.util.Log
 import com.kitabeli.ae.BuildConfig
 import com.midtrans.sdk.corekit.core.MidtransSDK
 import com.midtrans.sdk.corekit.core.UIKitCustomSetting

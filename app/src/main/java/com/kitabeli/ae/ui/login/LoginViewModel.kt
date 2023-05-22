@@ -1,11 +1,16 @@
 package com.kitabeli.ae.ui.login
 
+import android.util.Log
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.kitabeli.ae.R
 import com.kitabeli.ae.data.local.SessionManager
+import com.kitabeli.ae.data.remote.dto.KiosData
+import com.kitabeli.ae.data.remote.dto.KiosDto
+import com.kitabeli.ae.data.remote.dto.KiosItem
 import com.kitabeli.ae.model.LoadState
+import com.kitabeli.ae.model.LoadingState
 import com.kitabeli.ae.model.repository.AuthenticationRepository
 import com.kitabeli.ae.model.repository.KiosRepository
 import com.kitabeli.ae.ui.common.BaseViewModel
@@ -19,6 +24,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

@@ -1,7 +1,26 @@
 package com.kitabeli.ae.model.repository
 
+import com.kitabeli.ae.data.remote.dto.BtnStatusDto
+import com.kitabeli.ae.data.remote.dto.CancelReasonDto
+import com.kitabeli.ae.data.remote.dto.KiosData
+import com.kitabeli.ae.data.remote.dto.KiosDetail
+import com.kitabeli.ae.data.remote.dto.KiosDto
+import com.kitabeli.ae.data.remote.dto.KioskDetailDto
+import com.kitabeli.ae.data.remote.dto.KioskResignFormDto
+import com.kitabeli.ae.data.remote.dto.KioskResignOtpDto
+import com.kitabeli.ae.data.remote.dto.MarkEligibleForQaResponseDto
+import com.kitabeli.ae.data.remote.dto.PaymentDetailDto
+import com.kitabeli.ae.data.remote.dto.Report
+import com.kitabeli.ae.data.remote.dto.ResignOption
+import com.kitabeli.ae.data.remote.dto.SkuDTO
+import androidx.core.net.toUri
 import com.kitabeli.ae.data.remote.dto.*
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 
 interface KiosRepository {

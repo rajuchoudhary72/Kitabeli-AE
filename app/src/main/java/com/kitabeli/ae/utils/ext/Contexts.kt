@@ -20,8 +20,10 @@ import androidx.core.content.getSystemService
 import androidx.core.content.res.use
 import androidx.databinding.adapters.Converters
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.kitabeli.ae.R
+import com.kitabeli.ae.ui.addcheckStock.AddCheckStockFragmentDirections
 import com.kitabeli.ae.utils.Constants.CS_WHATSAPP_NUMBER
 
 /**

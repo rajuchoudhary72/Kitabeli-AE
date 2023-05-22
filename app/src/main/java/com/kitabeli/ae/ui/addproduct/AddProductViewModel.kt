@@ -1,6 +1,10 @@
 package com.kitabeli.ae.ui.addproduct
 
-import androidx.lifecycle.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.map
+import androidx.lifecycle.viewModelScope
 import com.kitabeli.ae.data.remote.dto.SkuDTO
 import com.kitabeli.ae.data.remote.dto.StockOpNameItemDTOS
 import com.kitabeli.ae.model.repository.KiosRepository

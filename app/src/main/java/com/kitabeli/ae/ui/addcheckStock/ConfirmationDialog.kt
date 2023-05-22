@@ -21,6 +21,7 @@ class ConfirmationDialog : DialogFragment(R.layout.dialog_confirmation) {
 
     private var title: String? = null
     private var iconRes: Int? = null
+
     private var message: String? = null
     private var confirmButtonText: String? = null
     private var cancelButtonText: String? = null
@@ -69,14 +70,12 @@ class ConfirmationDialog : DialogFragment(R.layout.dialog_confirmation) {
         if (cancelButtonText.isNullOrBlank()) {
             binding.btnBelum.showHide(true)
         }
-
         if (partialPaymentAmt.isNullOrBlank().not()) {
             binding.clPartialAmt.showGone(true)
             binding.tvPartialAmt.text = "Rp.${partialPaymentAmt}"
         } else {
             binding.clPartialAmt.showGone(false)
         }
-
 
 
         binding.icClose.setOnClickListener {

@@ -55,7 +55,8 @@ class ReturnRequestFragment : BaseFragment<ResignAndReturnViewModel>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         kioskCode = arguments?.getString("KIOSK_CODE").orEmpty()
-        mViewModel.createRefillRequest(kioskCode)
+        //  mViewModel.createRefillRequest(kioskCode)
+        mViewModel.getReturnRequestItemList(kioskCode)
     }
 
     override fun onCreateView(

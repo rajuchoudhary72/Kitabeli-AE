@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.kitabeli.ae.R
 import com.kitabeli.ae.data.remote.dto.StockOpNameItemDTOS
 import com.kitabeli.ae.databinding.FragmentKiosBinding
@@ -17,6 +19,7 @@ import com.kitabeli.ae.ui.MainActivity
 import com.kitabeli.ae.ui.addcheckStock.ConfirmationDialog
 import com.kitabeli.ae.ui.addproduct.AddProductBottomSheet
 import com.kitabeli.ae.ui.common.BaseFragment
+import com.kitabeli.ae.ui.home.HomeFragmentDirections
 import com.kitabeli.ae.utils.ext.openWhatsAppSupport
 import com.kitabeli.ae.utils.ext.showLogoutDialog
 import com.rubensousa.decorator.LinearMarginDecoration

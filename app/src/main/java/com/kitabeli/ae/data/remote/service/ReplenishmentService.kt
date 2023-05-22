@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 import retrofit2.http.*
 
 interface ReplenishmentService {
-    @GET("${BuildConfig.BASE_REPLENISHMENT_URL}api/v1/refill-request/reason")
+    @GET("${BuildConfig.BASE_REPLENISHMENT_URL}api/v1/replenishment/refill-request/reason")
     fun getReturnReasonList(): Flow<BaseResponseDto<List<ReturnReasonDto>>>
 
     @GET("${BuildConfig.BASE_REPLENISHMENT_URL}api/v1/replenishment/ae/refill-request")

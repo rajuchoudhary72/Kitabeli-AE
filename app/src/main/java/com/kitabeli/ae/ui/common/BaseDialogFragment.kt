@@ -3,6 +3,7 @@ package com.kitabeli.ae.ui.common
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.DialogFragment
+import com.kitabeli.ae.R
 import com.kitabeli.ae.model.AppError
 import com.kitabeli.ae.utils.SingleLiveObserver
 import com.kitabeli.ae.utils.ext.stringRes

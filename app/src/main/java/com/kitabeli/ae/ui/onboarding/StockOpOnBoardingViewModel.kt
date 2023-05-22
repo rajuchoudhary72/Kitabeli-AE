@@ -2,6 +2,7 @@ package com.kitabeli.ae.ui.onboarding
 
 import androidx.lifecycle.viewModelScope
 import com.kitabeli.ae.data.local.SessionManager
+import com.kitabeli.ae.model.LoadState
 import com.kitabeli.ae.model.repository.KiosRepository
 import com.kitabeli.ae.ui.common.BaseViewModel
 import com.kitabeli.ae.utils.ext.toLoadingState
