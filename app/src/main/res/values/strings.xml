@@ -69,7 +69,7 @@
     <string name="logout_msg">Anda yakin ingin logout?</string>
     <string name="cancelled_task">Tugas Dibatalkan</string>
     <string name="save_sign">Tambahkan Tanda Tangan</string>
-    <string name="tanda_tangan_dokumen">Tanda Tangan Dokumen</string>
+<!--    <string name="tanda_tangan_dokumen">.</string>-->
     <string name="harap_cek_dan_masukkan_kembali_data_produk_yang_ditolak_dengan_benar">Harap cek dan masukkan kembali data produk yang ditolak dengan benar</string>
     <string name="qr_code_error">Terjadi kesalahan. Mohon coba kembali</string>
     <string name="title_qr_code">Scan Kode QR Kios</string>
