@@ -281,4 +281,9 @@
 
     </fragment>
 
+    <fragment
+        android:id="@+id/kioskSurveyFragment"
+        android:name="com.kitabeli.ae.ui.survey.KioskSurveyFragment"
+        android:label="KioskSurveyFragment" />
+
 </navigation>

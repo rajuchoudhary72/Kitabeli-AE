@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="text"
+            type="java.lang.String" />
+
+    </data>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:background="@drawable/bg_text_filed_outline_grey"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="10dp"
+        android:text="@{text}"
+        android:textAppearance="?attr/textAppearanceBodyLarge"
+        tools:text="Title (Checklist type)" />
+
+</layout>

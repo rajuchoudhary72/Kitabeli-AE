@@ -49,6 +49,9 @@ class PostLoginFragment : BaseFragment<PostLoginViewModel>() {
 
     private fun initView() {
         with(binding) {
+            surveyKios.setOnClickListener {
+                findNavController().navigate(R.id.kioskSurveyFragment)
+            }
             ivStokKios.setOnClickListener {
                 findNavController().navigate(PostLoginFragmentDirections.actionToHomeFragment())
             }

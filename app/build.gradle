@@ -10,6 +10,10 @@ plugins {
     id 'com.google.gms.google-services'
 }
 
+kapt {
+    correctErrorTypes = true
+}
+
 android {
     namespace 'com.kitabeli.ae'
     compileSdk 33
@@ -160,6 +164,12 @@ dependencies {
     implementation 'com.google.android.exoplayer:exoplayer-hls:2.16.1'
     implementation 'com.google.android.exoplayer:exoplayer-smoothstreaming:2.16.1'
     implementation 'com.google.android.exoplayer:exoplayer-ui:2.16.1'
+
+    implementation 'com.airbnb.android:epoxy:4.6.2'
+    kapt 'com.airbnb.android:epoxy-processor:4.6.2'
+    implementation 'com.airbnb.android:epoxy-databinding:4.6.2'
+    implementation 'com.rubensousa:decorator:2.0.0'
+    implementation 'com.google.android.flexbox:flexbox:3.0.0'
 
 }
 

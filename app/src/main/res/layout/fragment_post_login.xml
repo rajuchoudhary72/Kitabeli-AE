@@ -14,6 +14,41 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/surveyKios"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        app:cardBackgroundColor="@color/white_bg"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/iv_stok_kios"
+        app:layout_constraintEnd_toEndOf="@+id/iv_stok_kios"
+        app:layout_constraintStart_toStartOf="@+id/iv_stok_kios">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/dimen_twelve"
+            android:fontFamily="@font/inter_medium"
+            android:text="@string/survey_kios"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_medium"
+            android:textStyle="bold" />
+
+    </androidx.cardview.widget.CardView>
+
+
+    <ImageView
+        android:layout_width="74dp"
+        android:layout_height="74dp"
+        android:layout_marginStart="10dp"
+        android:src="@drawable/users_kiosk_acquisiton_illustration_3_holding_bag"
+        android:translationZ="@dimen/activity_horizontal_margin"
+        app:layout_constraintBottom_toBottomOf="@+id/surveyKios"
+        app:layout_constraintStart_toStartOf="@+id/surveyKios" />
+
+
     <ImageView
         android:id="@+id/iv_stok_kios"
         android:layout_width="wrap_content"
