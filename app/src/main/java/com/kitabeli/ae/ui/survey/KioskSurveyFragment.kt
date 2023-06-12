@@ -14,7 +14,6 @@ import com.kitabeli.ae.headline
 import com.kitabeli.ae.surveyCheckboxView
 import com.kitabeli.ae.surveyFreeTextInput
 import com.kitabeli.ae.surveyPhotoPicker
-import com.kitabeli.ae.surveyRadioBtnView
 import com.kitabeli.ae.ui.common.BaseFragment
 import com.kitabeli.ae.utils.flexboxView
 import com.rubensousa.decorator.LinearDividerDecoration
@@ -62,13 +61,41 @@ class KioskSurveyFragment : BaseFragment<KioskSurveyViewModel>() {
         )
 
         binding.recyclerView.withModels {
-            surveyRadioBtnView {
+         /*   surveyRadioBtnView {
                 id("1")
                 question("Title (Checklist type ‘yes’ or ‘no’)")
             }
             surveyRadioBtnView {
                 id("2")
                 question("Extra long title that need 2 lines (Checklist type ‘yes’ or ‘no’)")
+            }*/
+
+            group {
+                id(3040)
+                layout(R.layout.vertical_group)
+                headline {
+                    id(4940)
+                    text("Extra long title that need 2 lines (Checklist type ‘yes’ or ‘no’)")
+                }
+                for (i in 900..901) {
+                    surveyCheckboxView {
+                        id(i)
+                    }
+                }
+            }
+
+            group {
+                id(3000)
+                layout(R.layout.vertical_group)
+                headline {
+                    id(490)
+                    text("Title (Checklist type ‘yes’ or ‘no’)")
+                }
+                for (i in 90..91) {
+                    surveyCheckboxView {
+                        id(i)
+                    }
+                }
             }
 
             group {
